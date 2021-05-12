@@ -16,5 +16,9 @@ namespace StoreAccountingApp.DBModels
         public string Name { get; set; }
         public int CountryId { get; set; }
         public virtual Country Country { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<Supplier> Suppliers { get; set; }
     }
 }

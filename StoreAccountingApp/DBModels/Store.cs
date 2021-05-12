@@ -24,5 +24,9 @@ namespace StoreAccountingApp.DBModels
         public DateTime InService { get; set; } = DateTime.Now;
         [Required]
         public DateTime OutOfService { get; set; } = DateTime.Now;
+        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }

@@ -20,5 +20,9 @@ namespace StoreAccountingApp.DBModels
         [Required]
         public DateTime OutOfService { get; set; } = DateTime.Now;
         public virtual ICollection<JobFunction> JobFunctions { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

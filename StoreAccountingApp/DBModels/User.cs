@@ -23,5 +23,14 @@ namespace StoreAccountingApp.DBModels
         [MaxLength(50)]
         [Required]
         public string Password { get; set; }
+        public User(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
+        public User()
+        {
+
+        }
     }
 }

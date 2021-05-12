@@ -70,12 +70,15 @@
     <Compile Include="DBModels\Abstracts\Credentials.cs" />
     <Compile Include="DBModels\Abstracts\InServiceTimeStamps.cs" />
     <Compile Include="DBModels\Abstracts\Invoice.cs" />
+    <Compile Include="DBModels\Abstracts\ItemTransaction.cs" />
     <Compile Include="DBModels\Abstracts\PersonCredentials.cs" />
     <Compile Include="DBModels\Abstracts\RecordTimeStamps.cs" />
     <Compile Include="DBModels\AccountType.cs" />
     <Compile Include="DBModels\Abstracts\Address.cs" />
     <Compile Include="DBModels\Client.cs" />
     <Compile Include="DBModels\Country.cs" />
+    <Compile Include="DBModels\Order.cs" />
+    <Compile Include="DBModels\OrderProduct.cs" />
     <Compile Include="DBModels\Sale.cs" />
     <Compile Include="DBModels\SaleProduct.cs" />
     <Compile Include="DBModels\Stock.cs" />

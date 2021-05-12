@@ -1,5 +1,7 @@
-﻿using System;
+﻿using StoreAccountingApp.DBModels;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,18 @@ namespace StoreAccountingApp
         public MainWindow()
         {
             InitializeComponent();
+            InitializeDB();
         }
+        private void InitializeDB()
+        {
+            Debug.WriteLine("Starting DB...");
+            using (_DBStoreAccountingContext ctx = new _DBStoreAccountingContext())
+            {
+                ctx.Users.Add(new User("Kenny", "123"));
+                ctx.SaveChanges();
+            }
+            Debug.WriteLine("Db successfully initialized");
+        }
+
     }
 }

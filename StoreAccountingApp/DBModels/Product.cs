@@ -18,5 +18,9 @@ namespace StoreAccountingApp.DBModels
         public string Manufacturer { get; set; }
         public string Description { get; set; }
         public string Details { get; set; }
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual ICollection<SaleProduct> SaleProducts { get; set; }
+        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<SupplierProduct> SupplierProducts { get; set; }
     }
 }

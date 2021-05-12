@@ -14,5 +14,7 @@ namespace StoreAccountingApp.DBModels
         public int SupplierId { get; set; }
         [MaxLength(30)]
         public string Organisation { get; set; }
+        public virtual ICollection<SupplierProduct> SupplierProducts { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

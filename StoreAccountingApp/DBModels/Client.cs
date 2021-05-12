@@ -18,5 +18,6 @@ namespace StoreAccountingApp.DBModels
         public string CustomerCard { get; set; }
         [MaxLength(20)]
         public string Category { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }
