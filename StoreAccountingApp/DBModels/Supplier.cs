@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels
 {
-    public class Supplier : Credentials
+    public class Supplier : PersonCredentials
     {
         [Key]
         public int SupplierId { get; set; }

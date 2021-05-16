@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels
 {
-    public abstract class Address : RecordTimeStamps
+    public abstract class Address : AddressDigital
     {
         [MaxLength(50)]
         public string Streetname { get; set; }
@@ -18,5 +18,8 @@ namespace StoreAccountingApp.DBModels
         public string BoxNr { get; set; }
         public string PostalCodeId { get; set; }
         public virtual District District { get; set; }
+        [MaxLength(20)]
+        public string FaxNumber { get; set; }
+
     }
 }

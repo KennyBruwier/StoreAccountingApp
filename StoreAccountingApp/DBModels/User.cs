@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels
 {
-    public class User : RecordTimeStamps
+    public class User : AddressDigitalShort
     {
         [Key]
         public int UserId { get; set; }
@@ -23,10 +23,11 @@ namespace StoreAccountingApp.DBModels
         [MaxLength(50)]
         [Required]
         public string Password { get; set; }
-        public User(string username, string password)
+        public User(string username, string password, string email)
         {
             Username = username;
             Password = password;
+            EmailAddress = email;
         }
         public User()
         {

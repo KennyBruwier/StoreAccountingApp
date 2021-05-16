@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels.Abstracts
 {
-    public class PersonCredentials : Credentials
+    public class PersonCredentials : Address
     {
         [Required]
         [MaxLength(20)]

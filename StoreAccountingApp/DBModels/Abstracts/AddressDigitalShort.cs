@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels.Abstracts
 {
-    public abstract class InServiceTimeStamps : RecordTimeStamps
+    public abstract class AddressDigitalShort : RecordTimeStamps
     {
         [Required]
-        public DateTime InService { get; set; } = DateTime.Now;
-        [Required]
-        public DateTime OutOfService { get; set; } = DateTime.Now;
+        [MaxLength(50)]
+        public string EmailAddress { get; set; }
+        [MaxLength(20)]
+        public string PhoneNumber { get; set; }
     }
 }

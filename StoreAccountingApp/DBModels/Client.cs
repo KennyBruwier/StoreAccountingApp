@@ -19,5 +19,11 @@ namespace StoreAccountingApp.DBModels
         [MaxLength(20)]
         public string Category { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }
+        public Client(string firstname, string lastname, string email)
+        {
+            Firstname = firstname;
+            Lastname = lastname;
+            EmailAddress = email;
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels
 {
+    
     public class _DBStoreAccountingContext : DbContext
     {
         public _DBStoreAccountingContext() : base("name=StoreAccountingAppDBConnectionString")
@@ -14,7 +15,6 @@ namespace StoreAccountingApp.DBModels
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<_DBStoreAccountingContext>());
             this.Configuration.LazyLoadingEnabled = true;
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
@@ -59,5 +59,75 @@ namespace StoreAccountingApp.DBModels
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierProduct> SupplierProducts { get; set; }
         public DbSet<User> Users { get; set; }
+        public void LoadDemoData()
+        {
+            AccountType[] accountypes = 
+            { 
+                new AccountType("Admin"), 
+                new AccountType("Manager"), 
+                new AccountType("Verkoper"),
+                new AccountType("Magazijnier")
+            };
+            Employee[] employees =
+            {
+                new Employee("Kenny","Bruwier","kenny.bruwier@gmail.com"),
+                new Employee("Tom", "Dilen", "tom.dilen@gmail.com"),
+                new Employee("Tim", "geenIdee", "tim.geenidee@gmail.com"),
+                new Employee("Guy","Bruwier","Guy.bruwier@gmail.com")
+            };
+            //foreach (Employee employee in employees)
+            //{
+            //    User newUser = new User($"{employee.Firstname} {employee.Lastname}", "123", employee.EmailAddress);
+            //    if (employee.Users == null) employee.Users = new List<User>();
+            //    employee.Users.Add(newUser);
+            //}
+            //WriteDataSet(accountypes.ToList());
+            using (_DBStoreAccountingContext ctx = new _DBStoreAccountingContext())
+            {
+                foreach (AccountType accountType in accountypes)
+                {
+                    if (ctx.AccountTypes.FirstOrDefault(a => a.Name == accountType.Name)==null)
+                        ctx.AccountTypes.Add(accountType);
+                }
+                ctx.SaveChanges();
+            }
+            using(_DBStoreAccountingContext ctx = new _DBStoreAccountingContext())
+            {
+                AccountType adminAccount = ctx.AccountTypes.FirstOrDefault(a => (a.Name == "Admin"));
+
+                foreach (Employee employee in employees)
+                {
+                    if (ctx.Employees.FirstOrDefault(e => (e.Lastname == employee.Lastname) && (e.Firstname == employee.Firstname))==null)
+                        ctx.Employees.Add(employee);
+                }
+                ctx.SaveChanges();
+            }
+        }
+        private bool WriteDataSet<T>(List<T>dataToAdd)
+        {
+            bool bSuccess = false;
+            using (_DBStoreAccountingContext ctx = new _DBStoreAccountingContext())
+            {
+                //DbSet dbSet1 = ctx.Set(dataToAdd.GetType());
+                //bSuccess = true;
+                //var dbSets = ctx.GetType().GetProperties().Where(p => p.PropertyType.Name.StartsWith("DbSet"));
+                //foreach (var dbSetProps in dbSets)
+                //{
+                //    var dbSet = dbSetProps.GetValue(ctx, null);
+                //    var dbSetType = dbSet.GetType().GetGenericArguments().First();
+                //    var temp1 = dbSetType.Name;
+                //    var temp2 = dataToAdd.GetType().Name;
+                //    if (dbSetType.Name == dataToAdd.GetType().ToString())
+                //    {
+                //        foreach (var data in dataToAdd)
+                //        {
+                //            dbSet.
+                //        }
+                //    }
+                //}
+            }
+
+            return bSuccess;
+        }
     }
 }

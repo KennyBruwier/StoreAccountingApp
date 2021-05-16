@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using StoreAccountingApp.ViewModels;
 
 namespace StoreAccountingApp
 {
@@ -22,19 +23,19 @@ namespace StoreAccountingApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        AccountTypeViewModel ViewModel;
         public MainWindow()
         {
             InitializeComponent();
-            InitializeDB();
+            //InitializeDB();
+            ViewModel = new AccountTypeViewModel();
+            this.DataContext = ViewModel;
         }
         private void InitializeDB()
         {
             Debug.WriteLine("Starting DB...");
-            using (_DBStoreAccountingContext ctx = new _DBStoreAccountingContext())
-            {
-                ctx.Users.Add(new User("Kenny", "123"));
-                ctx.SaveChanges();
-            }
+            _DBStoreAccountingContext ctx = new _DBStoreAccountingContext();
+            ctx.LoadDemoData();
             Debug.WriteLine("Db successfully initialized");
         }
 

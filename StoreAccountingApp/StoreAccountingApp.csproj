@@ -67,12 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DBModels\Abstracts\Credentials.cs" />
-    <Compile Include="DBModels\Abstracts\InServiceTimeStamps.cs" />
+    <Compile Include="DBModels\Abstracts\AddressDigitalShort.cs" />
+    <Compile Include="DBModels\Abstracts\AddressDigital.cs" />
+    <Compile Include="DBModels\Abstracts\ServiceBuildingCredentials.cs" />
     <Compile Include="DBModels\Abstracts\Invoice.cs" />
     <Compile Include="DBModels\Abstracts\ItemTransaction.cs" />
     <Compile Include="DBModels\Abstracts\PersonCredentials.cs" />
     <Compile Include="DBModels\Abstracts\RecordTimeStamps.cs" />
+    <Compile Include="DBModels\Abstracts\ServicePersonCredentials.cs" />
     <Compile Include="DBModels\AccountType.cs" />
     <Compile Include="DBModels\Abstracts\Address.cs" />
     <Compile Include="DBModels\Client.cs" />
@@ -91,8 +93,14 @@
     <Compile Include="DBModels\Store.cs" />
     <Compile Include="DBModels\Supplier.cs" />
     <Compile Include="DBModels\User.cs" />
+    <Compile Include="Models\AccountTypeDTO.cs" />
+    <Compile Include="Models\AccountTypeService.cs" />
     <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
+    <Compile Include="ViewModels\AccountTypeViewModel.cs" />
+    <Compile Include="Views\AccountTypeView.xaml.cs">
+      <DependentUpon>AccountTypeView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,6 +113,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AccountTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
