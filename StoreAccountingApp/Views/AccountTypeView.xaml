@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="331.561" d:DesignWidth="381.448"
+             mc:Ignorable="d"
              >
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
@@ -39,32 +38,56 @@
                    Grid.Column="0" Margin="5,8" Padding="3"/>
         <TextBox x:Name="txtAccountTypeId"
                  Grid.Row="1"
-                 Grid.Column="1" Margin="5,8" Padding="3"/>
+                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentAccountTypeDTO.AccountTypeId, Mode=TwoWay}"/>
         <TextBox x:Name="txtName"
                  Grid.Row="2"
-                 Grid.Column="1" Margin="5,8" Padding="3"/>
+                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentAccountTypeDTO.Name, Mode=TwoWay}"/>
         <TextBox x:Name="txtDescription"
                  Grid.Row="3"
-                 Grid.Column="1" Margin="5,8" Padding="3"/>
+                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentAccountTypeDTO.Description, Mode=TwoWay}"/>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
                     Grid.Column="1" Margin="5,8">
             <Button x:Name="btnAdd"
-                    Content="ADD" Margin="5,8" Padding="3"/>
+                    Content="ADD" Margin="5,8" Padding="3"
+                    Command="{Binding Path=SaveCommand}"/>
             <Button x:Name="btnSearch"
-                    Content="SEARCH" Margin="5,8" Padding="3"/>
+                    Content="SEARCH" Margin="5,8" Padding="3"
+                    Command="{Binding Path=SearchCommand}"/>
             <Button x:Name="btnUpdate"
-                    Content="UPDATE" Margin="5,8" Padding="3"/>
+                    Content="UPDATE" Margin="5,8" Padding="3"
+                    Command="{Binding Path=UpdateCommand}"/>
             <Button x:Name="btnDelete"
-                    Content="DELETE" Margin="5,8" Padding="3"/>
+                    Content="DELETE" Margin="5,8" Padding="3"
+                    Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
                    Grid.Row="5"
-                   Grid.Column="1" Margin="5,8" Padding="3"/>
+                   Grid.Column="1" Margin="5,8" Padding="3"
+                   Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgAccountTypes"
                   AutoGenerateColumns="False"
                   Grid.Row="6"
-                  Grid.Column="1" Margin="5,8" Padding="3" />
+                  Grid.Column="1" Margin="5,8" Padding="3" 
+                  ItemsSource="{Binding Path=AccountTypeList, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Id"
+                    Width="auto"
+                    Binding="{Binding Path=AccountTypeId}"/>
+                <DataGridTextColumn
+                    Header="Name"
+                    Width="auto"
+                    Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn
+                    Header="Description"
+                    Width="auto"
+                    Binding="{Binding Path=Description}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
