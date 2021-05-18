@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StoreAccountingApp.DBModels.Abstracts;
 
 namespace StoreAccountingApp.DBModels
 {
-    public class Product
+    public class Product : RecordTimeStamps
     {
         [Key]
         public int ProductId { get; set; }

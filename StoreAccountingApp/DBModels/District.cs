@@ -10,6 +10,7 @@ namespace StoreAccountingApp.DBModels
     public class District
     {
         [Key]
+        [MaxLength(20)]
         public string PostalCodeId { get; set; }
         [Required]
         [MaxLength(50)]

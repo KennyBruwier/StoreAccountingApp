@@ -27,7 +27,7 @@ namespace StoreAccountingApp
         public MainWindow()
         {
             InitializeComponent();
-            //InitializeDB();
+            InitializeDB();
             ViewModel = new AccountTypeViewModel();
             this.DataContext = ViewModel;
         }

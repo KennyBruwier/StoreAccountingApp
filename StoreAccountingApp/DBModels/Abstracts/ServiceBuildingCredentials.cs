@@ -17,7 +17,6 @@ namespace StoreAccountingApp.DBModels.Abstracts
         public string Status { get; set; } = "Active";
         [Required]
         public DateTime InService { get; set; } = DateTime.Now;
-        [Required]
-        public DateTime OutOfService { get; set; } = DateTime.Now;
+        public DateTime? OutOfService { get; set; }
     }
 }

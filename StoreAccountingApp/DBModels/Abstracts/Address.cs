@@ -16,6 +16,7 @@ namespace StoreAccountingApp.DBModels
         public string HouseNr { get; set; }
         [MaxLength(5)]
         public string BoxNr { get; set; }
+        [MaxLength(20)]
         public string PostalCodeId { get; set; }
         public virtual District District { get; set; }
         [MaxLength(20)]

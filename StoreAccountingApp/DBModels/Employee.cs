@@ -27,5 +27,6 @@ namespace StoreAccountingApp.DBModels
             Lastname = lastname;
             EmailAddress = email;
         }
+
     }
 }

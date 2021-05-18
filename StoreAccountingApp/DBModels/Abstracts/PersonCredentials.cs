@@ -15,7 +15,7 @@ namespace StoreAccountingApp.DBModels.Abstracts
         [Required]
         [MaxLength(50)]
         public string Lastname { get; set; }
-        public DateTime? BirthDay { get; set; }
+        public DateTime? Birthday { get; set; }
         [MaxLength(10)]
         public string Gender { get; set; }
     }

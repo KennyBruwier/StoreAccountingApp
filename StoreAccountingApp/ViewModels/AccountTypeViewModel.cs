@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.Commands;
+using StoreAccountingApp.Models.DTO;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -32,8 +33,7 @@ namespace StoreAccountingApp.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
         #region DisplayOperation

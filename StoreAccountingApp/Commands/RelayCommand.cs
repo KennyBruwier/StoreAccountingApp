@@ -19,7 +19,6 @@ namespace StoreAccountingApp.Commands
         {
             return true;
         }
-
         public void Execute(object parameter)
         {
             DoWork();

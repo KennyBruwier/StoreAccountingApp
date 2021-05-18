@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace StoreAccountingApp.Models
+namespace StoreAccountingApp.Models.DTO
 {
     public class AccountTypeDTO : INotifyPropertyChanged
     {
@@ -41,14 +41,8 @@ namespace StoreAccountingApp.Models
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-
     }
 }

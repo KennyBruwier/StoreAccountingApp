@@ -1,4 +1,5 @@
 ﻿using StoreAccountingApp.DBModels;
+using StoreAccountingApp.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,10 @@ namespace StoreAccountingApp.Models
         _DBStoreAccountingContext ctx;
 
         public object DialogResult { get; private set; }
-
         public AccountTypeService()
         {
             ctx = new _DBStoreAccountingContext();
         }
-
         public List<AccountTypeDTO>GetAll()
         {
             List<AccountTypeDTO> accountTypeList = new List<AccountTypeDTO>();
@@ -34,19 +33,20 @@ namespace StoreAccountingApp.Models
         {
             //bool IsAdded = false;
             //                                                          <----- Add validations here
-            var ObjAccountTypeIdExist = ctx.AccountTypes.Find(newAccountType.AccountTypeId);
-            if (ObjAccountTypeIdExist != null)
+            if (newAccountType.AccountTypeId != 0)
             {
-                MessageBoxResult dialogResult = MessageBox.Show(    $"An account type with id {newAccountType.AccountTypeId} was already found, do you want to update it instead?",
-                                                                "Accountype already exists", MessageBoxButton.YesNo);
-                if (dialogResult == MessageBoxResult.Yes)
-                    return Update(newAccountType);
-                else
-                    throw new ArgumentException($"Add operation failed, {newAccountType.AccountTypeId} already exists")
-
+                if (ctx.AccountTypes.Find(newAccountType.AccountTypeId) != null)
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show($"An account type with id {newAccountType.AccountTypeId} was already found, do you want to update it instead?",
+                                                                    "Accountype already exists", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                        return Update(newAccountType);
+                    else
+                        throw new ArgumentException($"Add operation failed, id {newAccountType.AccountTypeId} already exists");
+                }
             }
-            var ObjAccountTypeNameExist = ctx.AccountTypes.FirstOrDefault(a => a.Name == newAccountType.Name);
-            if (ObjAccountTypeNameExist != null)
+
+            if (ctx.AccountTypes.FirstOrDefault(a => a.Name == newAccountType.Name) != null)
                 throw new ArgumentException($"Add operation failed, {newAccountType.Name} already exists");
             try
             {
@@ -57,11 +57,10 @@ namespace StoreAccountingApp.Models
                 };
                 ctx.AccountTypes.Add(objAccountType);
                 //IsAdded = ctx.SaveChanges() > 0;
-                return ctx.SaveChanges() > 0; ;
+                return ctx.SaveChanges() > 0; 
             }
             catch (Exception)
             {
-
                 throw;
             }
 

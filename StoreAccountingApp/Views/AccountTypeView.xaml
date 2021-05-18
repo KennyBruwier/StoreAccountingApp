@@ -48,7 +48,6 @@
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentAccountTypeDTO.Description, Mode=TwoWay}"/>
-
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
                     Grid.Column="1" Margin="5,8">

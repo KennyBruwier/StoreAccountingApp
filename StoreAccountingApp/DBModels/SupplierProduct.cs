@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StoreAccountingApp.DBModels.Abstracts;
 
 namespace StoreAccountingApp.DBModels
 {
-    public class SupplierProduct
+    public class SupplierProduct : ProductRecord
     {
         [Key, Column(Order = 0)]
         public int SupplierId { get; set; }
@@ -16,5 +17,7 @@ namespace StoreAccountingApp.DBModels
         public int ProductId { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual Product Product { get; set; }
+
+
     }
 }
