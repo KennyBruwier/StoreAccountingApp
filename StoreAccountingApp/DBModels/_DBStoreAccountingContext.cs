@@ -10,6 +10,12 @@ namespace StoreAccountingApp.DBModels
     
     public class _DBStoreAccountingContext : DbContext
     {
+        /* When database is still in use and you can't change it, do the following query in msSQL:
+         * 
+         * alter database YourDb set single_user with rollback immediate
+
+           alter database YourDb set MULTI_USER
+         */
         public _DBStoreAccountingContext() : base("name=StoreAccountingAppDBConnectionString")
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<_DBStoreAccountingContext>());

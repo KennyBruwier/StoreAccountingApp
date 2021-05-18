@@ -3,13 +3,15 @@ using StoreAccountingApp.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using StoreAccountingApp.Models.Abstracts;
 
 namespace StoreAccountingApp.Models
 {
-    public class AccountTypeService
+    public class AccountTypeService : ObjMethods
     {
         _DBStoreAccountingContext ctx;
 
@@ -50,11 +52,12 @@ namespace StoreAccountingApp.Models
                 throw new ArgumentException($"Add operation failed, {newAccountType.Name} already exists");
             try
             {
-                var objAccountType = new AccountType()
-                {
-                    Name = newAccountType.Name,
-                    Description = newAccountType.Description
-                };
+                var objAccountType = CopyProperties<AccountTypeDTO, AccountType>(newAccountType);
+                //var objAccountType = new AccountType()
+                //{
+                //    Name = newAccountType.Name,
+                //    Description = newAccountType.Description
+                //};
                 ctx.AccountTypes.Add(objAccountType);
                 //IsAdded = ctx.SaveChanges() > 0;
                 return ctx.SaveChanges() > 0; 
@@ -71,12 +74,13 @@ namespace StoreAccountingApp.Models
             var ObjAccountTypeToFind = ctx.AccountTypes.Find(accountTypeId);
             if (ObjAccountTypeToFind != null)
             {
-                ObjAccountType = new AccountTypeDTO()
-                {
-                    AccountTypeId = ObjAccountTypeToFind.AccountTypeId,
-                    Name = ObjAccountTypeToFind.Name,
-                    Description = ObjAccountTypeToFind.Description
-                };
+                ObjAccountType = CopyProperties<AccountType, AccountTypeDTO>(ObjAccountTypeToFind);
+                //ObjAccountType = new AccountTypeDTO()
+                //{
+                //    AccountTypeId = ObjAccountTypeToFind.AccountTypeId,
+                //    Name = ObjAccountTypeToFind.Name,
+                //    Description = ObjAccountTypeToFind.Description
+                //};
             }
             return ObjAccountType;
         }
@@ -85,8 +89,9 @@ namespace StoreAccountingApp.Models
             var ObjAccountType = ctx.AccountTypes.Find(objAccountTypeToUpdate.AccountTypeId);
             if (ObjAccountType != null)
             {
-                ObjAccountType.Name = objAccountTypeToUpdate.Name;
-                ObjAccountType.Description = objAccountTypeToUpdate.Description;
+                ObjAccountType = CopyProperties<AccountTypeDTO, AccountType>(objAccountTypeToUpdate);
+                //ObjAccountType.Name = objAccountTypeToUpdate.Name;
+                //ObjAccountType.Description = objAccountTypeToUpdate.Description;
             }
             return ctx.SaveChanges() > 0;
         }
@@ -97,5 +102,6 @@ namespace StoreAccountingApp.Models
                 ctx.AccountTypes.Remove(ObjAccountTypeToDelete);
             return ctx.SaveChanges() > 0;
         }
+        
     }
 }

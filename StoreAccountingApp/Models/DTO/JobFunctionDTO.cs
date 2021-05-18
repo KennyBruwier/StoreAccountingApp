@@ -33,7 +33,6 @@ namespace StoreAccountingApp.Models.DTO
             get { return category; }
             set { category = value; OnPropertyChanged("Category"); }
         }
-
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

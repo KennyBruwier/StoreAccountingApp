@@ -30,7 +30,6 @@ namespace StoreAccountingApp.Models.DTO
             set { storeId = value; OnPropertyChanged("StoreId"); }
         }
         private int employeeId;
-
         public int EmployeeId
         {
             get { return employeeId; }

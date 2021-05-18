@@ -17,7 +17,6 @@ namespace StoreAccountingApp.DBModels
         public string Name { get; set; }
         public string Description { get; set; }
         public virtual ICollection<User> Users { get; set; }
-
         public AccountType(string name)
         {
             Name = name;

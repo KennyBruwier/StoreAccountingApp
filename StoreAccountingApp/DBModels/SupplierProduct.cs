@@ -17,7 +17,5 @@ namespace StoreAccountingApp.DBModels
         public int ProductId { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual Product Product { get; set; }
-
-
     }
 }
