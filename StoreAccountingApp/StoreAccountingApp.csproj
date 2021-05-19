@@ -71,6 +71,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="DBModels\Abstracts\AddressDigitalShort.cs" />
     <Compile Include="DBModels\Abstracts\AddressDigital.cs" />
+    <Compile Include="DBModels\Abstracts\DBEntity.cs" />
     <Compile Include="DBModels\Abstracts\ProductRecord.cs" />
     <Compile Include="DBModels\Abstracts\ServiceBuildingCredentials.cs" />
     <Compile Include="DBModels\Abstracts\Invoice.cs" />
@@ -127,6 +128,8 @@
     <Compile Include="Models\DTO\SaleDTO.cs" />
     <Compile Include="Models\DTO\SaleProductDTO.cs" />
     <Compile Include="Models\DTO\StockDTO.cs" />
+    <Compile Include="Models\Interfaces\IService.cs" />
+    <Compile Include="Models\Interfaces\Service.cs" />
     <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
     <Compile Include="ViewModels\AccountTypeViewModel.cs" />
@@ -179,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Abstracts\" />
-    <Folder Include="Models\Interfaces\" />
     <Folder Include="TestCases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
