@@ -7,11 +7,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using StoreAccountingApp.Models.Abstracts;
+using StoreAccountingApp.CustomMethods;
 
 namespace StoreAccountingApp.Models
 {
-    public class AccountTypeService : ObjMethods
+    public class AccountTypeService 
     {
         _DBStoreAccountingContext ctx;
 
@@ -52,7 +52,7 @@ namespace StoreAccountingApp.Models
                 throw new ArgumentException($"Add operation failed, {newAccountType.Name} already exists");
             try
             {
-                var objAccountType = CopyProperties<AccountTypeDTO, AccountType>(newAccountType);
+                var objAccountType = ObjMethods.CopyProperties<AccountTypeDTO, AccountType>(newAccountType);
                 //var objAccountType = new AccountType()
                 //{
                 //    Name = newAccountType.Name,
@@ -74,7 +74,7 @@ namespace StoreAccountingApp.Models
             var ObjAccountTypeToFind = ctx.AccountTypes.Find(accountTypeId);
             if (ObjAccountTypeToFind != null)
             {
-                ObjAccountType = CopyProperties<AccountType, AccountTypeDTO>(ObjAccountTypeToFind);
+                ObjAccountType = ObjMethods.CopyProperties<AccountType, AccountTypeDTO>(ObjAccountTypeToFind);
                 //ObjAccountType = new AccountTypeDTO()
                 //{
                 //    AccountTypeId = ObjAccountTypeToFind.AccountTypeId,
@@ -89,7 +89,7 @@ namespace StoreAccountingApp.Models
             var ObjAccountType = ctx.AccountTypes.Find(objAccountTypeToUpdate.AccountTypeId);
             if (ObjAccountType != null)
             {
-                ObjAccountType = CopyProperties<AccountTypeDTO, AccountType>(objAccountTypeToUpdate);
+                ObjAccountType = ObjMethods.CopyProperties<AccountTypeDTO, AccountType>(objAccountTypeToUpdate);
                 //ObjAccountType.Name = objAccountTypeToUpdate.Name;
                 //ObjAccountType.Description = objAccountTypeToUpdate.Description;
             }

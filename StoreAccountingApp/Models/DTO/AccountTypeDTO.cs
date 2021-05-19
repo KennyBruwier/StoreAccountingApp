@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using StoreAccountingApp.CustomMethods;
 
 namespace StoreAccountingApp.Models.DTO
 {

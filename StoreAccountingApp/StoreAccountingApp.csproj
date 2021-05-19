@@ -96,13 +96,16 @@
     <Compile Include="DBModels\Store.cs" />
     <Compile Include="DBModels\Supplier.cs" />
     <Compile Include="DBModels\User.cs" />
-    <Compile Include="Models\Abstracts\ObjMethods.cs" />
+    <Compile Include="CustomMethods\ObjMethods.cs" />
+    <Compile Include="Models\ClientService.cs" />
+    <Compile Include="Models\CountryService.cs" />
     <Compile Include="Models\DTO\Abstracts\AddressDigitalDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\AddressDigitalShortDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\AddressDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\InvoiceDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\ItemTransactionDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\PersonCredentialsDTO.cs" />
+    <Compile Include="Models\DTO\Abstracts\ProductRecordDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\RecordTimeStampsDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\ServiceBuildingCredentialsDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\ServicePersonCredentialsDTO.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="Models\DTO\StoreDTO.cs" />
     <Compile Include="Models\DTO\SupplierDTO.cs" />
     <Compile Include="Models\DTO\SupplierProductDTO.cs" />
+    <Compile Include="Models\DTO\UserDTO.cs" />
     <Compile Include="Models\EmployeeService.cs" />
     <Compile Include="Models\DTO\JobFunctionDTO.cs" />
     <Compile Include="Models\DTO\OrderDTO.cs" />
@@ -174,6 +178,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Abstracts\" />
+    <Folder Include="Models\Interfaces\" />
     <Folder Include="TestCases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

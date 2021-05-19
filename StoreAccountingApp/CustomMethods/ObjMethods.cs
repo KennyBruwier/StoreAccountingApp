@@ -5,11 +5,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoreAccountingApp.Models.Abstracts
+namespace StoreAccountingApp.CustomMethods
 {
-    public class ObjMethods
+    public static class ObjMethods
     {
-        public TU CopyProperties<T, TU>(T source) where TU : new()
+        public static TU CopyProperties<T, TU>(T source) where TU : new()
         {
             var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
             var destProps = typeof(TU).GetProperties().Where(x => x.CanWrite).ToList();
@@ -37,7 +37,7 @@ namespace StoreAccountingApp.Models.Abstracts
             }
             return dest;
         }
-        private bool IsNumericType(this object o)
+        private static bool IsNumericType(this object o)
         {
             switch (Type.GetTypeCode(o.GetType()))
             {
