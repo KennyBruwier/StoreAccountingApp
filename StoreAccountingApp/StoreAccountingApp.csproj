@@ -133,7 +133,11 @@
     <Compile Include="Models\Interfaces\IService.cs" />
     <Compile Include="Models\Interfaces\Service.cs" />
     <Compile Include="Models\JobFunctionService.cs" />
+    <Compile Include="Models\OrderProductService.cs" />
     <Compile Include="Models\OrderService.cs" />
+    <Compile Include="Models\ProductService.cs" />
+    <Compile Include="Models\SaleProductService.cs" />
+    <Compile Include="Models\SaleService.cs" />
     <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
     <Compile Include="ViewModels\AccountTypeViewModel.cs" />

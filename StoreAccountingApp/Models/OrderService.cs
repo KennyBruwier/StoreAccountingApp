@@ -21,19 +21,19 @@ namespace StoreAccountingApp.Models
         }
         public List<OrderDTO> GetAll()
         {
-            List<OrderDTO> jobFunctionList = new List<OrderDTO>();
+            List<OrderDTO> orderList = new List<OrderDTO>();
             var ObjQuery = from Order in ctx.Orders
                            select Order;
-            foreach (var jobFunction in ObjQuery)
+            foreach (var order in ObjQuery)
             {
-                jobFunctionList.Add(ObjMethods.CopyProperties<Order, OrderDTO>(jobFunction));
+                orderList.Add(ObjMethods.CopyProperties<Order, OrderDTO>(order));
             }
-            return jobFunctionList;
+            return orderList;
         }
         public bool Add(OrderDTO newOrderDTO)
         {
             //                                                          <----- Add validations here
-            if ((newOrderDTO.OrderId != 0) || (newOrderDTO.InvoiceNumber != ""))
+            if (newOrderDTO.OrderId != 0) 
             {
                 if (ctx.Orders.Find(newOrderDTO.OrderId) != null)
                 {
@@ -45,9 +45,22 @@ namespace StoreAccountingApp.Models
                         throw new ArgumentException($"Add operation failed, id {newOrderDTO.OrderId} already exists");
                 }
             }
-
-            if (ctx.Orders.FirstOrDefault(a => (a.InvoiceNumber == newOrderDTO.InvoiceNumber)) != null)
-                throw new ArgumentException($"Add operation failed, {newOrderDTO.InvoiceNumber} already exists");
+            if (newOrderDTO.InvoiceNumber != "")
+            {
+                Order ExistingInvoiceNumber = ctx.Orders.FirstOrDefault(a => a.InvoiceNumber == newOrderDTO.InvoiceNumber);
+                if (ExistingInvoiceNumber != null)
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show($"An order with invoice number {newOrderDTO.InvoiceNumber} was already found, do you want to update it instead?",
+                                                                    "Order with similar invoice number already exists", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        newOrderDTO.OrderId = ExistingInvoiceNumber.OrderId;
+                        return Update(newOrderDTO);
+                    }
+                    else
+                        throw new ArgumentException($"Add operation failed, invoice number {newOrderDTO.InvoiceNumber} already exists");
+                }
+            }
             try
             {
                 ctx.Orders.Add(ObjMethods.CopyProperties<OrderDTO, Order>(newOrderDTO));
@@ -58,10 +71,10 @@ namespace StoreAccountingApp.Models
                 throw ex;
             }
         }
-        public OrderDTO Search(int jobFunctionId)
+        public OrderDTO Search(int orderId)
         {
             OrderDTO ObjOrder = null;
-            var ObjOrderToFind = ctx.Orders.Find(jobFunctionId);
+            var ObjOrderToFind = ctx.Orders.Find(orderId);
             if (ObjOrderToFind != null)
             {
                 ObjOrder = ObjMethods.CopyProperties<Order, OrderDTO>(ObjOrderToFind);
@@ -77,9 +90,9 @@ namespace StoreAccountingApp.Models
             }
             return ctx.SaveChanges() > 0;
         }
-        public bool Delete(int jobFunctionId)
+        public bool Delete(int orderId)
         {
-            var ObjOrderToDelete = ctx.Orders.Find(jobFunctionId);
+            var ObjOrderToDelete = ctx.Orders.Find(orderId);
             if (ObjOrderToDelete != null)
                 ctx.Orders.Remove(ObjOrderToDelete);
             return ctx.SaveChanges() > 0;
