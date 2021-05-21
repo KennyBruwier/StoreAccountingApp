@@ -1,5 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace StoreAccountingApp.Models.DTO.Abstracts
 {
@@ -30,5 +33,16 @@ namespace StoreAccountingApp.Models.DTO.Abstracts
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+        //public object[] PrimaryKey
+        //{
+        //    get
+        //    {
+        //        return (from property in this.GetType().GetProperties()
+        //                where Attribute.IsDefined(property, typeof(KeyAttribute))
+        //                orderby ((ColumnAttribute)property.GetCustomAttributes(false).Single(
+        //                    attr => attr is ColumnAttribute)).Order ascending
+        //                select property.GetValue(this)).ToArray();
+        //    }
+        //}
     }
 }

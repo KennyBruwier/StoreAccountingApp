@@ -53,16 +53,10 @@ namespace StoreAccountingApp.Models
             try
             {
                 var objAccountType = ObjMethods.CopyProperties<AccountTypeDTO, AccountType>(newAccountType);
-                //var objAccountType = new AccountType()
-                //{
-                //    Name = newAccountType.Name,
-                //    Description = newAccountType.Description
-                //};
                 ctx.AccountTypes.Add(objAccountType);
-                //IsAdded = ctx.SaveChanges() > 0;
                 return ctx.SaveChanges() > 0; 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

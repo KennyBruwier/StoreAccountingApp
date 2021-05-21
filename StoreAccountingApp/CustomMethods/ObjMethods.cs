@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreAccountingApp.DBModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -29,7 +30,6 @@ namespace StoreAccountingApp.CustomMethods
                         var p = destProps.First(x => x.Name == sourceProp.Name);
                         if (p.CanWrite)
                         {
-                            //if (sourceProp.GetValue(source,null)!=null)
                             p.SetValue(dest, sourceProp.GetValue(source, null), null);
                         }
                     }
@@ -57,5 +57,23 @@ namespace StoreAccountingApp.CustomMethods
                     return false;
             }
         }
+        public static PropertyInfo[] FindIds<T>() where T:new()
+        {
+            return (PropertyInfo[])typeof(T).GetProperties().Where(x => x.Name.Substring(x.Name.Trim().Length - 2).ToLower() == "id");
+
+        }
+        //public static object[] DBPrimaryKey<T>
+        //{
+        //    get
+        //    {
+        //        _DBStoreAccountingContext ctx = new _DBStoreAccountingContext();
+
+        //        return (from DBEntity in ctx.Set<DBEntity>().GetType().GetProperties()
+        //                where Attribute.IsDefined(DBEntity, typeof(KeyAttribute))
+        //                orderby ((ColumnAttribute)DBEntity.GetCustomAttributes(false).Single(
+        //                    attr => attr is ColumnAttribute)).Order ascending
+        //                select DBEntity.GetValue(ctx.Set<DBEntity>())).ToArray();
+        //    }
+        //}
     }
 }

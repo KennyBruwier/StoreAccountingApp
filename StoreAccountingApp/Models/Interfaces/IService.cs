@@ -10,7 +10,8 @@ namespace StoreAccountingApp.Models.Interfaces
         where DBEntity : class
         where DTOEntity : class
     {
-        DBEntity Add(DBEntity dBEntity);
-        DTOEntity Add(DTOEntity dTOEntity);
+        //DBEntity Add(DBEntity dBEntity);
+        bool Add(DTOEntity dTOEntity);
+        bool Add(DBEntity dBEntity);
     }
 }

@@ -16,7 +16,7 @@ namespace StoreAccountingApp.Models.Interfaces
     {
         protected readonly string _constring = string.Empty;
         System.Data.Entity.DbContext dbc = new DbContext(_constring);
-        _DBStoreAccountingContext ctx;
+        private _DBStoreAccountingContext ctx;
         public Service(string connectionString)
         {
             _constring = connectionString;
@@ -27,6 +27,8 @@ namespace StoreAccountingApp.Models.Interfaces
         {
             //bool IsAdded = false;
             //                                                          <----- Add validations here
+            var DBEntityKeys = DBPrimaryKey;
+            var DTOKeys = typeof(DTOEntity).GetProperties().Where(x => x.Name.Substring(x.Name.Trim().Length - 2).ToLower() == "id");
 
             if (newDTOEntity.AccountTypeId != 0)
             {
@@ -59,18 +61,39 @@ namespace StoreAccountingApp.Models.Interfaces
             {
                 throw;
             }
-
         }
-        public object[] PrimaryKey
+
+        public DBEntity Add(DBEntity dBEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        DTOEntity IService<DBEntity, DTOEntity>.Add(DTOEntity dTOEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object[] DBPrimaryKey
         {
             get
             {
-                return (from property in this.GetType().GetProperties()
-                        where Attribute.IsDefined(property, typeof(KeyAttribute))
-                        orderby ((ColumnAttribute)property.GetCustomAttributes(false).Single(
+                return (from DBEntity in ctx.Set<DBEntity>().GetType().GetProperties()
+                        where Attribute.IsDefined(DBEntity, typeof(KeyAttribute))
+                        orderby ((ColumnAttribute)DBEntity.GetCustomAttributes(false).Single(
                             attr => attr is ColumnAttribute)).Order ascending
-                        select property.GetValue(this)).ToArray();
+                        select DBEntity.GetValue(ctx.Set<DBEntity>())).ToArray();
             }
         }
+        //public object[] PrimaryKey
+        //{
+        //    get
+        //    {
+        //        return (from property in this.GetType().GetProperties()
+        //                where Attribute.IsDefined(property, typeof(KeyAttribute))
+        //                orderby ((ColumnAttribute)property.GetCustomAttributes(false).Single(
+        //                    attr => attr is ColumnAttribute)).Order ascending
+        //                select property.GetValue(this)).ToArray();
+        //    }
+        //}
     }
 }

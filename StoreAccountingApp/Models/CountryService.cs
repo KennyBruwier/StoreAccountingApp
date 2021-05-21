@@ -1,9 +1,12 @@
-﻿using StoreAccountingApp.DBModels;
+﻿using StoreAccountingApp.CustomMethods;
+using StoreAccountingApp.DBModels;
+using StoreAccountingApp.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace StoreAccountingApp.Models
 {
@@ -12,42 +15,42 @@ namespace StoreAccountingApp.Models
         _DBStoreAccountingContext ctx;
 
         public object DialogResult { get; private set; }
-        public ClientService()
+        public CountryService()
         {
             ctx = new _DBStoreAccountingContext();
         }
-        public List<ClientDTO> GetAll()
+        public List<CountryDTO> GetAll()
         {
-            List<ClientDTO> clientList = new List<ClientDTO>();
-            var ObjQuery = from Client in ctx.Clients
-                           select Client;
-            foreach (var client in ObjQuery)
+            List<CountryDTO> countryList = new List<CountryDTO>();
+            var ObjQuery = from Country in ctx.Countries
+                           select Country;
+            foreach (var country in ObjQuery)
             {
-                clientList.Add(ObjMethods.CopyProperties<Client, ClientDTO>(client));
+                countryList.Add(ObjMethods.CopyProperties<Country, CountryDTO>(country));
             }
-            return clientList;
+            return countryList;
         }
-        public bool Add(ClientDTO newClientDTO)
+        public bool Add(CountryDTO newCountryDTO)
         {
             //                                                          <----- Add validations here
-            if (newClientDTO.ClientId != 0)
+            if (newCountryDTO.CountryId != 0)
             {
-                if (ctx.Clients.Find(newClientDTO.ClientId) != null)
+                if (ctx.Countries.Find(newCountryDTO.CountryId) != null)
                 {
-                    MessageBoxResult dialogResult = MessageBox.Show($"An client with id {newClientDTO.ClientId} was already found, do you want to update it instead?",
-                                                                    "client already exists", MessageBoxButton.YesNo);
+                    MessageBoxResult dialogResult = MessageBox.Show($"A country with id {newCountryDTO.CountryId} was already found, do you want to update it instead?",
+                                                                    "country already exists", MessageBoxButton.YesNo);
                     if (dialogResult == MessageBoxResult.Yes)
-                        return Update(newClientDTO);
+                        return Update(newCountryDTO);
                     else
-                        throw new ArgumentException($"Add operation failed, id {newClientDTO.ClientId} already exists");
+                        throw new ArgumentException($"Add operation failed, id {newCountryDTO.CountryId} already exists");
                 }
             }
 
-            if (ctx.Clients.FirstOrDefault(a => (a.Firstname == newClientDTO.Firstname) && (a.Lastname == newClientDTO.Lastname)) != null)
-                throw new ArgumentException($"Add operation failed, {newClientDTO.Firstname} {newClientDTO.Lastname} already exists");
+            if (ctx.Countries.FirstOrDefault(a => (a.Name == newCountryDTO.Name)) != null)
+                throw new ArgumentException($"Add operation failed, {newCountryDTO.Name} already exists");
             try
             {
-                ctx.Clients.Add(ObjMethods.CopyProperties<ClientDTO, Client>(newClientDTO));
+                ctx.Countries.Add(ObjMethods.CopyProperties<CountryDTO, Country>(newCountryDTO));
                 return ctx.SaveChanges() > 0;
             }
             catch (Exception ex)
@@ -55,30 +58,30 @@ namespace StoreAccountingApp.Models
                 throw ex;
             }
         }
-        public ClientDTO Search(int clientId)
+        public CountryDTO Search(int countryId)
         {
-            ClientDTO ObjClient = null;
-            var ObjClientToFind = ctx.Clients.Find(clientId);
-            if (ObjClientToFind != null)
+            CountryDTO ObjCountry = null;
+            var ObjCountryToFind = ctx.Countries.Find(countryId);
+            if (ObjCountryToFind != null)
             {
-                ObjClient = ObjMethods.CopyProperties<Client, ClientDTO>(ObjClientToFind);
+                ObjCountry = ObjMethods.CopyProperties<Country, CountryDTO>(ObjCountryToFind);
             }
-            return ObjClient;
+            return ObjCountry;
         }
-        public bool Update(ClientDTO objClientToUpdate)
+        public bool Update(CountryDTO objCountryToUpdate)
         {
-            var ObjClient = ctx.Clients.Find(objClientToUpdate.ClientId);
-            if (ObjClient != null)
+            var ObjCountry = ctx.Countries.Find(objCountryToUpdate.CountryId);
+            if (ObjCountry != null)
             {
-                ObjClient = ObjMethods.CopyProperties<ClientDTO, Client>(objClientToUpdate);
+                ObjCountry = ObjMethods.CopyProperties<CountryDTO, Country>(objCountryToUpdate);
             }
             return ctx.SaveChanges() > 0;
         }
-        public bool Delete(int clientId)
+        public bool Delete(int countryId)
         {
-            var ObjClientToDelete = ctx.Clients.Find(clientId);
-            if (ObjClientToDelete != null)
-                ctx.Clients.Remove(ObjClientToDelete);
+            var ObjCountryToDelete = ctx.Countries.Find(countryId);
+            if (ObjCountryToDelete != null)
+                ctx.Countries.Remove(ObjCountryToDelete);
             return ctx.SaveChanges() > 0;
         }
     }

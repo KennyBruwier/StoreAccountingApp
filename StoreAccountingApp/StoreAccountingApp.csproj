@@ -98,8 +98,10 @@
     <Compile Include="DBModels\Supplier.cs" />
     <Compile Include="DBModels\User.cs" />
     <Compile Include="CustomMethods\ObjMethods.cs" />
+    <Compile Include="Models\Abstracts\Service.cs" />
     <Compile Include="Models\ClientService.cs" />
     <Compile Include="Models\CountryService.cs" />
+    <Compile Include="Models\DistrictService.cs" />
     <Compile Include="Models\DTO\Abstracts\AddressDigitalDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\AddressDigitalShortDTO.cs" />
     <Compile Include="Models\DTO\Abstracts\AddressDTO.cs" />
@@ -130,6 +132,8 @@
     <Compile Include="Models\DTO\StockDTO.cs" />
     <Compile Include="Models\Interfaces\IService.cs" />
     <Compile Include="Models\Interfaces\Service.cs" />
+    <Compile Include="Models\JobFunctionService.cs" />
+    <Compile Include="Models\OrderService.cs" />
     <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
     <Compile Include="ViewModels\AccountTypeViewModel.cs" />
@@ -181,7 +185,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Abstracts\" />
     <Folder Include="TestCases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
