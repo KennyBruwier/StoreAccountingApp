@@ -7,7 +7,7 @@ using StoreAccountingApp.Models.DTO.Abstracts;
 
 namespace StoreAccountingApp.Models.DTO
 {
-    class SaleProductDTO : ItemTransactionDTO
+    public class SaleProductDTO : ItemTransactionDTO
     {
         private int saleId;
         public int SaleId

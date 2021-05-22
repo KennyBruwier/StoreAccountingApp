@@ -37,7 +37,7 @@ namespace StoreAccountingApp.CustomMethods
             }
             return dest;
         }
-        private static bool IsNumericType(this object o)
+        public static bool IsNumericType(this object o)
         {
             switch (Type.GetTypeCode(o.GetType()))
             {

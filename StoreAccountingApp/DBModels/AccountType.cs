@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreAccountingApp.DBModels.Abstracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels
 {
-    public class AccountType 
+    public class AccountType : RecordTimeStamps
     {
         [Key]
         public int AccountTypeId { get; set; }

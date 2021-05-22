@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreAccountingApp.DBModels.Abstracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DBModels
 {
-    public class District
+    public class District : RecordTimeStamps
     {
         [Key]
         [MaxLength(20)]

@@ -58,7 +58,7 @@ namespace StoreAccountingApp.Models
                 throw ex;
             }
         }
-        public DistrictDTO Search(int districtId)
+        public DistrictDTO Search(string districtId)
         {
             DistrictDTO ObjDistrict = null;
             var ObjDistrictToFind = ctx.Districts.Find(districtId);
@@ -77,7 +77,7 @@ namespace StoreAccountingApp.Models
             }
             return ctx.SaveChanges() > 0;
         }
-        public bool Delete(int districtId)
+        public bool Delete(string districtId)
         {
             var ObjDistrictToDelete = ctx.Districts.Find(districtId);
             if (ObjDistrictToDelete != null)
