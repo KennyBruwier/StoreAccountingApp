@@ -4,10 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreAccountingApp"
+        xmlns:viewmodels="clr-namespace:StoreAccountingApp.ViewModels"
+        xmlns:views="clr-namespace:StoreAccountingApp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        xmlns:vw="clr-namespace:StoreAccountingApp.Views">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800">
+    <!--<Grid>
         <vw:AccountTypeView></vw:AccountTypeView>
+    </Grid>-->
+    <!--<ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:AccountTypeViewModel}">
+                <views:AccountTypeView/>
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>-->
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
+                <views:AccountView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <views:LoginView />
+            </DataTemplate>
+            <!--<DataTemplate DataType="{x:Type viewmodels:PeopleListingViewModel}">
+                <views:PeopleListingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AddPersonViewModel}">
+                <views:AddPersonView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+                <components:Layout />
+            </DataTemplate>-->
+        </Grid.Resources>
+
+        <!--<custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}" />
+        </custom:Modal>-->
+
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>
