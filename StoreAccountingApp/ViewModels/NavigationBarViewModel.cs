@@ -20,6 +20,8 @@ namespace StoreAccountingApp.ViewModels
         public ICommand LogoutCommand { get; }
 
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
+        public bool NotLoggedIn => !_accountStore.IsLoggedIn;
+        public string CurrentUser => _accountStore.CurrentAccount?.Username;
 
         public NavigationBarViewModel(AccountStore accountStore, NavigationService<HomeViewModel>homeNavigationService, 
             NavigationService<AccountViewModel> accountNavigationService,

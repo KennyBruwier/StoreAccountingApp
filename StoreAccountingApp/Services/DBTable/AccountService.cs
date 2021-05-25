@@ -66,13 +66,13 @@ namespace StoreAccountingApp.Services
             }
             return ObjAccount;
         }
-        public bool LoggedIn(string username, string password)
+        public bool UserNameExists(string username)
         {
-            bool loggedIn = false;
-            var ObjAccountToFind = ctx.Accounts.FirstOrDefault(a=>(a.Username == username) && (a.Password == password));
-            if (ObjAccountToFind != null)
-                loggedIn = true;
-            return loggedIn;
+            return ctx.Accounts.FirstOrDefault(a => a.Username.Equals(username, StringComparison.OrdinalIgnoreCase)) == null ? false : true ;
+        }
+        public Account LoggedIn(string username, string password)
+        {
+            return ctx.Accounts.FirstOrDefault(a => (a.Username == username) && (a.Password == password));
         }
         public bool Update(AccountDTO objAccountToUpdate)
         {

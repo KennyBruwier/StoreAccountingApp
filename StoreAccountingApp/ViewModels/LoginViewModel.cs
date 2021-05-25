@@ -13,7 +13,7 @@ namespace StoreAccountingApp.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        private string _username;
+        private string _username = "kenny";
         public string Username
         {
             get
@@ -26,7 +26,7 @@ namespace StoreAccountingApp.ViewModels
                 OnPropertyChanged(nameof(Username));
             }
         }
-        private string _password;
+        private string _password = "123";
         public string Password
         {
             get

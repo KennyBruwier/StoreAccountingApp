@@ -26,13 +26,14 @@ namespace StoreAccountingApp.Commands
         public override void Execute(object parameter)
         {
             AccountService accountService = new AccountService();
-            if (accountService.LoggedIn(_viewModel.Username,_viewModel.Password))
+            Account account = accountService.LoggedIn(_viewModel.Username, _viewModel.Password);
+            if (account != null)
             {
-                Account account = new Account()
-                {
-                    EmailAddress = $"{_viewModel.Username}@test.com",
-                    Username = _viewModel.Username
-                };
+                //Account account = new Account()
+                //{
+                //    EmailAddress = $"{_viewModel.Username}@test.com",
+                //    Username = _viewModel.Username
+                //};
                 _accountStore.CurrentAccount = account;
                 _navigationService.Navigate();
             }

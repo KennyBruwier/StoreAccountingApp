@@ -15,6 +15,7 @@ namespace StoreAccountingApp.ViewModels
         private readonly AccountStore _accountStore;
         public string Username => _accountStore.CurrentAccount?.Username;
         public string Email => _accountStore.CurrentAccount?.EmailAddress;
+        public string AccountType => _accountStore.CurrentAccount?.AccountType.Name;
         public ICommand NavigateHomeCommand { get; }
         public NavigationBarViewModel NavigationBarViewModel { get; }
 
@@ -30,6 +31,7 @@ namespace StoreAccountingApp.ViewModels
         {
             OnPropertyChanged(nameof(Email));
             OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(AccountType));
         }
         public override void Dispose()
         {
