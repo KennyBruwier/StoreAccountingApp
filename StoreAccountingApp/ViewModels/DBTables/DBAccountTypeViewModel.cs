@@ -20,10 +20,10 @@ namespace StoreAccountingApp.ViewModels
             get { return currentAccountTypeDTO; }
             set { currentAccountTypeDTO = value; OnPropertyChanged("CurrentAccountTypeDTO"); }
         }
-        public ICommand NavigateHomeCommand { get; }
-        public DBAccountTypeViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        //public ICommand NavigateHomeCommand { get; }
+        public DBAccountTypeViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
+            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjAccountTypeService = new AccountTypeService();
             LoadData();
             CurrentAccountTypeDTO = new AccountTypeDTO();

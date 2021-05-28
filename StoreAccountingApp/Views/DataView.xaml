@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:StoreAccountingApp.Views"
+             xmlns:views="clr-namespace:StoreAccountingApp.Views"
+             xmlns:viewmodels="clr-namespace:StoreAccountingApp.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="Button">
-            <!--<Setter Property="Background" Value="DarkCyan" />-->
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Cursor" Value="Hand" />
@@ -19,8 +20,8 @@
                         <TextBlock 
                             Text="{TemplateBinding Content}" 
                             TextAlignment="Center"
-                            Background="DarkCyan"
-                            Foreground="White"
+                            Background="LightGray"
+                            Foreground="Black"
                             />
                     </ControlTemplate>
                 </Setter.Value>
@@ -34,8 +35,8 @@
                                     Text="{TemplateBinding Content}" 
                                     TextDecorations="Underline" 
                                     TextAlignment="Center"
-                                    Background="White"
-                                    Foreground="DarkCyan"/>
+                                    Background="Gray"
+                                    Foreground="DarkRed"/>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -44,9 +45,56 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>-->
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:DBAccountTypeViewModel}">
+                <views:DBAccountTypeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBClientViewModel}">
+                <views:DBClientView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBCountryViewModel}">
+                <views:DBCountryView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBDistrictViewModel}">
+                <views:DBDistrictView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBEmployeeViewModel}">
+                <views:DBEmployeeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBJobFunctionViewModel}">
+                <views:DBJobFunctionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBOrderProductViewModel}">
+                <views:DBOrderProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBOrderViewModel}">
+                <views:DBOrderView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBProductViewModel}">
+                <views:DBProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSaleProductViewModel}">
+                <views:DBSaleProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSaleViewModel}">
+                <views:DBSaleView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBShopViewModel}">
+                <views:DBShopView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBStockViewModel}">
+                <views:DBStockView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSupplierProductViewModel}">
+                <views:DBSupplierProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSupplierViewModel}">
+                <views:DBSupplierView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBUserViewModel}">
+                <views:DBUserView />
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -55,6 +103,22 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <TextBlock
+                HorizontalAlignment="Center"
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="14"
+                Text="Database tables"
+                Margin="5"/>
+        <TextBlock
+            HorizontalAlignment="Center"
+            TextAlignment="Center"
+            Grid.Row="0"
+            Grid.Column="1"
+            FontSize="28"
+            Text="Data(base) beheer"
+            Margin="5"
+            />
         <DockPanel Grid.Column="0" Grid.Row="1">
             <StackPanel 
                 DockPanel.Dock="Left"
@@ -62,7 +126,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Center"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateAccountTypeCommand}"
                     Content="Account types"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -70,7 +134,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateClientCommand}"
                     Content="Clients"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -78,7 +142,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateCountryCommand}"
                     Content="Countries"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -86,7 +150,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateDistrictCommand}"
                     Content="Districts"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -94,7 +158,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateEmployeeCommand}"
                     Content="Employees"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -102,7 +166,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateJobFunctionCommand}"
                     Content="Job functions"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -110,7 +174,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateOrderProductCommand}"
                     Content="Order products"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -118,7 +182,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateOrderCommand}"
                     Content="Orders"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -126,7 +190,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateProductCommand}"
                     Content="Products"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -134,7 +198,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateSaleProductCommand}"
                     Content="Sale products"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -142,7 +206,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateSaleCommand}"
                     Content="Sales"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -150,7 +214,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateShopCommand}"
                     Content="Shops"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -158,7 +222,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateStockCommand}"
                     Content="Stocks"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -166,7 +230,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateSupplierProductCommand}"
                     Content="Supplier products"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -174,7 +238,7 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateSupplierCommand}"
                     Content="Suppliers"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
@@ -182,30 +246,18 @@
                 <Button
                     Padding="5 2"
                     HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
+                    Command="{Binding NavigateUserCommand}"
                     Content="Users"
                     MinWidth="120"
                     Margin="5 2.5 5 2.5"
                     />
             </StackPanel>
         </DockPanel>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <TextBlock
-                HorizontalAlignment="Center"
-                Grid.Row="0"
-                Grid.Column="1"
-                FontSize="28"
-                Text="Database beheer"
-                Margin="5"/>
-        </Grid>
-        
-        
-
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="1"
+            MaxWidth="1000"
+            Margin="20"
+            Content="{Binding DBContentViewModel}" />
     </Grid>
 </UserControl>

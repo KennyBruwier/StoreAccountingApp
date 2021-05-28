@@ -72,6 +72,7 @@
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LogoutCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Commands\NavigateDBCommand.cs" />
     <Compile Include="Commands\NavigateHomeCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Components\BindablePasswordBox.xaml.cs">
@@ -117,6 +118,7 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="CustomMethods\ObjMethods.cs" />
     <Compile Include="Services\Abstracts\Service.cs" />
+    <Compile Include="Services\DBTableNavigationService.cs" />
     <Compile Include="Services\DBTables\ClientService.cs" />
     <Compile Include="Services\DBTables\CountryService.cs" />
     <Compile Include="Services\DBTables\DistrictService.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Stores\AccountStore.cs" />
+    <Compile Include="Stores\DBTableStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
     <Compile Include="ViewModels\DataViewModel.cs" />

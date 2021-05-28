@@ -45,54 +45,7 @@
             <DataTemplate DataType="{x:Type viewmodels:OrdersViewModel}">
                 <views:OrdersView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBAccountTypeViewModel}">
-                <views:DBAccountTypeView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBClientViewModel}">
-                <views:DBClientView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBCountryViewModel}">
-                <views:DBCountryView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBDistrictViewModel}">
-                <views:DBDistrictView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBEmployeeViewModel}">
-                <views:DBEmployeeView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBJobFunctionViewModel}">
-                <views:DBJobFunctionView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBOrderProductViewModel}">
-                <views:DBOrderProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBOrderViewModel}">
-                <views:DBOrderView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBProductViewModel}">
-                <views:DBProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSaleProductViewModel}">
-                <views:DBSaleProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSaleViewModel}">
-                <views:DBSaleView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBShopViewModel}">
-                <views:DBShopView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBStockViewModel}">
-                <views:DBStockView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSupplierProductViewModel}">
-                <views:DBSupplierProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSupplierViewModel}">
-                <views:DBSupplierView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBUserViewModel}">
-                <views:DBUserView />
-            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
             </DataTemplate>

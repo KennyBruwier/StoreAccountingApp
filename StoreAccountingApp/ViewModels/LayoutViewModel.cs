@@ -17,7 +17,7 @@ namespace StoreAccountingApp.ViewModels
 
         public override void Dispose()
         {
-            NavigationBarViewModel?.Dispose();
+            //NavigationBarViewModel?.Dispose();
             ContentViewModel.Dispose();
 
             base.Dispose();
