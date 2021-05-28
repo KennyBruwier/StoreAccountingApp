@@ -11,7 +11,6 @@ namespace StoreAccountingApp.ViewModels
     {
         private readonly NavigationStore _navigationStore;
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-
         public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;

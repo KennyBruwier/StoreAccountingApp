@@ -40,7 +40,7 @@ namespace StoreAccountingApp.ViewModels
             }
         }
         public ICommand LoginCommand { get; }
-        public LoginViewModel(AccountStore accountStore, NavigationService<AccountViewModel> accountNavigationService)
+        public LoginViewModel(AccountStore accountStore, INavigationService<AccountViewModel> accountNavigationService)
         {
             //NavigationService<AccountViewModel> navigationService = new NavigationService<AccountViewModel>(
             //    navigationStore, () => new AccountViewModel(accountStore, navigationStore));

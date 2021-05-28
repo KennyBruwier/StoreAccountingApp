@@ -80,6 +80,9 @@
     <Compile Include="Components\Layout.xaml.cs">
       <DependentUpon>Layout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\NavigationBar - Copy.xaml.cs">
+      <DependentUpon>NavigationBar - Copy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
@@ -114,9 +117,9 @@
     <Compile Include="Models\Account.cs" />
     <Compile Include="CustomMethods\ObjMethods.cs" />
     <Compile Include="Services\Abstracts\Service.cs" />
-    <Compile Include="Services\DBTable\ClientService.cs" />
-    <Compile Include="Services\DBTable\CountryService.cs" />
-    <Compile Include="Services\DBTable\DistrictService.cs" />
+    <Compile Include="Services\DBTables\ClientService.cs" />
+    <Compile Include="Services\DBTables\CountryService.cs" />
+    <Compile Include="Services\DBTables\DistrictService.cs" />
     <Compile Include="DTO\Abstracts\AddressDigitalDTO.cs" />
     <Compile Include="DTO\Abstracts\AddressDigitalShortDTO.cs" />
     <Compile Include="DTO\Abstracts\AddressDTO.cs" />
@@ -128,7 +131,7 @@
     <Compile Include="DTO\Abstracts\ServiceBuildingCredentialsDTO.cs" />
     <Compile Include="DTO\Abstracts\ServicePersonCredentialsDTO.cs" />
     <Compile Include="DTO\AccountTypeDTO.cs" />
-    <Compile Include="Services\DBTable\AccountTypeService.cs" />
+    <Compile Include="Services\DBTables\AccountTypeService.cs" />
     <Compile Include="DTO\ClientDTO.cs" />
     <Compile Include="DTO\CountryDTO.cs" />
     <Compile Include="DTO\DistrictDTO.cs" />
@@ -137,7 +140,7 @@
     <Compile Include="DTO\SupplierDTO.cs" />
     <Compile Include="DTO\SupplierProductDTO.cs" />
     <Compile Include="DTO\AccountDTO.cs" />
-    <Compile Include="Services\DBTable\EmployeeService.cs" />
+    <Compile Include="Services\DBTables\EmployeeService.cs" />
     <Compile Include="DTO\JobFunctionDTO.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\OrderProductDTO.cs" />
@@ -148,111 +151,136 @@
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\Interfaces\IService.cs" />
     <Compile Include="Services\Interfaces\Service.cs" />
-    <Compile Include="Services\DBTable\JobFunctionService.cs" />
-    <Compile Include="Services\DBTable\OrderProductService.cs" />
-    <Compile Include="Services\DBTable\OrderService.cs" />
-    <Compile Include="Services\DBTable\ProductService.cs" />
-    <Compile Include="Services\DBTable\SaleProductService.cs" />
-    <Compile Include="Services\DBTable\SaleService.cs" />
-    <Compile Include="Services\DBTable\StockService.cs" />
-    <Compile Include="Services\DBTable\ShopService.cs" />
-    <Compile Include="Services\DBTable\SupplierProductService.cs" />
-    <Compile Include="Services\DBTable\SupplierService.cs" />
-    <Compile Include="Services\DBTable\AccountService.cs" />
+    <Compile Include="Services\DBTables\JobFunctionService.cs" />
+    <Compile Include="Services\DBTables\OrderProductService.cs" />
+    <Compile Include="Services\DBTables\OrderService.cs" />
+    <Compile Include="Services\DBTables\ProductService.cs" />
+    <Compile Include="Services\DBTables\SaleProductService.cs" />
+    <Compile Include="Services\DBTables\SaleService.cs" />
+    <Compile Include="Services\DBTables\StockService.cs" />
+    <Compile Include="Services\DBTables\ShopService.cs" />
+    <Compile Include="Services\DBTables\SupplierProductService.cs" />
+    <Compile Include="Services\DBTables\SupplierService.cs" />
+    <Compile Include="Services\DBTables\AccountService.cs" />
     <Compile Include="Services\LayoutNavigationService.cs" />
-    <Compile Include="Services\ModalNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
     <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Stores\AccountStore.cs" />
-    <Compile Include="Stores\ModalNavigationStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
-    <Compile Include="ViewModels\DBTables\AccountTypeViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBAccountTypeViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\ClientViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\CountryViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\DistrictViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\EmployeeViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBClientViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBCountryViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBDistrictViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBEmployeeViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\JobFunctionViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBJobFunctionViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\OrderProductViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\OrderViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\ProductViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\SaleProductViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\SaleViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\StockViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\StoreViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\SupplierProductViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\SupplierViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\UserViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBOrderProductViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBOrderViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBProductViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBSaleProductViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBSaleViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBStockViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBStoreViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBSupplierProductViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBSupplierViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBUserViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
+    <Compile Include="ViewModels\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\AccountTypeView.xaml.cs">
-      <DependentUpon>AccountTypeView.xaml</DependentUpon>
+    <Compile Include="Commands\AddPersonCommand.cs" />
+    <Compile Include="Views\AddUserView.xaml.cs">
+      <DependentUpon>AddUserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\ClientView.xaml.cs">
-      <DependentUpon>ClientView.xaml</DependentUpon>
+    <Compile Include="ViewModels\AddPersonViewModel.cs" />
+    <Compile Include="Views\DataView.xaml.cs">
+      <DependentUpon>DataView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\CountryView.xaml.cs">
-      <DependentUpon>CountryView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBAccountTypeView.xaml.cs">
+      <DependentUpon>DBAccountTypeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\DistrictView.xaml.cs">
-      <DependentUpon>DistrictView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBClientView.xaml.cs">
+      <DependentUpon>DBClientView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\EmployeeView.xaml.cs">
-      <DependentUpon>EmployeeView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBCountryView.xaml.cs">
+      <DependentUpon>DBCountryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DBTables\DBDistrictView.xaml.cs">
+      <DependentUpon>DBDistrictView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DBTables\DBEmployeeView.xaml.cs">
+      <DependentUpon>DBEmployeeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\JobFunctionView.xaml.cs">
-      <DependentUpon>JobFunctionView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBJobFunctionView.xaml.cs">
+      <DependentUpon>DBJobFunctionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\OrderProductView.xaml.cs">
-      <DependentUpon>OrderProductView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBOrderProductView.xaml.cs">
+      <DependentUpon>DBOrderProductView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\OrderView.xaml.cs">
-      <DependentUpon>OrderView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBOrderView.xaml.cs">
+      <DependentUpon>DBOrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\ProductView.xaml.cs">
-      <DependentUpon>ProductView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBProductView.xaml.cs">
+      <DependentUpon>DBProductView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\SaleProductView.xaml.cs">
-      <DependentUpon>SaleProductView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBSaleProductView.xaml.cs">
+      <DependentUpon>DBSaleProductView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\SaleView.xaml.cs">
-      <DependentUpon>SaleView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBSaleView.xaml.cs">
+      <DependentUpon>DBSaleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\StockView.xaml.cs">
-      <DependentUpon>StockView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBStockView.xaml.cs">
+      <DependentUpon>DBStockView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\StoreView.xaml.cs">
-      <DependentUpon>StoreView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBShopView.xaml.cs">
+      <DependentUpon>DBShopView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\SupplierProductView.xaml.cs">
-      <DependentUpon>SupplierProductView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBSupplierProductView.xaml.cs">
+      <DependentUpon>DBSupplierProductView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\SupplierView.xaml.cs">
-      <DependentUpon>SupplierView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBSupplierView.xaml.cs">
+      <DependentUpon>DBSupplierView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\UserView.xaml.cs">
-      <DependentUpon>UserView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBUserView.xaml.cs">
+      <DependentUpon>DBUserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrdersView.xaml.cs">
+      <DependentUpon>OrdersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OverviewView.xaml.cs">
+      <DependentUpon>OverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersListingView.xaml.cs">
+      <DependentUpon>UsersListingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\UsersListingViewModel.cs" />
+    <Compile Include="Stores\UsersStore.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Page Include="Components\BindablePasswordBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\Layout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\NavigationBar - Copy.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -276,23 +304,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\AccountTypeView.xaml">
+    <Page Include="Views\AddUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\ClientView.xaml">
+    <Page Include="Views\DataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\CountryView.xaml">
+    <Page Include="Views\DBTables\DBAccountTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\DistrictView.xaml">
+    <Page Include="Views\DBTables\DBClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\EmployeeView.xaml">
+    <Page Include="Views\DBTables\DBCountryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DBTables\DBDistrictView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DBTables\DBEmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -300,51 +336,63 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\JobFunctionView.xaml">
+    <Page Include="Views\DBTables\DBJobFunctionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\OrderProductView.xaml">
+    <Page Include="Views\DBTables\DBOrderProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\OrderView.xaml">
+    <Page Include="Views\DBTables\DBOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\ProductView.xaml">
+    <Page Include="Views\DBTables\DBProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\SaleProductView.xaml">
+    <Page Include="Views\DBTables\DBSaleProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\SaleView.xaml">
+    <Page Include="Views\DBTables\DBSaleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\StockView.xaml">
+    <Page Include="Views\DBTables\DBStockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\StoreView.xaml">
+    <Page Include="Views\DBTables\DBShopView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\SupplierProductView.xaml">
+    <Page Include="Views\DBTables\DBSupplierProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\SupplierView.xaml">
+    <Page Include="Views\DBTables\DBSupplierView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\UserView.xaml">
+    <Page Include="Views\DBTables\DBUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrdersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UsersListingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

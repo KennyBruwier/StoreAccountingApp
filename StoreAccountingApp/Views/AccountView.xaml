@@ -7,11 +7,11 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
-            <!--<Setter Property="BorderThickness" Value="0" />-->
+            --><!--<Setter Property="BorderThickness" Value="0" />--><!--
         </Style>
         <Style TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
@@ -54,47 +54,53 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Background="DarkCyan"
-            >
-            
+            >-->
+
+    <Grid
+        MaxWidth="1000"
+        Margin="20"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="DarkCyan">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-            <TextBlock
-                    Grid.Row="0"
-                    FontSize="28"
-                    Text="Account" 
-                    Margin="5"/>
-            <StackPanel Grid.Row="1" Margin="5 20 5 5">
-                <StackPanel Orientation="Vertical" Grid.Row="1">
-                    <TextBlock Text="Account type"/>
-                    <TextBlock
-                        Margin="0 0 0 0"
-                        Text="{Binding AccountType}"/>
-                </StackPanel>
-
+        <TextBlock
+                Grid.Row="0"
+                FontSize="28"
+                Text="Account" 
+                Margin="5"/>
+        <StackPanel Grid.Row="1" Margin="5 20 5 5">
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <TextBlock Text="Account type"/>
                 <TextBlock
-                    Grid.Row="2"
-                    Margin="0 20 0 0"
-                    Text="{Binding Username}" />
-
-                <TextBlock
-                    Grid.Row="3"
-                    Margin="0 20 0 0"
-                    Text="{Binding Email}" />
-
-                <Button
-                    Grid.Row="4"
-                    Margin="0 20 0 0"
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateHomeCommand}"
-                    Content="Home" />
+                    Margin="0 0 0 0"
+                    Text="{Binding AccountType}"/>
             </StackPanel>
 
-        </Grid>
+            <TextBlock
+                Grid.Row="2"
+                Margin="0 20 0 0"
+                Text="{Binding Username}" />
 
+            <TextBlock
+                Grid.Row="3"
+                Margin="0 20 0 0"
+                Text="{Binding Email}" />
+
+            <Button
+                Grid.Row="4"
+                Margin="0 20 0 0"
+                Padding="5 2"
+                HorizontalAlignment="Left"
+                Command="{Binding NavigateHomeCommand}"
+                Content="Home" />
+        </StackPanel>
+        
+        <!--</Grid>-->
+        
     </Grid>
 </UserControl>

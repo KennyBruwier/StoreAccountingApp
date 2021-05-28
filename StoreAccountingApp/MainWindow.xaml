@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:StoreAccountingApp"
         xmlns:viewmodels="clr-namespace:StoreAccountingApp.ViewModels"
         xmlns:views="clr-namespace:StoreAccountingApp.Views"
+        xmlns:components="clr-namespace:StoreAccountingApp.Components"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <!--<Grid>
@@ -29,20 +30,74 @@
             <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <views:LoginView />
             </DataTemplate>
-            <!--<DataTemplate DataType="{x:Type viewmodels:PeopleListingViewModel}">
-                <views:PeopleListingView />
+            <DataTemplate DataType="{x:Type viewmodels:UsersListingViewModel}">
+                <views:UsersListingView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:AddPersonViewModel}">
-                <views:AddPersonView />
+            <DataTemplate DataType="{x:Type viewmodels:AddUserViewModel}">
+                <views:AddUserView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DataViewModel}">
+                <views:DataView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:OverviewViewModel}">
+                <views:OverviewView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:OrdersViewModel}">
+                <views:OrdersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBAccountTypeViewModel}">
+                <views:DBAccountTypeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBClientViewModel}">
+                <views:DBClientView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBCountryViewModel}">
+                <views:DBCountryView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBDistrictViewModel}">
+                <views:DBDistrictView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBEmployeeViewModel}">
+                <views:DBEmployeeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBJobFunctionViewModel}">
+                <views:DBJobFunctionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBOrderProductViewModel}">
+                <views:DBOrderProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBOrderViewModel}">
+                <views:DBOrderView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBProductViewModel}">
+                <views:DBProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSaleProductViewModel}">
+                <views:DBSaleProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSaleViewModel}">
+                <views:DBSaleView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBShopViewModel}">
+                <views:DBShopView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBStockViewModel}">
+                <views:DBStockView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSupplierProductViewModel}">
+                <views:DBSupplierProductView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBSupplierViewModel}">
+                <views:DBSupplierView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DBUserViewModel}">
+                <views:DBUserView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
                 <components:Layout />
-            </DataTemplate>-->
-        </Grid.Resources>
+            </DataTemplate>
 
-        <!--<custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
-            <ContentControl Content="{Binding CurrentModalViewModel}" />
-        </custom:Modal>-->
+        </Grid.Resources>
 
         <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>

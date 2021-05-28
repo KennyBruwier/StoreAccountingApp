@@ -6,24 +6,25 @@ using System.Text;
 
 namespace StoreAccountingApp.Services
 {
-    public class LayoutNavigationService<TViewModel> : INavigationService where TViewModel : ViewModelBase
+    public class LayoutNavigationService<TViewModel> : INavigationService<TViewModel> where TViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;
-        private readonly Func<NavigationBarViewModel> _createNavigationBarViewModel;
+        private readonly NavigationBarViewModel _navigationBarViewModel;
 
-        public LayoutNavigationService(NavigationStore navigationStore, 
+        public LayoutNavigationService(
+            NavigationStore navigationStore, 
             Func<TViewModel> createViewModel,
-            Func<NavigationBarViewModel> createNavigationBarViewModel)
+            NavigationBarViewModel navigationBarViewModel)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
-            _createNavigationBarViewModel = createNavigationBarViewModel;
+            _navigationBarViewModel = navigationBarViewModel;
         }
 
         public void Navigate()
         {
-            _navigationStore.CurrentViewModel = new LayoutViewModel(_createNavigationBarViewModel(), _createViewModel());
+            _navigationStore.CurrentViewModel = new LayoutViewModel(_navigationBarViewModel, _createViewModel());
         }
     }
 }

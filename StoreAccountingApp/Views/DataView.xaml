@@ -1,0 +1,211 @@
+﻿<UserControl x:Class="StoreAccountingApp.Views.DataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoreAccountingApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <!--<Setter Property="Background" Value="DarkCyan" />-->
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        
+                        <TextBlock 
+                            Text="{TemplateBinding Content}" 
+                            TextAlignment="Center"
+                            Background="DarkCyan"
+                            Foreground="White"
+                            />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <TextBlock 
+                                    Text="{TemplateBinding Content}" 
+                                    TextDecorations="Underline" 
+                                    TextAlignment="Center"
+                                    Background="White"
+                                    Foreground="DarkCyan"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Column="0" Grid.Row="1">
+            <StackPanel 
+                DockPanel.Dock="Left"
+                >
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Center"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Account types"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Clients"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                   />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Countries"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Districts"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Employees"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                   />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Job functions"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Order products"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Orders"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Products"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Sale products"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Sales"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Shops"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Stocks"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Supplier products"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Suppliers"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+                <Button
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Users"
+                    MinWidth="120"
+                    Margin="5 2.5 5 2.5"
+                    />
+            </StackPanel>
+        </DockPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Grid.Row="0"
+                Grid.Column="1"
+                FontSize="28"
+                Text="Database beheer"
+                Margin="5"/>
+        </Grid>
+        
+        
+
+    </Grid>
+</UserControl>

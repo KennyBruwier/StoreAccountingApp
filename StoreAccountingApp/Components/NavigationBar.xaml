@@ -45,6 +45,9 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
         <TextBlock
@@ -80,25 +83,44 @@
         <Button
             Grid.Column="3"
             Margin="10 0 0 0"
-            Command="{Binding NavigatePeopleListingCommand}"
-            Content="Users" />
-
+            Command="{Binding NavigateUsersListingCommand}"
+            Content="Users" 
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <Button
             Grid.Column="4"
+            Margin="10 0 0 0"
+            Command="{Binding NavigateDataCommand}"
+            Content="Databeheer" 
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button
+            Grid.Column="5"
+            Margin="10 0 0 0"
+            Command="{Binding NavigateOverviewCommand}"
+            Content="Overzicht" 
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Button
+            Grid.Column="6"
+            Margin="10 0 0 0"
+            Command="{Binding NavigateOrdersCommand}"
+            Content="Bestelling" 
+            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+        <Button
+            Grid.Column="7"
             Margin="10 0 0 0"
             Command="{Binding NavigateLoginCommand}"
             Content="Login" 
             Visibility="{Binding NotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <Button
-            Grid.Column="5"
+            Grid.Column="8"
             Margin="10 0 0 0"
             Command="{Binding NavigateAccountCommand}"
             Content="Account"
             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         <Button
-            Grid.Column="6"
+            Grid.Column="9"
             Margin="10 0 0 0"
             Command="{Binding LogoutCommand}"
             Content="Logout"

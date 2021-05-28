@@ -12,20 +12,23 @@ namespace StoreAccountingApp.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
+        private readonly AccountStore _accountStore;
+        public bool IsLoggedIn => _accountStore.IsLoggedIn;
+        public bool NotLoggedIn => !_accountStore.IsLoggedIn;
         public string WelcomeMessage => "Welcome to my accounting application";
         //public ICommand NavigateLoginCommand { get; }
         //public HomeViewModel(INavigationService loginNavigationService)
         //{
         //    NavigateLoginCommand = new NavigateCommand(loginNavigationService);
         //}
-        public NavigationBarViewModel NavigationBarViewModel { get; }
+        //public NavigationBarViewModel NavigationBarViewModel { get; }
         public ICommand NavigateLoginCommand { get; }
-        public HomeViewModel(NavigationBarViewModel navigationBarViewModel, NavigationService<LoginViewModel>loginNavigationService)
+        public HomeViewModel(INavigationService<LoginViewModel> loginNavigationService, AccountStore accountStore = null)
         {
-            NavigationBarViewModel = navigationBarViewModel;
             //NavigateLoginCommand = new NavigateCommand<LoginViewModel>(new NavigationService<LoginViewModel>(
             //    navigationStore,()=>new LoginViewModel(accountStore,navigationStore)));
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
+            _accountStore = accountStore;
         }
         //public HomeViewModel(NavigationStore navigationStore)
         //{

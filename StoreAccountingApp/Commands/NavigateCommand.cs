@@ -12,23 +12,16 @@ namespace StoreAccountingApp.Commands
     public class NavigateCommand<TViewModel> : CommandBase
         where TViewModel : ViewModelBase
     {
-        private readonly NavigationService<TViewModel> _navigationService;
-        //private readonly NavigationStore _navigationStore;   -----> moved to navigationService
-        //private readonly Func<TViewModel> _createViewModel;
+        private readonly INavigationService<TViewModel> _navigationService;
 
-        public NavigateCommand(NavigationService<TViewModel> navigationService)
+        public NavigateCommand(INavigationService<TViewModel> navigationService)
         {
             _navigationService = navigationService;
         }
-        //public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
-        //{
-        //    _navigationStore = navigationStore;
-        //    _createViewModel = createViewModel;
-        //}
+
         public override void Execute(object parameter)
         {
             _navigationService.Navigate();
-            //_navigationStore.CurrentViewModel = _createViewModel();
         }
     }
 }

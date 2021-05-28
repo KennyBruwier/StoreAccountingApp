@@ -17,16 +17,12 @@ namespace StoreAccountingApp.ViewModels
         public string Email => _accountStore.CurrentAccount?.EmailAddress;
         public string AccountType => _accountStore.CurrentAccount?.AccountType.Name;
         public ICommand NavigateHomeCommand { get; }
-        public NavigationBarViewModel NavigationBarViewModel { get; }
-
-        public AccountViewModel(NavigationBarViewModel navigationBarViewModel, AccountStore accountStore, NavigationService<HomeViewModel> homeNavigationService)
+        public AccountViewModel(AccountStore accountStore, INavigationService<HomeViewModel> homeNavigationService)
         {
-            NavigationBarViewModel = navigationBarViewModel;
             _accountStore = accountStore;
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
-
         private void OnCurrentAccountChanged()
         {
             OnPropertyChanged(nameof(Email));
@@ -38,9 +34,5 @@ namespace StoreAccountingApp.ViewModels
             _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
             base.Dispose();
         }
-        //public AccountViewModel(NavigationStore  navigationStore)
-        //{
-        //    NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, ()=>new HomeViewModel(navigationStore));
-        //}
     }
 }
