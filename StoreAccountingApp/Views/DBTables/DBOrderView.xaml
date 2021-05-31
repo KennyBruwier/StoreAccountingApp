@@ -92,7 +92,7 @@
         <TextBox x:Name="txtInvoiceNr"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderDTO.InvoiceNr, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentOrderDTO.InvoiceNumber, Mode=TwoWay}"/>
         <TextBox x:Name="txtStatus"
                  Grid.Row="3"
                  Grid.Column="1" 
@@ -108,7 +108,7 @@
         <TextBox x:Name="txtEmployee"
                  Grid.Row="6"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentOrderDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentOrderDTO.Employee.Firstname, Mode=TwoWay}"/>
 
         <TextBox x:Name="txtGuarantee"
                  Grid.Row="7"
@@ -157,7 +157,7 @@
                 <DataGridTextColumn
                     Header="InvoiceNr"
                     Width="auto"
-                    Binding="{Binding Path=InvoiceNr}"/>
+                    Binding="{Binding Path=InvoiceNumber}"/>
                 <DataGridTextColumn
                     Header="Status"
                     Width="auto"

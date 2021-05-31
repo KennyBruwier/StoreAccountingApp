@@ -1,4 +1,6 @@
-﻿using StoreAccountingApp.Models;
+﻿using StoreAccountingApp.DTO.Abstracts;
+using StoreAccountingApp.Models;
+using StoreAccountingApp.Models.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +22,20 @@ namespace StoreAccountingApp.CustomMethods
                 bool bContinue = true;
                 if (destProps.Any(x => x.Name == sourceProp.Name))
                 {
-                    
-                    if ((sourceProp.Name.Substring(sourceProp.Name.Trim().Length - 2).ToLower()=="id"))
+                    if ((sourceProp.PropertyType != typeof(RecordTimeStamps)) && (sourceProp.PropertyType != typeof(RecordTimeStampsDTO)))
                     {
-                        if (IsNumericType(sourceProp) && (int)sourceProp.GetValue(source, null) == 0)
-                            bContinue = false;
-                    }
-                    if (bContinue)
-                    {
-                        var p = destProps.First(x => x.Name == sourceProp.Name);
-                        if (p.CanWrite)
+                        if ((sourceProp.Name.Substring(sourceProp.Name.Trim().Length - 2).ToLower()=="id"))
                         {
-                            p.SetValue(dest, sourceProp.GetValue(source, null), null);
+                            if (IsNumericType(sourceProp) && (int)sourceProp.GetValue(source, null) == 0)
+                                bContinue = false;
+                        }
+                        if (bContinue)
+                        {
+                            var p = destProps.First(x => x.Name == sourceProp.Name);
+                            if (p.CanWrite)
+                            {
+                                p.SetValue(dest, sourceProp.GetValue(source, null), null);
+                            }
                         }
                     }
                 }

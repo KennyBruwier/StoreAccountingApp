@@ -24,8 +24,13 @@ namespace StoreAccountingApp.Services
             List<OrderDTO> orderList = new List<OrderDTO>();
             var ObjQuery = from Order in ctx.Orders
                            select Order;
-            foreach (var order in ObjQuery)
+            foreach (Order order in ObjQuery)
             {
+                OrderDTO orderDTO = ObjMethods.CopyProperties<Order, OrderDTO>(order);
+                if (order.Employee!=null)
+                {
+
+                }
                 orderList.Add(ObjMethods.CopyProperties<Order, OrderDTO>(order));
             }
             return orderList;
@@ -63,6 +68,7 @@ namespace StoreAccountingApp.Services
             }
             try
             {
+                Order newOrder = ObjMethods.CopyProperties<OrderDTO, Order>(newOrderDTO);
                 ctx.Orders.Add(ObjMethods.CopyProperties<OrderDTO, Order>(newOrderDTO));
                 return ctx.SaveChanges() > 0;
             }

@@ -27,13 +27,6 @@ namespace StoreAccountingApp.ViewModels
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
         public bool NotLoggedIn => !_accountStore.IsLoggedIn;
         public string CurrentUser => _accountStore.CurrentAccount?.Username;
-        //INavigationService<HomeViewModel> homeNavigationService,
-        //INavigationService<AccountViewModel> accountNavigationService,
-        //INavigationService<LoginViewModel> loginNavigationService,
-        //INavigationService<DataViewModel> dataNavigationService,
-        //INavigationService<OverviewViewModel> overviewNavigationService,
-        //INavigationService<OrdersViewModel> ordersNavigationService,
-        //INavigationService<UsersListingViewModel> usersListingService
 
         public NavigationBarViewModel(
             AccountStore accountStore,

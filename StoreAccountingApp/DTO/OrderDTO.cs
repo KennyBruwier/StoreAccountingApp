@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using StoreAccountingApp.DTO.Abstracts;
+using StoreAccountingApp.Models;
 
 namespace StoreAccountingApp.DTO
 {
@@ -23,6 +24,14 @@ namespace StoreAccountingApp.DTO
             get { return supplierId; }
             set { supplierId = value; OnPropertyChanged("SupplierId"); }
         }
+        private string supplierName;
+
+        public string SupplierName
+        {
+            get { return supplierName; }
+            set { supplierName = value; OnPropertyChanged("SupplierName"); }
+        }
+
         private int storeId;
         public int StoreId
         {
@@ -35,5 +44,13 @@ namespace StoreAccountingApp.DTO
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
+        private EmployeeDTO employee = new EmployeeDTO();
+
+        public EmployeeDTO Employee
+        {
+            get { return employee; }
+            set { employee = value; OnPropertyChanged("Employee"); }
+        }
+
     }
 }
