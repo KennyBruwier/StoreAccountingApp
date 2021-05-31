@@ -11,41 +11,39 @@ using System.Windows.Input;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBShopViewModel : ViewModelBase
+    public class DBAccountViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
-        ShopService ObjShopService;
-        private ShopDTO currentShopDTO;
-        public ShopDTO CurrentShopDTO
+        private readonly AccountService _accountService;
+        private AccountDTO currentAccountDTO;
+        public AccountDTO CurrentAccountDTO
         {
-            get { return currentShopDTO; }
-            set { currentShopDTO = value; OnPropertyChanged("CurrentShopDTO"); }
+            get { return currentAccountDTO; }
+            set { currentAccountDTO = value; OnPropertyChanged("CurrentAccountDTO"); }
         }
-        public DBShopViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBAccountViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            ObjShopService = new ShopService();
+            _accountService = new AccountService();
             LoadData();
-            CurrentShopDTO = new ShopDTO();
+            CurrentAccountDTO = new AccountDTO();
             saveCommand = new RelayCommand(Save);
             searchCommand = new RelayCommand(Search);
             updateCommand = new RelayCommand(Update);
             deleteCommand = new RelayCommand(Delete);
         }
         #region DisplayOperation
-        private List<ShopDTO> accountTypeList;
-        public List<ShopDTO> ShopList
+        private List<AccountDTO> accountTypeList;
+        public List<AccountDTO> AccountList
         {
             get { return accountTypeList; }
-            set { accountTypeList = value; OnPropertyChanged("ShopList"); }
+            set { accountTypeList = value; OnPropertyChanged("AccountList"); }
         }
         private void LoadData()
         {
-            ShopList = ObjShopService.GetAll();
+            AccountList = _accountService.GetAll();
         }
         #endregion
         #region SaveOperation
-        private RelayCommand saveCommand;
+        private readonly RelayCommand saveCommand;
         public RelayCommand SaveCommand
         {
             get { return saveCommand; }
@@ -54,10 +52,10 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var IsSaved = ObjShopService.Add(CurrentShopDTO);
+                var IsSaved = _accountService.Add(CurrentAccountDTO);
                 LoadData();
                 if (IsSaved)
-                    Message = "Shop saved";
+                    Message = "Account saved";
                 else
                     Message = "Save operation failed";
             }
@@ -74,7 +72,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region SearchOperation
-        private RelayCommand searchCommand;
+        private readonly RelayCommand searchCommand;
         public RelayCommand SearchCommand
         {
             get { return searchCommand; }
@@ -83,16 +81,16 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var ObjShop = ObjShopService.Search(CurrentShopDTO.ShopId);
-                if (ObjShop != null)
+                var _account = _accountService.Search(CurrentAccountDTO.AccountId);
+                if (_account != null)
                 {
-                    CurrentShopDTO = ObjShop;
-                    Message = "Shop found";
+                    CurrentAccountDTO = _account;
+                    Message = "Account found";
                 }
                 else
                 {
-                    CurrentShopDTO = new ShopDTO(); // empty the textbox fields
-                    Message = "Shop not found";
+                    CurrentAccountDTO = new AccountDTO(); // empty the textbox fields
+                    Message = "Account not found";
                 }
             }
             catch (Exception ex)
@@ -102,7 +100,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region UpdateOperation
-        private RelayCommand updateCommand;
+        private readonly RelayCommand updateCommand;
         public RelayCommand UpdateCommand
         {
             get { return updateCommand; }
@@ -111,9 +109,9 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjShopService.Update(CurrentShopDTO))
+                if (_accountService.Update(CurrentAccountDTO))
                 {
-                    Message = "Shop updated";
+                    Message = "Account updated";
                     LoadData();
                 }
                 else
@@ -128,7 +126,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region DeleteOperation
-        private RelayCommand deleteCommand;
+        private readonly RelayCommand deleteCommand;
 
         public RelayCommand DeleteCommand
         {
@@ -138,9 +136,9 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjShopService.Delete(CurrentShopDTO.ShopId))
+                if (_accountService.Delete(CurrentAccountDTO.AccountId))
                 {
-                    Message = "Store Deleted";
+                    Message = "Account Deleted";
                     LoadData();
                 }
                 else

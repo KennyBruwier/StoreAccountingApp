@@ -11,37 +11,35 @@ using System.Windows.Input;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBUserViewModel : ViewModelBase
+    public class DBShopViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
-        AccountService ObjUserService;
-        private AccountDTO currentUserDTO;
-        public AccountDTO CurrentUserDTO
+        ShopService ObjShopService;
+        private ShopDTO currentShopDTO;
+        public ShopDTO CurrentShopDTO
         {
-            get { return currentUserDTO; }
-            set { currentUserDTO = value; OnPropertyChanged("CurrentUserDTO"); }
+            get { return currentShopDTO; }
+            set { currentShopDTO = value; OnPropertyChanged("CurrentShopDTO"); }
         }
-        public DBUserViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBShopViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            ObjUserService = new AccountService();
+            ObjShopService = new ShopService();
             LoadData();
-            CurrentUserDTO = new AccountDTO();
+            CurrentShopDTO = new ShopDTO();
             saveCommand = new RelayCommand(Save);
             searchCommand = new RelayCommand(Search);
             updateCommand = new RelayCommand(Update);
             deleteCommand = new RelayCommand(Delete);
         }
         #region DisplayOperation
-        private List<AccountDTO> accountTypeList;
-        public List<AccountDTO> UserList
+        private List<ShopDTO> accountTypeList;
+        public List<ShopDTO> ShopList
         {
             get { return accountTypeList; }
-            set { accountTypeList = value; OnPropertyChanged("UserList"); }
+            set { accountTypeList = value; OnPropertyChanged("ShopList"); }
         }
         private void LoadData()
         {
-            UserList = ObjUserService.GetAll();
+            ShopList = ObjShopService.GetAll();
         }
         #endregion
         #region SaveOperation
@@ -54,10 +52,10 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var IsSaved = ObjUserService.Add(CurrentUserDTO);
+                var IsSaved = ObjShopService.Add(CurrentShopDTO);
                 LoadData();
                 if (IsSaved)
-                    Message = "User saved";
+                    Message = "Shop saved";
                 else
                     Message = "Save operation failed";
             }
@@ -83,16 +81,16 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var ObjUser = ObjUserService.Search(CurrentUserDTO.AccountId);
-                if (ObjUser != null)
+                var ObjShop = ObjShopService.Search(CurrentShopDTO.ShopId);
+                if (ObjShop != null)
                 {
-                    CurrentUserDTO = ObjUser;
-                    Message = "User found";
+                    CurrentShopDTO = ObjShop;
+                    Message = "Shop found";
                 }
                 else
                 {
-                    CurrentUserDTO = new AccountDTO(); // empty the textbox fields
-                    Message = "User not found";
+                    CurrentShopDTO = new ShopDTO(); // empty the textbox fields
+                    Message = "Shop not found";
                 }
             }
             catch (Exception ex)
@@ -111,9 +109,9 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjUserService.Update(CurrentUserDTO))
+                if (ObjShopService.Update(CurrentShopDTO))
                 {
-                    Message = "User updated";
+                    Message = "Shop updated";
                     LoadData();
                 }
                 else
@@ -138,9 +136,9 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjUserService.Delete(CurrentUserDTO.AccountId))
+                if (ObjShopService.Delete(CurrentShopDTO.ShopId))
                 {
-                    Message = "User Deleted";
+                    Message = "Store Deleted";
                     LoadData();
                 }
                 else

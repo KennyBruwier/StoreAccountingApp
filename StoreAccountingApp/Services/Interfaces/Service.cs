@@ -21,9 +21,8 @@ namespace StoreAccountingApp.Services.Interfaces
         where DTOEntity : class
     {
         protected readonly string _constring = string.Empty;
-        private DbContext dbc;
-        private _DBStoreAccountingContext ctx;
-        private DBEntity dBEntity;
+        private readonly DbContext dbc;
+        private readonly _DBStoreAccountingContext ctx;
         public Service(string connectionString)
         {
             _constring = connectionString;
@@ -128,7 +127,8 @@ namespace StoreAccountingApp.Services.Interfaces
         {
             get
             {
-                DbContext dbContext = dbc != null ? dbc : ctx;
+                // DbContext dbContext = dbc != null ? dbc : ctx;
+                DbContext dbContext = dbc ?? ctx;
                 IEnumerable<string> keys = null;
                 if (dbContext != null)
                 {

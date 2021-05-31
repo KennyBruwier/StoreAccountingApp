@@ -19,6 +19,13 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Product Management"
                    Grid.Row="0"
@@ -33,9 +40,19 @@
         <TextBlock Text="Enter Name"
                    Grid.Row="2"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Description"
+        <TextBlock Text="Manufacturer"
                    Grid.Row="3"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Description"
+                   Grid.Row="4"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Details"
+                   Grid.Row="5"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Picture"
+                   Grid.Row="6"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+
         <TextBox x:Name="txtProductId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
@@ -44,12 +61,25 @@
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentProductDTO.Name, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDescription"
+        <TextBox x:Name="txtManufacturer"
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentProductDTO.Manufacturer, Mode=TwoWay}"/>
+        <TextBox x:Name="txtDescription"
+                 Grid.Row="4"
+                 Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentProductDTO.Description, Mode=TwoWay}"/>
+        <TextBox x:Name="txtDtails"
+                 Grid.Row="5"
+                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentProductDTO.Name, Mode=TwoWay}"/>
+        <TextBox x:Name="txtBarcode"
+                 Grid.Row="6"
+                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentProductDTO.Barcode, Mode=TwoWay}"/>
+
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="4"
+                    Grid.Row="11"
                     Grid.Column="1" Margin="5,8">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
@@ -65,12 +95,12 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
-                   Grid.Row="5"
+                   Grid.Row="12"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgProducts"
                   AutoGenerateColumns="False"
-                  Grid.Row="6"
+                  Grid.Row="13"
                   Grid.Column="1" Margin="5,8" Padding="3" 
                   ItemsSource="{Binding Path=ProductList, Mode=TwoWay}">
             <DataGrid.Columns>
@@ -83,9 +113,21 @@
                     Width="auto"
                     Binding="{Binding Path=Name}"/>
                 <DataGridTextColumn
+                    Header="Manufacturer"
+                    Width="auto"
+                    Binding="{Binding Path=Manufacturer}"/>
+                <DataGridTextColumn
                     Header="Description"
                     Width="auto"
                     Binding="{Binding Path=Description}"/>
+                <DataGridTextColumn
+                    Header="Details"
+                    Width="auto"
+                    Binding="{Binding Path=Details}"/>
+                <DataGridTextColumn
+                    Header="Barcode"
+                    Width="auto"
+                    Binding="{Binding Path=Barcode}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

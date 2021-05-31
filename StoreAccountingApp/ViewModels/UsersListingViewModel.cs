@@ -26,9 +26,9 @@ namespace StoreAccountingApp.ViewModels
             AddUserCommand = new NavigateCommand<AddUserViewModel>(addUserNavigationService);
             _users = new ObservableCollection<UserViewModel>();
 
-            _users.Add(new UserViewModel("SingletonSean"));
-            _users.Add(new UserViewModel("Mary"));
-            _users.Add(new UserViewModel("Joe"));
+            _users.Add(new UserViewModel("Jan"));
+            _users.Add(new UserViewModel("Piet"));
+            _users.Add(new UserViewModel("Jos"));
 
             _usersStore.UserAdded += OnUserAdded;
         }

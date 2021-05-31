@@ -6,6 +6,27 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d"
              >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="5.8"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreAccountingApp.Services
 {
     public class ClientService
     {
-        _DBStoreAccountingContext ctx;
+        private readonly _DBStoreAccountingContext ctx;
 
         public object DialogResult { get; private set; }
         public ClientService()
@@ -50,12 +52,34 @@ namespace StoreAccountingApp.Services
                 throw new ArgumentException($"Add operation failed, {newClientDTO.Firstname} {newClientDTO.Lastname} already exists");
             try
             {
-                ctx.Clients.Add(ObjMethods.CopyProperties<ClientDTO, Client>(newClientDTO));
+                Client newClient = new Client();
+                newClient = ObjMethods.CopyProperties<ClientDTO, Client>(newClientDTO);
+                if (newClientDTO.PostalCodeId != "")
+                {
+                    District newDistrict = ctx.Districts.Find(newClientDTO.PostalCodeId);
+                    if (newDistrict == null)
+                    {
+                        newDistrict = new District()
+                        {
+                            PostalCodeId = newClientDTO.PostalCodeId,
+                            Name = newClientDTO.DistrictName
+                        };
+                        Country currentDistrictCountry;
+                        currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(newClientDTO.Country, StringComparison.OrdinalIgnoreCase));
+                        if (currentDistrictCountry == null)
+                        {
+                            currentDistrictCountry = new Country() { Name = newClientDTO.Country };
+                        }
+                        newDistrict.Country = currentDistrictCountry;
+                    }
+                    newClient.District = newDistrict;
+                }
+                ctx.Clients.Add(newClient);
                 return ctx.SaveChanges() > 0;
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ((System.Data.Entity.Validation.DbEntityValidationException)ex);
             }
         }
         public ClientDTO Search(int clientId)

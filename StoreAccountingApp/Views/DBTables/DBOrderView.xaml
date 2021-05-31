@@ -6,8 +6,31 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d"
              >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="5.8"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -19,37 +42,90 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Order Management"
+        <TextBlock Text="Orders Management"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Name"
+                   Grid.Column="0"/>
+        <TextBlock Text="Enter InvoiceNr"
                    Grid.Row="2"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Description"
+                   Grid.Column="0"/>
+        <TextBlock Text="Status"
                    Grid.Row="3"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Supplier"
+                   Grid.Row="4"
+                   Grid.Column="0"/>
+        <TextBlock Text="Shop"
+                   Grid.Row="5"
+                   Grid.Column="0"/>
+        <TextBlock Text="Employee"
+                   Grid.Row="6"
+                   Grid.Column="0"/>
+        <TextBlock Text="Guarantee"
+                   Grid.Row="7"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Discount"
+                   Grid.Row="8"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="PaymentMethod"
+                   Grid.Row="9"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+
         <TextBox x:Name="txtOrderId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentOrderDTO.OrderId, Mode=TwoWay}"/>
-        <TextBox x:Name="txtName"
+        <TextBox x:Name="txtInvoiceNr"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderDTO.Name, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDescription"
+                 Text="{Binding Path=CurrentOrderDTO.InvoiceNr, Mode=TwoWay}"/>
+        <TextBox x:Name="txtStatus"
                  Grid.Row="3"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentOrderDTO.Status, Mode=TwoWay}"/>
+        <TextBox x:Name="txtSupplier"
+                 Grid.Row="4"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentOrderDTO.Supplier.Organisation, Mode=TwoWay}"/>
+        <TextBox x:Name="txtShop"
+                 Grid.Row="5"
+                 Grid.Column="1" 
                  Text="{Binding Path=CurrentOrderDTO.Description, Mode=TwoWay}"/>
+        <TextBox x:Name="txtEmployee"
+                 Grid.Row="6"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentOrderDTO.Description, Mode=TwoWay}"/>
+
+        <TextBox x:Name="txtGuarantee"
+                 Grid.Row="7"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentOrderDTO.Guarantee, Mode=TwoWay}"/>
+        <TextBox x:Name="txtDiscount"
+                 Grid.Row="8"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentOrderDTO.Discount, Mode=TwoWay}"/>
+        <TextBox x:Name="txtPaymentMethod"
+                 Grid.Row="9"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentOrderDTO.PaymentMethod, Mode=TwoWay}"/>
+
+
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="4"
+                    Grid.Row="11"
                     Grid.Column="1" Margin="5,8">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
@@ -65,12 +141,12 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
-                   Grid.Row="5"
+                   Grid.Row="12"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgOrders"
                   AutoGenerateColumns="False"
-                  Grid.Row="6"
+                  Grid.Row="13"
                   Grid.Column="1" Margin="5,8" Padding="3" 
                   ItemsSource="{Binding Path=OrderList, Mode=TwoWay}">
             <DataGrid.Columns>
@@ -79,13 +155,28 @@
                     Width="auto"
                     Binding="{Binding Path=OrderId}"/>
                 <DataGridTextColumn
-                    Header="Name"
+                    Header="InvoiceNr"
                     Width="auto"
-                    Binding="{Binding Path=Name}"/>
+                    Binding="{Binding Path=InvoiceNr}"/>
                 <DataGridTextColumn
-                    Header="Description"
+                    Header="Status"
                     Width="auto"
-                    Binding="{Binding Path=Description}"/>
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Supplier"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Shop"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Employee"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Total"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Expiration Date"
+                    Binding="{Binding Path=ExpirationDate}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

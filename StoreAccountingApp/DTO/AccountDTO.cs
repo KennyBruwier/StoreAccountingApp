@@ -31,7 +31,6 @@ namespace StoreAccountingApp.DTO
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
-        public virtual Employee Employee { get; set; }
         private string username;
 
         public string Username

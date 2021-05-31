@@ -17,9 +17,10 @@ namespace StoreAccountingApp.CustomMethods
             TU dest = new TU();
             foreach (var sourceProp in sourceProps)
             {
+                bool bContinue = true;
                 if (destProps.Any(x => x.Name == sourceProp.Name))
                 {
-                    bool bContinue = true;
+                    
                     if ((sourceProp.Name.Substring(sourceProp.Name.Trim().Length - 2).ToLower()=="id"))
                     {
                         if (IsNumericType(sourceProp) && (int)sourceProp.GetValue(source, null) == 0)
@@ -34,6 +35,7 @@ namespace StoreAccountingApp.CustomMethods
                         }
                     }
                 }
+                
             }
             return dest;
         }

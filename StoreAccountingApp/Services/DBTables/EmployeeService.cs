@@ -12,7 +12,7 @@ namespace StoreAccountingApp.Services
 {
     public class EmployeeService
     {
-        _DBStoreAccountingContext ctx;
+        private readonly _DBStoreAccountingContext ctx;
 
         public object DialogResult { get; private set; }
         public EmployeeService()

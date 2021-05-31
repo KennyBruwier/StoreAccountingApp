@@ -16,8 +16,19 @@ namespace StoreAccountingApp.DTO
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
+        private string jobFunctionTitles;
+
+        public string JobFunctionTitles
+        {
+            get { return jobFunctionTitles; }
+            set { jobFunctionTitles = value; OnPropertyChanged("JobFunctionTitles"); }
+        }
+
         public EmployeeDTO(int employeeId, string firstname, string lastname, string gender, string status, string streetname, string houseNr, string boxNr, string postalCodeId, string faxNumber, string phoneNumber, string emailAddress, string website, string facebook, string linkedin, DateTime? birthday) 
         {
+            Firstname = firstname;
+            Lastname = lastname;
+            EmployeeId = employeeId;
             Gender = gender;
             Status = status;
             Streetname = streetname;

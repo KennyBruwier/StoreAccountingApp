@@ -27,6 +27,12 @@ namespace StoreAccountingApp.DTO
             get { return countryId; }
             set { countryId = value; OnPropertyChanged("CountryId"); }
         }
+        private int countryName;
+        public int CountryName
+        {
+            get { return countryName; }
+            set { countryName = value; OnPropertyChanged("CountryName"); }
+        }
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

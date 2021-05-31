@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="AccountType Management"
                    Grid.Row="0"
-                   Grid.Column="0"
+                   Grid.Column="1"
                    Grid.ColumnSpan="2"
                    FontSize="20"
                    FontWeight="Bold"

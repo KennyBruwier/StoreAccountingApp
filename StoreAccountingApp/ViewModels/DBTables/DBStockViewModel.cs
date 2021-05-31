@@ -13,7 +13,6 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBStockViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
         StockService ObjStockService;
         private StockDTO currentStockDTO;
         public StockDTO CurrentStockDTO
@@ -21,9 +20,8 @@ namespace StoreAccountingApp.ViewModels
             get { return currentStockDTO; }
             set { currentStockDTO = value; OnPropertyChanged("CurrentStockDTO"); }
         }
-        public DBStockViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBStockViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjStockService = new StockService();
             LoadData();
             CurrentStockDTO = new StockDTO();

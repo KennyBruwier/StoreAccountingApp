@@ -21,9 +21,8 @@ namespace StoreAccountingApp.ViewModels
             get { return currentSaleDTO; }
             set { currentSaleDTO = value; OnPropertyChanged("CurrentSaleDTO"); }
         }
-        public DBSaleViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBSaleViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjSaleService = new SaleService();
             LoadData();
             CurrentSaleDTO = new SaleDTO();

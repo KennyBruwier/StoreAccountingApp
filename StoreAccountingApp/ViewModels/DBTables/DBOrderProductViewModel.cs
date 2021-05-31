@@ -13,7 +13,6 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBOrderProductViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
         OrderProductService ObjOrderProductService;
         private OrderProductDTO currentOrderProductDTO;
         public OrderProductDTO CurrentOrderProductDTO
@@ -21,9 +20,8 @@ namespace StoreAccountingApp.ViewModels
             get { return currentOrderProductDTO; }
             set { currentOrderProductDTO = value; OnPropertyChanged("CurrentOrderProductDTO"); }
         }
-        public DBOrderProductViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBOrderProductViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjOrderProductService = new OrderProductService();
             LoadData();
             CurrentOrderProductDTO = new OrderProductDTO();

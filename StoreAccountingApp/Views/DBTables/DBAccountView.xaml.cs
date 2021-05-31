@@ -18,9 +18,9 @@ namespace StoreAccountingApp.Views
     /// <summary>
     /// Interaction logic for UserView.xaml
     /// </summary>
-    public partial class DBUserView : UserControl
+    public partial class DBAccountView : UserControl
     {
-        public DBUserView()
+        public DBAccountView()
         {
             InitializeComponent();
         }

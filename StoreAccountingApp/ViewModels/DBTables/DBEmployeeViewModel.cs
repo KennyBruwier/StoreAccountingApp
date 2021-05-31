@@ -13,19 +13,17 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBEmployeeViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
 
-        EmployeeService ObjEmployeeService;
+        private readonly EmployeeService _employeeService;
         private EmployeeDTO currentEmployeeDTO;
         public EmployeeDTO CurrentEmployeeDTO
         {
             get { return currentEmployeeDTO; }
             set { currentEmployeeDTO = value; OnPropertyChanged("CurrentEmployeeDTO"); }
         }
-        public DBEmployeeViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBEmployeeViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            ObjEmployeeService = new EmployeeService();
+            _employeeService = new EmployeeService();
             LoadData();
             CurrentEmployeeDTO = new EmployeeDTO();
             saveCommand = new RelayCommand(Save);
@@ -34,19 +32,19 @@ namespace StoreAccountingApp.ViewModels
             deleteCommand = new RelayCommand(Delete);
         }
         #region DisplayOperation
-        private List<EmployeeDTO> accountTypeList;
+        private List<EmployeeDTO> employeeList;
         public List<EmployeeDTO> EmployeeList
         {
-            get { return accountTypeList; }
-            set { accountTypeList = value; OnPropertyChanged("EmployeeList"); }
+            get { return employeeList; }
+            set { employeeList = value; OnPropertyChanged("EmployeeList"); }
         }
         private void LoadData()
         {
-            EmployeeList = ObjEmployeeService.GetAll();
+            EmployeeList = _employeeService.GetAll();
         }
         #endregion
         #region SaveOperation
-        private RelayCommand saveCommand;
+        private readonly RelayCommand saveCommand;
         public RelayCommand SaveCommand
         {
             get { return saveCommand; }
@@ -55,7 +53,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var IsSaved = ObjEmployeeService.Add(CurrentEmployeeDTO);
+                var IsSaved = _employeeService.Add(CurrentEmployeeDTO);
                 LoadData();
                 if (IsSaved)
                     Message = "Employee saved";
@@ -75,7 +73,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region SearchOperation
-        private RelayCommand searchCommand;
+        private readonly RelayCommand searchCommand;
         public RelayCommand SearchCommand
         {
             get { return searchCommand; }
@@ -84,10 +82,10 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var ObjEmployee = ObjEmployeeService.Search(CurrentEmployeeDTO.EmployeeId);
-                if (ObjEmployee != null)
+                var _employee = _employeeService.Search(CurrentEmployeeDTO.EmployeeId);
+                if (_employee != null)
                 {
-                    CurrentEmployeeDTO = ObjEmployee;
+                    CurrentEmployeeDTO = _employee;
                     Message = "Employee found";
                 }
                 else
@@ -103,7 +101,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region UpdateOperation
-        private RelayCommand updateCommand;
+        private readonly RelayCommand updateCommand;
         public RelayCommand UpdateCommand
         {
             get { return updateCommand; }
@@ -112,7 +110,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjEmployeeService.Update(CurrentEmployeeDTO))
+                if (_employeeService.Update(CurrentEmployeeDTO))
                 {
                     Message = "Employee updated";
                     LoadData();
@@ -129,7 +127,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region DeleteOperation
-        private RelayCommand deleteCommand;
+        private readonly RelayCommand deleteCommand;
 
         public RelayCommand DeleteCommand
         {
@@ -139,7 +137,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjEmployeeService.Delete(CurrentEmployeeDTO.EmployeeId))
+                if (_employeeService.Delete(CurrentEmployeeDTO.EmployeeId))
                 {
                     Message = "Employee Deleted";
                     LoadData();

@@ -13,7 +13,6 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBDistrictViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
         DistrictService ObjDistrictService;
         private DistrictDTO currentDistrictDTO;
         public DistrictDTO CurrentDistrictDTO
@@ -21,9 +20,8 @@ namespace StoreAccountingApp.ViewModels
             get { return currentDistrictDTO; }
             set { currentDistrictDTO = value; OnPropertyChanged("CurrentDistrictDTO"); }
         }
-        public DBDistrictViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBDistrictViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjDistrictService = new DistrictService();
             LoadData();
             CurrentDistrictDTO = new DistrictDTO();

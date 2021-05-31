@@ -13,7 +13,7 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBAccountTypeViewModel : ViewModelBase
     {
-        AccountTypeService ObjAccountTypeService;
+        private AccountTypeService ObjAccountTypeService;
         private AccountTypeDTO currentAccountTypeDTO;
         public AccountTypeDTO CurrentAccountTypeDTO
         {

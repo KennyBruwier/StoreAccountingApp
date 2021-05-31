@@ -13,7 +13,6 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBCountryViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
         CountryService ObjCountryService;
         private CountryDTO currentCountryDTO;
         public CountryDTO CurrentCountryDTO
@@ -21,9 +20,8 @@ namespace StoreAccountingApp.ViewModels
             get { return currentCountryDTO; }
             set { currentCountryDTO = value; OnPropertyChanged("CurrentCountryDTO"); }
         }
-        public DBCountryViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBCountryViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjCountryService = new CountryService();
             LoadData();
             CurrentCountryDTO = new CountryDTO();

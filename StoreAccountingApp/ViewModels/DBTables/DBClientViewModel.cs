@@ -14,17 +14,17 @@ namespace StoreAccountingApp.ViewModels
     public class DBClientViewModel : ViewModelBase
     {
         public ICommand NavigateHomeCommand { get; }
-        ClientService ObjClientService;
+        private readonly ClientService clientService;
         private ClientDTO currentClientDTO;
         public ClientDTO CurrentClientDTO
         {
             get { return currentClientDTO; }
             set { currentClientDTO = value; OnPropertyChanged("CurrentClientDTO"); }
         }
-        public DBClientViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBClientViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            ObjClientService = new ClientService();
+            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
+            clientService = new ClientService();
             LoadData();
             CurrentClientDTO = new ClientDTO();
             saveCommand = new RelayCommand(Save);
@@ -33,19 +33,19 @@ namespace StoreAccountingApp.ViewModels
             deleteCommand = new RelayCommand(Delete);
         }
         #region DisplayOperation
-        private List<ClientDTO> accountTypeList;
+        private List<ClientDTO> clientList;
         public List<ClientDTO> ClientList
         {
-            get { return accountTypeList; }
-            set { accountTypeList = value; OnPropertyChanged("ClientList"); }
+            get { return clientList; }
+            set { clientList = value; OnPropertyChanged("ClientList"); }
         }
         private void LoadData()
         {
-            ClientList = ObjClientService.GetAll();
+            ClientList = clientService.GetAll();
         }
         #endregion
         #region SaveOperation
-        private RelayCommand saveCommand;
+        private readonly RelayCommand saveCommand;
         public RelayCommand SaveCommand
         {
             get { return saveCommand; }
@@ -54,7 +54,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var IsSaved = ObjClientService.Add(CurrentClientDTO);
+                var IsSaved = clientService.Add(CurrentClientDTO);
                 LoadData();
                 if (IsSaved)
                     Message = "Client saved";
@@ -74,7 +74,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region SearchOperation
-        private RelayCommand searchCommand;
+        private readonly RelayCommand searchCommand;
         public RelayCommand SearchCommand
         {
             get { return searchCommand; }
@@ -83,10 +83,10 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var ObjClient = ObjClientService.Search(CurrentClientDTO.ClientId);
-                if (ObjClient != null)
+                var client = clientService.Search(CurrentClientDTO.ClientId);
+                if (client != null)
                 {
-                    CurrentClientDTO = ObjClient;
+                    CurrentClientDTO = client;
                     Message = "Client found";
                 }
                 else
@@ -102,7 +102,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region UpdateOperation
-        private RelayCommand updateCommand;
+        private readonly RelayCommand updateCommand;
         public RelayCommand UpdateCommand
         {
             get { return updateCommand; }
@@ -111,7 +111,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjClientService.Update(CurrentClientDTO))
+                if (clientService.Update(CurrentClientDTO))
                 {
                     Message = "Client updated";
                     LoadData();
@@ -128,7 +128,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region DeleteOperation
-        private RelayCommand deleteCommand;
+        private readonly RelayCommand deleteCommand;
 
         public RelayCommand DeleteCommand
         {
@@ -138,7 +138,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjClientService.Delete(CurrentClientDTO.ClientId))
+                if (clientService.Delete(CurrentClientDTO.ClientId))
                 {
                     Message = "Client Deleted";
                     LoadData();

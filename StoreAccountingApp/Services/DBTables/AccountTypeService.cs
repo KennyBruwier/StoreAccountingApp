@@ -13,7 +13,7 @@ namespace StoreAccountingApp.Services
 {
     public class AccountTypeService 
     {
-        _DBStoreAccountingContext ctx;
+        private readonly _DBStoreAccountingContext ctx;
 
         public object DialogResult { get; private set; }
         public AccountTypeService()

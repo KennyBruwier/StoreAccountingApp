@@ -13,18 +13,16 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBOrderViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
-        OrderService ObjOrderService;
+        OrderService _orderService;
         private OrderDTO currentOrderDTO;
         public OrderDTO CurrentOrderDTO
         {
             get { return currentOrderDTO; }
             set { currentOrderDTO = value; OnPropertyChanged("CurrentOrderDTO"); }
         }
-        public DBOrderViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBOrderViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            ObjOrderService = new OrderService();
+            _orderService = new OrderService();
             LoadData();
             CurrentOrderDTO = new OrderDTO();
             saveCommand = new RelayCommand(Save);
@@ -33,15 +31,15 @@ namespace StoreAccountingApp.ViewModels
             deleteCommand = new RelayCommand(Delete);
         }
         #region DisplayOperation
-        private List<OrderDTO> accountTypeList;
+        private List<OrderDTO> orderList;
         public List<OrderDTO> OrderList
         {
-            get { return accountTypeList; }
-            set { accountTypeList = value; OnPropertyChanged("OrderList"); }
+            get { return orderList; }
+            set { orderList = value; OnPropertyChanged("OrderList"); }
         }
         private void LoadData()
         {
-            OrderList = ObjOrderService.GetAll();
+            OrderList = _orderService.GetAll();
         }
         #endregion
         #region SaveOperation
@@ -54,7 +52,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var IsSaved = ObjOrderService.Add(CurrentOrderDTO);
+                var IsSaved = _orderService.Add(CurrentOrderDTO);
                 LoadData();
                 if (IsSaved)
                     Message = "Order saved";
@@ -83,10 +81,10 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var ObjOrder = ObjOrderService.Search(CurrentOrderDTO.OrderId);
-                if (ObjOrder != null)
+                var order = _orderService.Search(CurrentOrderDTO.OrderId);
+                if (order != null)
                 {
-                    CurrentOrderDTO = ObjOrder;
+                    CurrentOrderDTO = order;
                     Message = "Order found";
                 }
                 else
@@ -111,7 +109,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjOrderService.Update(CurrentOrderDTO))
+                if (_orderService.Update(CurrentOrderDTO))
                 {
                     Message = "Order updated";
                     LoadData();
@@ -138,7 +136,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjOrderService.Delete(CurrentOrderDTO.OrderId))
+                if (_orderService.Delete(CurrentOrderDTO.OrderId))
                 {
                     Message = "Order Deleted";
                     LoadData();

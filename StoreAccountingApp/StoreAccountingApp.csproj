@@ -190,10 +190,10 @@
     <Compile Include="ViewModels\DBTables\DBSaleProductViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBSaleViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBStockViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\DBStoreViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBShopViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBSupplierProductViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBSupplierViewModel.cs" />
-    <Compile Include="ViewModels\DBTables\DBUserViewModel.cs" />
+    <Compile Include="ViewModels\DBTables\DBAccountViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
@@ -257,8 +257,8 @@
     <Compile Include="Views\DBTables\DBSupplierView.xaml.cs">
       <DependentUpon>DBSupplierView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DBTables\DBUserView.xaml.cs">
-      <DependentUpon>DBUserView.xaml</DependentUpon>
+    <Compile Include="Views\DBTables\DBAccountView.xaml.cs">
+      <DependentUpon>DBAccountView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -379,7 +379,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DBTables\DBUserView.xaml">
+    <Page Include="Views\DBTables\DBAccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

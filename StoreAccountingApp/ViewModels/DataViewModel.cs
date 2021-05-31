@@ -12,53 +12,165 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DataViewModel : ViewModelBase
     {
-        private NavigationStore _DBNavigationStore;
-        public ViewModelBase DBContentViewModel => _DBNavigationStore?.CurrentViewModel;
-        private ICommand NavigateAccountTypeCommand { get; }
-        private ICommand NavigateClientCommand { get; }
-        private ICommand NavigateCountryCommand { get; }
-        private ICommand NavigateUserCommand { get; }
-        private ICommand NavigateDistrictCommand { get; }
-        private ICommand NavigateEmployeeCommand { get; }
-        private ICommand NavigateJobFunctionCommand { get; }
-        private ICommand NavigateOrderProductCommand { get; }
-        private ICommand NavigateOrderCommand { get; }
-        private ICommand NavigateProductCommand { get; }
-        private ICommand NavigateSaleProductCommand { get; }
-        private ICommand NavigateSaleCommand { get; }
-        private ICommand NavigateStockCommand { get; }
-        private ICommand NavigateStoreCommand { get; }
-        private ICommand NavigateSupplierProductCommand { get; }
-        private ICommand NavigateSupplierCommand { get; }
+        public NavigationBarViewModel NavigationBarViewModel { get; }
+        private readonly AccountStore _accountStore;
+        //private NavigationStore _navigationStore;
+        private readonly NavigationStore _tableNavigationStore;
+        public ViewModelBase DBContentViewModel => _tableNavigationStore.CurrentViewModel;
+        public ICommand NavigateAccountTypeCommand { get; }
+        public ICommand NavigateClientCommand { get; }
+        public ICommand NavigateCountryCommand { get; }
+        public ICommand NavigateUserCommand { get; }
+        public ICommand NavigateDistrictCommand { get; }
+        public ICommand NavigateEmployeeCommand { get; }
+        public ICommand NavigateJobFunctionCommand { get; }
+        public ICommand NavigateOrderProductCommand { get; }
+        public ICommand NavigateOrderCommand { get; }
+        public ICommand NavigateProductCommand { get; }
+        public ICommand NavigateSaleProductCommand { get; }
+        public ICommand NavigateSaleCommand { get; }
+        public ICommand NavigateStockCommand { get; } 
+        public ICommand NavigateShopCommand { get; }
+        public ICommand NavigateSupplierProductCommand { get; }
+        public ICommand NavigateSupplierCommand { get; }
         public ICommand NavigateHomeCommand { get; }
-        public DataViewModel(INavigationService<HomeViewModel> navigateHomeCommand, NavigationStore dbContentStore = null)
+        public DataViewModel(AccountStore accountStore, NavigationStore tableNavigationStore, INavigationService<HomeViewModel> navigateHomeCommand)
         {
+            _accountStore = accountStore;
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigateHomeCommand);
-            if (dbContentStore != null)
+            if (tableNavigationStore != null)
             {
-                _DBNavigationStore = dbContentStore;
-                _DBNavigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+                _tableNavigationStore = tableNavigationStore;
+                _tableNavigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
             }
-
             NavigateAccountTypeCommand = new NavigateCommand<DBAccountTypeViewModel>(CreateAccountTypeNavigationService());
-            //NavigateAccountTypeCommand = new NavigateCommand<AccountViewModel>()
+            NavigateClientCommand = new NavigateCommand<DBClientViewModel>(CreateClientNavigationService());
+            NavigateCountryCommand = new NavigateCommand<DBCountryViewModel>(CreateCountryNavigationService());
+            NavigateDistrictCommand = new NavigateCommand<DBDistrictViewModel>(CreateDistrictNavigationService());
+            NavigateEmployeeCommand = new NavigateCommand<DBEmployeeViewModel>(CreateEmployeeNavigationService());
+            NavigateJobFunctionCommand = new NavigateCommand<DBJobFunctionViewModel>(CreateJobFunctionNavigationService());
+            NavigateOrderCommand = new NavigateCommand<DBOrderViewModel>(CreateOrderNavigationService());
+            NavigateOrderProductCommand = new NavigateCommand<DBOrderProductViewModel>(CreateOrderProductNavigationService());
+            NavigateProductCommand = new NavigateCommand<DBProductViewModel>(CreateProductNavigationService());
+            NavigateSaleCommand = new NavigateCommand<DBSaleViewModel>(CreateSaleNavigationService());
+            NavigateSaleProductCommand = new NavigateCommand<DBSaleProductViewModel>(CreateSaleProductNavigationService());
+            NavigateStockCommand = new NavigateCommand<DBStockViewModel>(CreateStockNavigationService());
+            NavigateShopCommand = new NavigateCommand<DBShopViewModel>(CreateShopNavigationService());
+            NavigateSupplierCommand = new NavigateCommand<DBSupplierViewModel>(CreateSupplierNavigationService());
+            NavigateSupplierProductCommand = new NavigateCommand<DBSupplierProductViewModel>(CreateSupplierProductNavigationService());
+            NavigateUserCommand = new NavigateCommand<DBAccountViewModel>(CreateUserNavigationService());
         }
-
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(DBContentViewModel));
         }
-
         public override void Dispose()
         {
             DBContentViewModel?.Dispose();
             base.Dispose();
         }
+        //private INavigationService<LoginViewModel> CreateLoginNavigationService()
+        //{
+        //    return new LayoutNavigationService<LoginViewModel>(
+        //        _navigationStore,
+        //        () => new LoginViewModel(_accountStore, CreateAccountNavigationService()),
+        //        _navigationBarViewModel);
+        //}
         private INavigationService<DBAccountTypeViewModel> CreateAccountTypeNavigationService()
         {
             return new NavigationService<DBAccountTypeViewModel>(
-                _DBNavigationStore,
+                _tableNavigationStore,
                 () => new DBAccountTypeViewModel());
         }
-    }
+        private INavigationService<DBClientViewModel> CreateClientNavigationService()
+        {
+            return new NavigationService<DBClientViewModel>(
+                _tableNavigationStore,
+                () => new DBClientViewModel());
+        }
+        private INavigationService<DBCountryViewModel> CreateCountryNavigationService()
+        {
+            return new NavigationService<DBCountryViewModel>(
+                _tableNavigationStore,
+                () => new DBCountryViewModel());
+        }
+        private INavigationService<DBDistrictViewModel> CreateDistrictNavigationService()
+        {
+            return new NavigationService<DBDistrictViewModel>(
+                _tableNavigationStore,
+                () => new DBDistrictViewModel());
+        }
+        private INavigationService<DBEmployeeViewModel> CreateEmployeeNavigationService()
+        {
+            return new NavigationService<DBEmployeeViewModel>(
+                _tableNavigationStore,
+                () => new DBEmployeeViewModel());
+        }
+        private INavigationService<DBJobFunctionViewModel> CreateJobFunctionNavigationService()
+        {
+            return new NavigationService<DBJobFunctionViewModel>(
+                _tableNavigationStore,
+                () => new DBJobFunctionViewModel());
+        }
+        private INavigationService<DBOrderProductViewModel> CreateOrderProductNavigationService()
+        {
+            return new NavigationService<DBOrderProductViewModel>(
+                _tableNavigationStore,
+                () => new DBOrderProductViewModel());
+        }
+        private INavigationService<DBOrderViewModel> CreateOrderNavigationService()
+        {
+            return new NavigationService<DBOrderViewModel>(
+                _tableNavigationStore,
+                () => new DBOrderViewModel());
+        }
+        private INavigationService<DBProductViewModel> CreateProductNavigationService()
+        {
+            return new NavigationService<DBProductViewModel>(
+                _tableNavigationStore,
+                () => new DBProductViewModel());
+        }
+        private INavigationService<DBSaleProductViewModel> CreateSaleProductNavigationService()
+        {
+            return new NavigationService<DBSaleProductViewModel>(
+                _tableNavigationStore,
+                () => new DBSaleProductViewModel());
+        }
+        private INavigationService<DBSaleViewModel> CreateSaleNavigationService()
+        {
+            return new NavigationService<DBSaleViewModel>(
+                _tableNavigationStore,
+                () => new DBSaleViewModel());
+        }
+        private INavigationService<DBStockViewModel> CreateStockNavigationService()
+        {
+            return new NavigationService<DBStockViewModel>(
+                _tableNavigationStore,
+                () => new DBStockViewModel());
+        }
+        private INavigationService<DBShopViewModel> CreateShopNavigationService()
+        {
+            return new NavigationService<DBShopViewModel>(
+                _tableNavigationStore,
+                () => new DBShopViewModel());
+        }
+        private INavigationService<DBSupplierProductViewModel> CreateSupplierProductNavigationService()
+        {
+            return new NavigationService<DBSupplierProductViewModel>(
+                _tableNavigationStore,
+                () => new DBSupplierProductViewModel());
+        }
+        private INavigationService<DBSupplierViewModel> CreateSupplierNavigationService()
+        {
+            return new NavigationService<DBSupplierViewModel>(
+                _tableNavigationStore,
+                () => new DBSupplierViewModel());
+        }
+        private INavigationService<DBAccountViewModel> CreateUserNavigationService()
+        {
+            return new NavigationService<DBAccountViewModel>(
+                _tableNavigationStore,
+                () => new DBAccountViewModel());
+        }
+    }   
 }

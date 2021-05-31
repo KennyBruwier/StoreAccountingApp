@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:StoreAccountingApp.Views"
              xmlns:viewmodels="clr-namespace:StoreAccountingApp.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
@@ -22,6 +22,8 @@
                             TextAlignment="Center"
                             Background="LightGray"
                             Foreground="Black"
+                            Margin="2.5"
+                            Padding="3"
                             />
                     </ControlTemplate>
                 </Setter.Value>
@@ -33,68 +35,68 @@
                             <ControlTemplate TargetType="Button">
                                 <TextBlock 
                                     Text="{TemplateBinding Content}" 
-                                    TextDecorations="Underline" 
                                     TextAlignment="Center"
-                                    Background="Gray"
-                                    Foreground="DarkRed"/>
+                                    Background="DarkCyan"
+                                    Foreground="White"
+                                    Margin="2.5"
+                                    Padding="3"
+                                    />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <DataTemplate DataType="{x:Type viewmodels:DBAccountTypeViewModel}">
+            <views:DBAccountTypeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBClientViewModel}">
+            <views:DBClientView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBCountryViewModel}">
+            <views:DBCountryView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBDistrictViewModel}">
+            <views:DBDistrictView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBEmployeeViewModel}">
+            <views:DBEmployeeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBJobFunctionViewModel}">
+            <views:DBJobFunctionView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBOrderProductViewModel}">
+            <views:DBOrderProductView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBOrderViewModel}">
+            <views:DBOrderView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBProductViewModel}">
+            <views:DBProductView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBSaleProductViewModel}">
+            <views:DBSaleProductView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBSaleViewModel}">
+            <views:DBSaleView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBShopViewModel}">
+            <views:DBShopView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBStockViewModel}">
+            <views:DBStockView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBSupplierProductViewModel}">
+            <views:DBSupplierProductView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBSupplierViewModel}">
+            <views:DBSupplierView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DBAccountViewModel}">
+            <views:DBAccountView />
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type viewmodels:DBAccountTypeViewModel}">
-                <views:DBAccountTypeView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBClientViewModel}">
-                <views:DBClientView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBCountryViewModel}">
-                <views:DBCountryView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBDistrictViewModel}">
-                <views:DBDistrictView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBEmployeeViewModel}">
-                <views:DBEmployeeView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBJobFunctionViewModel}">
-                <views:DBJobFunctionView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBOrderProductViewModel}">
-                <views:DBOrderProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBOrderViewModel}">
-                <views:DBOrderView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBProductViewModel}">
-                <views:DBProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSaleProductViewModel}">
-                <views:DBSaleProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSaleViewModel}">
-                <views:DBSaleView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBShopViewModel}">
-                <views:DBShopView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBStockViewModel}">
-                <views:DBStockView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSupplierProductViewModel}">
-                <views:DBSupplierProductView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBSupplierViewModel}">
-                <views:DBSupplierView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:DBUserViewModel}">
-                <views:DBUserView />
-            </DataTemplate>
-        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -103,154 +105,200 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock
-                HorizontalAlignment="Center"
-                Grid.Row="0"
-                Grid.Column="0"
-                FontSize="14"
-                Text="Database tables"
-                Margin="5"/>
+        
         <TextBlock
             HorizontalAlignment="Center"
             TextAlignment="Center"
             Grid.Row="0"
             Grid.Column="1"
             FontSize="28"
-            Text="Data(base) beheer"
+            Text="Databeheer"
             Margin="5"
             />
         <DockPanel Grid.Column="0" Grid.Row="1">
             <StackPanel 
                 DockPanel.Dock="Left"
                 >
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Center"
-                    Command="{Binding NavigateAccountTypeCommand}"
-                    Content="Account types"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateClientCommand}"
-                    Content="Clients"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                   />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateCountryCommand}"
-                    Content="Countries"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateDistrictCommand}"
-                    Content="Districts"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateEmployeeCommand}"
-                    Content="Employees"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                   />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateJobFunctionCommand}"
-                    Content="Job functions"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateOrderProductCommand}"
-                    Content="Order products"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateOrderCommand}"
-                    Content="Orders"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateProductCommand}"
-                    Content="Products"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateSaleProductCommand}"
-                    Content="Sale products"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateSaleCommand}"
-                    Content="Sales"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateShopCommand}"
-                    Content="Shops"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateStockCommand}"
-                    Content="Stocks"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateSupplierProductCommand}"
-                    Content="Supplier products"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateSupplierCommand}"
-                    Content="Suppliers"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
-                <Button
-                    Padding="5 2"
-                    HorizontalAlignment="Left"
-                    Command="{Binding NavigateUserCommand}"
-                    Content="Users"
-                    MinWidth="120"
-                    Margin="5 2.5 5 2.5"
-                    />
+                <StackPanel>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        Text="General"
+                        Padding="5 2"
+                        Margin="5"/>
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateProductCommand}"
+                        Content="Products"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                </StackPanel>
+                <StackPanel x:Name="Admin">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        Text="Admin manager"
+                        Padding="5 2"
+                        Margin="5"/>
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Center"
+                        Command="{Binding NavigateAccountTypeCommand}"
+                        Content="Account types"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateUserCommand}"
+                        Content="Users"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                </StackPanel>
+                <StackPanel x:Name="Sale">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        Text="Sales manager"
+                        Padding="5 2"
+                        Margin="5"/>
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateClientCommand}"
+                        Content="Clients"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                       />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateSaleProductCommand}"
+                        Content="Sold products"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateSaleCommand}"
+                        Content="Sales invoices"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateShopCommand}"
+                        Content="Stores"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                </StackPanel>
+                <StackPanel x:Name="Stock">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        Text="Stock manager"
+                        Padding="5 2"
+                        Margin="5"/>
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateStockCommand}"
+                        Content="Products in stock"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateSupplierProductCommand}"
+                        Content="Products at suppliers"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateSupplierCommand}"
+                        Content="Suppliers"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateOrderProductCommand}"
+                        Content="Products ordered"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateOrderCommand}"
+                        Content="Orders invoices"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                </StackPanel>
+                <StackPanel x:Name="People">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        Text="People manager"
+                        Padding="5 2"
+                        Margin="5"/>
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateEmployeeCommand}"
+                        Content="Employees"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                       />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateJobFunctionCommand}"
+                        Content="Job functions"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateCountryCommand}"
+                        Content="Countries"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                    <Button
+                        Padding="5 2"
+                        HorizontalAlignment="Left"
+                        Command="{Binding NavigateDistrictCommand}"
+                        Content="Districts"
+                        MinWidth="120"
+                        Margin="5 2.5 5 2.5"
+                        />
+                </StackPanel>
+
+
             </StackPanel>
         </DockPanel>
         <ContentControl
@@ -258,6 +306,7 @@
             Grid.Column="1"
             MaxWidth="1000"
             Margin="20"
-            Content="{Binding DBContentViewModel}" />
+            Content="{Binding DBContentViewModel}"
+            />
     </Grid>
 </UserControl>

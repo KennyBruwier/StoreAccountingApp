@@ -13,7 +13,6 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBJobFunctionViewModel : ViewModelBase
     {
-        public ICommand NavigateHomeCommand { get; }
         JobFunctionService ObjJobFunctionService;
         private JobFunctionDTO currentJobFunctionDTO;
         public JobFunctionDTO CurrentJobFunctionDTO
@@ -21,9 +20,8 @@ namespace StoreAccountingApp.ViewModels
             get { return currentJobFunctionDTO; }
             set { currentJobFunctionDTO = value; OnPropertyChanged("CurrentJobFunctionDTO"); }
         }
-        public DBJobFunctionViewModel(INavigationService<HomeViewModel> homeNavigationService)
+        public DBJobFunctionViewModel()
         {
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
             ObjJobFunctionService = new JobFunctionService();
             LoadData();
             CurrentJobFunctionDTO = new JobFunctionDTO();
