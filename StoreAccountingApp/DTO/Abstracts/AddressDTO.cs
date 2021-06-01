@@ -33,24 +33,23 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return postalCodeId; }
             set { postalCodeId = value; OnPropertyChanged("PostalCodeId"); }
         }
-        private DistrictDTO district;
-        public DistrictDTO District
+        private DistrictDTO districtDTO;
+        public DistrictDTO DistrictDTO
         {
-            get { return district; }
-            set { district = value; }
+            get { return districtDTO; }
+            set { districtDTO = value; }
         }
-
         private string districtName;
         public string DistrictName
         {
             get { return districtName; }
             set { districtName = value; OnPropertyChanged("DistrictName"); }
         }
-        private string country;
-        public string Country
+        private string countryName;
+        public string CountryName
         {
-            get { return country; }
-            set { country = value; OnPropertyChanged("Country"); }
+            get { return countryName; }
+            set { countryName = value; OnPropertyChanged("CountryName"); }
         }
         private string faxNumber;
         public string FaxNumber

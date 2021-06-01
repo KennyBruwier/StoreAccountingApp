@@ -65,10 +65,10 @@ namespace StoreAccountingApp.Services
                             Name = newClientDTO.DistrictName
                         };
                         Country currentDistrictCountry;
-                        currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(newClientDTO.Country, StringComparison.OrdinalIgnoreCase));
+                        currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(newClientDTO.CountryName, StringComparison.OrdinalIgnoreCase));
                         if (currentDistrictCountry == null)
                         {
-                            currentDistrictCountry = new Country() { Name = newClientDTO.Country };
+                            currentDistrictCountry = new Country() { Name = newClientDTO.CountryName };
                         }
                         newDistrict.Country = currentDistrictCountry;
                     }

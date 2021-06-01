@@ -140,7 +140,7 @@
                 Grid.Row="9"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
-                Text="{Binding Path=CurrentEmployeeDTO.Country, Mode=TwoWay}"/>
+                Text="{Binding Path=CurrentEmployeeDTO.CountryName, Mode=TwoWay}"/>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"

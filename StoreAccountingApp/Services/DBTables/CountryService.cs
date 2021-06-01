@@ -68,6 +68,16 @@ namespace StoreAccountingApp.Services
             }
             return ObjCountry;
         }
+        public CountryDTO Search(string countryName)
+        {
+            CountryDTO ObjCountry = null;
+            var ObjCountryToFind = ctx.Countries.FirstOrDefault(c=>c.Name == countryName);
+            if (ObjCountryToFind != null)
+            {
+                ObjCountry = ObjMethods.CopyProperties<Country, CountryDTO>(ObjCountryToFind);
+            }
+            return ObjCountry;
+        }
         public bool Update(CountryDTO objCountryToUpdate)
         {
             var ObjCountry = ctx.Countries.Find(objCountryToUpdate.CountryId);

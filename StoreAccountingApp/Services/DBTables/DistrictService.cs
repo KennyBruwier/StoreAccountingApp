@@ -50,7 +50,19 @@ namespace StoreAccountingApp.Services
                 throw new ArgumentException($"Add operation failed, {newDistrictDTO.Name} already exists");
             try
             {
-                ctx.Districts.Add(ObjMethods.CopyProperties<DistrictDTO, District>(newDistrictDTO));
+                District newDistrict = ObjMethods.CopyProperties<DistrictDTO, District>(newDistrictDTO);
+                if ((newDistrictDTO.CountryDTO.Name != null) && (newDistrictDTO.CountryDTO.Name != ""))
+                {
+                    Country country = ctx.Countries.FirstOrDefault(c=>c.Name == newDistrictDTO.CountryDTO.Name);
+                    if (country == null)
+                    {
+                        CountryService countryService = new CountryService();
+                        if (countryService.Add(new CountryDTO() { Name = newDistrictDTO.CountryDTO.Name }))
+                            country = ctx.Countries.FirstOrDefault(c=>c.Name == newDistrictDTO.CountryDTO.Name);
+                    }
+                    newDistrict.Country = country;
+                }
+                ctx.Districts.Add(newDistrict);
                 return ctx.SaveChanges() > 0;
             }
             catch (Exception ex)

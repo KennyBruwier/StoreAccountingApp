@@ -28,7 +28,14 @@ namespace StoreAccountingApp.Services
                            select Employee;
             foreach (var employee in ObjQuery)
             {
-                employeeList.Add(ObjMethods.CopyProperties<Employee, EmployeeDTO>(employee));
+                EmployeeDTO newEmployeeDTO = ObjMethods.CopyProperties<Employee, EmployeeDTO>(employee);
+                if ((employee.PostalCodeId != null) && (employee.PostalCodeId != ""))
+                {
+                    DistrictService districtService = new DistrictService();
+                    newEmployeeDTO.DistrictDTO = districtService.Search(employee.PostalCodeId);
+                    newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO.Name;
+                }
+                employeeList.Add(newEmployeeDTO);
             }
             return employeeList;
         }
@@ -53,11 +60,19 @@ namespace StoreAccountingApp.Services
             {
                 Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(newEmployeeDTO);
                 if (    (newEmployeeDTO.PostalCodeId != "") &&
-                        (newEmployeeDTO.Country != "") && 
-                        (ctx.Districts.Find(newEmployeeDTO.PostalCodeId)==null))
+                        (newEmployeeDTO.CountryName != "") && 
+                        (ctx.Districts.Find(newEmployeeDTO.PostalCodeId) == null))
                 {
-                    Country country = ctx.Countries.FirstOrDefault(c => c.Name == newEmployeeDTO.Country);
-                    if (country == null) country = new Country() { Name = newEmployeeDTO.Country };
+                    Country country = ctx.Countries.FirstOrDefault(c => c.Name == newEmployeeDTO.CountryName);
+                    if (country == null)
+                    {
+                        CountryDTO countryDTO = new CountryDTO() { Name = newEmployeeDTO.CountryName };
+                        CountryService countryService = new CountryService();
+                        if (countryService.Add(countryDTO))
+                            country = ctx.Countries.FirstOrDefault(c => c.Name == newEmployeeDTO.CountryName);
+                        else
+                            throw new ArgumentException($"Country add operation failed for countryname: {newEmployeeDTO.CountryName}");
+                    }
                     District newDistrict = new District()
                     {
                         PostalCodeId = newEmployeeDTO.PostalCodeId,
@@ -69,9 +84,8 @@ namespace StoreAccountingApp.Services
                 ctx.Employees.Add(newEmployee);
                 return ctx.SaveChanges() > 0;
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -90,7 +104,31 @@ namespace StoreAccountingApp.Services
             var ObjEmployee = ctx.Employees.Find(objEmployeeToUpdate.EmployeeId);
             if (ObjEmployee != null)
             {
+                if (objEmployeeToUpdate.PostalCodeId != null && (ObjEmployee.PostalCodeId != objEmployeeToUpdate.PostalCodeId))
+                {
+                    District district = ctx.Districts.FirstOrDefault(d=>d.PostalCodeId == objEmployeeToUpdate.PostalCodeId);
+                    if (district == null)
+                    {
+                        DistrictService districtService = new DistrictService();
+                        DistrictDTO newDistrictDTO = new DistrictDTO()
+                        {
+                            PostalCodeId = objEmployeeToUpdate.PostalCodeId,
+                            Name = objEmployeeToUpdate.DistrictName,
+                            CountryDTO = new CountryDTO() { Name = objEmployeeToUpdate.CountryName }
+                        };
+                        if (districtService.Add(newDistrictDTO))
+                            district = ctx.Districts.FirstOrDefault(d => d.PostalCodeId == objEmployeeToUpdate.PostalCodeId);
+                    }
+                    ObjEmployee.District = district;
+                };
                 ObjEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(objEmployeeToUpdate);
+            }
+            else
+            {
+                if (MessageBox.Show("Employee not found, do you want to add it instead?", "Employee not found", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    return Add(objEmployeeToUpdate);
+                else
+                    throw new ArgumentException("Employee not found");
             }
             return ctx.SaveChanges() > 0;
         }
