@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.Models.Abstracts
 {
-    public abstract class RecordTimeStamps : Entity
+    public abstract class RecordTimeStamps : BaseModel
     {
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.Now;

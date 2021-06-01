@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace StoreAccountingApp.Services
 {
@@ -45,39 +47,31 @@ namespace StoreAccountingApp.Services
                         throw new ArgumentException($"Add operation failed, id {newEmployeeDTO.EmployeeId} already exists");
                 }
             }
-
             if (ctx.Employees.FirstOrDefault(a => (a.Firstname == newEmployeeDTO.Firstname) && (a.Lastname == newEmployeeDTO.Lastname)) != null)
                 throw new ArgumentException($"Add operation failed, {newEmployeeDTO.Firstname} {newEmployeeDTO.Lastname} already exists");
             try
             {
-                //var objEmployee = new Employee()
-                //{
-                //    Firstname = newEmployeeDTO.Firstname,
-                //    Lastname = newEmployeeDTO.Lastname,
-                //    Gender = newEmployeeDTO.Gender,
-                //    Streetname = newEmployeeDTO.Streetname,
-                //    HouseNr = newEmployeeDTO.HouseNr,
-                //    BoxNr = newEmployeeDTO.BoxNr,
-                //    PostalCodeId = newEmployeeDTO.PostalCodeId,
-                //    EmailAddress = newEmployeeDTO.EmailAddress,
-                //    Facebook = newEmployeeDTO.Facebook,
-                //    LinkedIn = newEmployeeDTO.LinkedIn,
-                //    Website = newEmployeeDTO.Website,
-                //    PhoneNumber = newEmployeeDTO.PhoneNumber,
-                //    FaxNumber = newEmployeeDTO.FaxNumber,
-                //    Birthday = newEmployeeDTO.Birthday,
-                //    Status = newEmployeeDTO.Status,
-                //    InService = newEmployeeDTO.InService,
-                //    OutOfService = newEmployeeDTO.OutOfService,
-                //    CreatedAt = newEmployeeDTO.CreatedAt,
-                //    ClosedAt = newEmployeeDTO.ClosedAt,
-                //    UpdateAt = newEmployeeDTO.UpdateAt,
-                //};
-                ctx.Employees.Add(ObjMethods.CopyProperties<EmployeeDTO, Employee>(newEmployeeDTO));
+                Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(newEmployeeDTO);
+                if (    (newEmployeeDTO.PostalCodeId != "") &&
+                        (newEmployeeDTO.Country != "") && 
+                        (ctx.Districts.Find(newEmployeeDTO.PostalCodeId)==null))
+                {
+                    Country country = ctx.Countries.FirstOrDefault(c => c.Name == newEmployeeDTO.Country);
+                    if (country == null) country = new Country() { Name = newEmployeeDTO.Country };
+                    District newDistrict = new District()
+                    {
+                        PostalCodeId = newEmployeeDTO.PostalCodeId,
+                        Name = newEmployeeDTO.DistrictName,
+                        Country = country
+                    };
+                    newEmployee.District = newDistrict;
+                }
+                ctx.Employees.Add(newEmployee);
                 return ctx.SaveChanges() > 0;
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
+
                 throw ex;
             }
         }

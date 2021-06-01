@@ -87,10 +87,10 @@
     <Compile Include="Components\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DTO\BaseDTO.cs" />
     <Compile Include="Models\Abstracts\AddressDigitalShort.cs" />
     <Compile Include="Models\Abstracts\AddressDigital.cs" />
     <Compile Include="Models\Abstracts\DBEntity.cs" />
-    <Compile Include="Models\Abstracts\Entity.cs" />
     <Compile Include="Models\Abstracts\ProductRecord.cs" />
     <Compile Include="Models\Abstracts\ServiceBuildingCredentials.cs" />
     <Compile Include="Models\Abstracts\Invoice.cs" />
@@ -102,6 +102,7 @@
     <Compile Include="Models\Abstracts\Address.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\Sale.cs" />

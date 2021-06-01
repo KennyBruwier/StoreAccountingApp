@@ -19,7 +19,11 @@ namespace StoreAccountingApp.DTO
         public string Name
         {
             get { return name; }
-            set { name = value; OnPropertyChanged("Name"); }
+            set 
+            { 
+                name = value; 
+                //OnPropertyChanged("Name"); 
+            }
         }
         private string iso3166Code;
         public string Iso3166Code

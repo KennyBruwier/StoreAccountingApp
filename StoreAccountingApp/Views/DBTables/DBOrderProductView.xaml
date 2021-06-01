@@ -10,8 +10,10 @@
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBox">
+            <Setter Property="MinWidth" Value="30"/>
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
@@ -25,6 +27,7 @@
         </Style>
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="5.8"/>
+            
         </Style>
     </UserControl.Resources>
     <Grid Margin="15">
@@ -50,25 +53,41 @@
                    HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Name"
                    Grid.Row="2"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
         <TextBlock Text="Enter Description"
                    Grid.Row="3"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBox x:Name="txtOrderProductId"
-                 Grid.Row="1"
-                 Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderProductDTO.OrderProductId, Mode=TwoWay}"/>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0">
+            <TextBox x:Name="txtOrderId"
+                     Text="{Binding Path=CurrentOrderProductDTO.OrderId, Mode=TwoWay}"/>
+            <TextBlock Text="Order Id"
+                       Padding="10"/>
+
+            <TextBox x:Name="txtProductId"
+                     Text="{Binding Path=CurrentOrderProductDTO.ProductId, Mode=TwoWay}"/>
+            <TextBlock Text="Product Id"
+                       Padding="10"/>
+        </StackPanel>
         <TextBox x:Name="txtName"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderProductDTO.Name, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentOrderProductDTO.Status, Mode=TwoWay}"/>
         <TextBox x:Name="txtDescription"
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderProductDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentOrderProductDTO.Amount, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
                     Grid.Column="1" Margin="5,8">

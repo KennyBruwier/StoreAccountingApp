@@ -8,6 +8,8 @@ using StoreAccountingApp.Services;
 using StoreAccountingApp.Commands;
 using StoreAccountingApp.DTO;
 using System.Windows.Input;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -53,6 +55,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
+                Message = "";
                 var IsSaved = _employeeService.Add(CurrentEmployeeDTO);
                 LoadData();
                 if (IsSaved)
@@ -60,9 +63,17 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Save operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
-                Message = ex.Message;
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        Message += String.Format("Property: {0} Error: {1}\n", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+                //Message = ex.Message;
             }
         }
         private string message;
@@ -147,6 +158,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
+
                 Message = ex.Message;
             }
         }

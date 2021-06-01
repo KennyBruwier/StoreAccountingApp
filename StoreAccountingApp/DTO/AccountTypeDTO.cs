@@ -21,8 +21,9 @@ namespace StoreAccountingApp.DTO
         {
             get { return name; }
             set 
-            { 
-                name = value; OnPropertyChanged("Name"); 
+            {
+                name = value; 
+                //OnPropertyChanged("Name");
             }
         }
         private string description;

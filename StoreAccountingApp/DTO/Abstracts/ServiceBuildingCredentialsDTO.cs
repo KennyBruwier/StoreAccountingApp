@@ -17,7 +17,7 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return status; }
             set { status = value; OnPropertyChanged("Status"); }
         }
-        private DateTime inService;
+        private DateTime inService = DateTime.Now;
         public DateTime InService
         {
             get { return inService; }

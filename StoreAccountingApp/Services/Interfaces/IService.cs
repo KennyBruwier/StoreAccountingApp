@@ -1,4 +1,5 @@
-﻿using StoreAccountingApp.Models.Abstracts;
+﻿using StoreAccountingApp.Models;
+using StoreAccountingApp.Models.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace StoreAccountingApp.Services.Interfaces
 {
     public interface IService<DBEntity, DTOEntity> 
-        where DBEntity : Entity
+        where DBEntity : BaseModel
         where DTOEntity : class
     {
         //DBEntity Add(DBEntity dBEntity);

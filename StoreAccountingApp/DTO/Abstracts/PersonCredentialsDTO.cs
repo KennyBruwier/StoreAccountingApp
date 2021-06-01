@@ -8,7 +8,11 @@ namespace StoreAccountingApp.DTO.Abstracts
         public string Firstname
         {
             get { return firstname; }
-            set { firstname = value; OnPropertyChanged("Firstname"); }
+            set 
+            { 
+                firstname = value; 
+                //OnPropertyChanged("Firstname"); 
+            }
         }
         private string lastname;
         public string Lastname

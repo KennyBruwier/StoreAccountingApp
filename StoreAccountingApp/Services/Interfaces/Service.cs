@@ -17,7 +17,7 @@ using System.Windows;
 namespace StoreAccountingApp.Services.Interfaces
 {
     public class Service<DBEntity, DTOEntity> : IService<DBEntity, DTOEntity>
-        where DBEntity : Entity 
+        where DBEntity : BaseModel 
         where DTOEntity : class
     {
         protected readonly string _constring = string.Empty;

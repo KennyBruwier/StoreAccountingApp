@@ -6,6 +6,27 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d"
              >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="5.8"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -26,111 +47,124 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Employee Management"
                    Grid.Row="0"
                    Grid.Column="1"
                    Grid.ColumnSpan="3"
                    FontSize="20"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   HorizontalAlignment="Center"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Firstname"
+                   Grid.Column="0"/>
+        <TextBlock Text="Status"
                    Grid.Row="2"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Lastname"
+                   Grid.Column="0"/>
+        <TextBlock Text="Enter Firstname"
                    Grid.Row="3"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Email Address"
+                   Grid.Column="0"/>
+        <TextBlock Text="Enter Lastname"
                    Grid.Row="4"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Job Function"
+                   Grid.Column="0"/>
+        <TextBlock Text="Email Address"
                    Grid.Row="5"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
+        <TextBlock Text="Job Function"
+                   Grid.Row="6"
+                   Grid.Column="0"/>
         <TextBlock Text="Streetname"
-                   Grid.Row="6"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Row="7"
+                   Grid.Column="0"/>
         <TextBlock Text="Nr"
-                   Grid.Row="6"
-                   Grid.Column="2" Margin="5,8" Padding="3"/>
+                   Grid.Row="7"
+                   Grid.Column="2"/>
         <TextBlock Text="Postalcode"
-                   Grid.Row="7" Margin="5,8" Padding="3"
+                   Grid.Row="8"
                    Grid.Column="0"/>
         <TextBlock Text="Districtname"
-                   Grid.Row="7"
-                   Grid.Column="2" Margin="5,8" Padding="3"/>
+                   Grid.Row="8"
+                   Grid.Column="2"/>
         <TextBlock Text="Country"
-                   Grid.Row="8" Margin="5,8" Padding="3"
+                   Grid.Row="9"
                    Grid.Column="0"/>
 
         <TextBox x:Name="txtEmployeeId"
                  Grid.Row="1"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentEmployeeDTO.EmployeeId, Mode=TwoWay}"/>
-        <TextBox x:Name="txtFirstname"
+        <TextBox x:Name="txtStatus"
                  Grid.Row="2"
-                 Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3"
+                 Grid.Column="1"
+                 Text="{Binding Path=CurrentEmployeeDTO.Status, Mode=TwoWay}"/>
+        <TextBox x:Name="txtFirstname"
+                 Grid.Row="3"
+                 Grid.Column="1" Grid.ColumnSpan="3"
                  Text="{Binding Path=CurrentEmployeeDTO.Firstname, Mode=TwoWay}"/>
         <TextBox x:Name="txtLastname"
-                 Grid.Row="3"
-                 Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3"
+                 Grid.Row="4"
+                 Grid.Column="1" Grid.ColumnSpan="3"
                  Text="{Binding Path=CurrentEmployeeDTO.Lastname, Mode=TwoWay}"/>
         <TextBox x:Name="txtEmail"
-                 Grid.Row="4"
-                 Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentEmployeeDTO.EmailAddress, Mode=TwoWay}"/>
-
-        <TextBox x:Name="JobFunctionTitles"
                  Grid.Row="5"
-                 Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3"
+                 Grid.Column="1" Grid.ColumnSpan="3"
+                 Text="{Binding Path=CurrentEmployeeDTO.EmailAddress, Mode=TwoWay}"/>
+        <TextBox x:Name="JobFunctionTitles"
+                 Grid.Row="6"
+                 Grid.Column="1" Grid.ColumnSpan="3"
                  Text="{Binding Path=CurrentEmployeeDTO.JobFunctionTitles, Mode=TwoWay}"/>
         <TextBox x:Name="Streetname"
-                Grid.Row="6"
-                Grid.Column="1" Margin="5,8" Padding="3"
+                Grid.Row="7"
+                Grid.Column="1"
                 Text="{Binding Path=CurrentEmployeeDTO.Streetname, Mode=TwoWay}"/>
         <TextBox x:Name="Nr"
-                Grid.Row="6"
-                Grid.Column="3" Margin="5,8" Padding="3"
+                Grid.Row="7"
+                Grid.Column="3"
                 Text="{Binding Path=CurrentEmployeeDTO.HouseNr, Mode=TwoWay}"/>
         <TextBox x:Name="Postalcode"
-                Grid.Row="7"
-                Grid.Column="1" Margin="5,8" Padding="3"
+                Grid.Row="8"
+                Grid.Column="1"
                 Text="{Binding Path=CurrentEmployeeDTO.PostalCodeId, Mode=TwoWay}"/>
         <TextBox x:Name="District"
-                Grid.Row="7"
-                Grid.Column="3" Margin="5,8" Padding="3"
+                Grid.Row="8"
+                Grid.Column="3"
                 Text="{Binding Path=CurrentEmployeeDTO.DistrictName, Mode=TwoWay}"/>
         <TextBox x:Name="Country"
-                Grid.Row="8"
-                Grid.Column="1" Margin="5,8" Padding="3"
+                Grid.Row="9"
+                Grid.Column="1"
                 Grid.ColumnSpan="3"
                 Text="{Binding Path=CurrentEmployeeDTO.Country, Mode=TwoWay}"/>
 
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="9"
+                    Grid.Row="17"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
             <Button x:Name="btnAdd"
-                    Content="ADD" Margin="5,8" Padding="3"
+                    Content="ADD"
                     Command="{Binding Path=SaveCommand}"/>
             <Button x:Name="btnSearch"
-                    Content="SEARCH" Margin="5,8" Padding="3"
+                    Content="SEARCH"
                     Command="{Binding Path=SearchCommand}"/>
             <Button x:Name="btnUpdate"
-                    Content="UPDATE" Margin="5,8" Padding="3"
+                    Content="UPDATE"
                     Command="{Binding Path=UpdateCommand}"/>
             <Button x:Name="btnDelete"
-                    Content="DELETE" Margin="5,8" Padding="3"
+                    Content="DELETE"
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
-                   Grid.Row="10"
-                   Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3"
+                   Grid.Row="18"
+                   Grid.Column="1" Grid.ColumnSpan="3"
                    Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgEmployees"
                   AutoGenerateColumns="False"
-                  Grid.Row="11"
+                  Grid.Row="19"
                   Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3" 
                   ItemsSource="{Binding Path=EmployeeList, Mode=TwoWay}">
             <DataGrid.Columns>

@@ -33,6 +33,13 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return postalCodeId; }
             set { postalCodeId = value; OnPropertyChanged("PostalCodeId"); }
         }
+        private DistrictDTO district;
+        public DistrictDTO District
+        {
+            get { return district; }
+            set { district = value; }
+        }
+
         private string districtName;
         public string DistrictName
         {

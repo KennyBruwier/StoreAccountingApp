@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace StoreAccountingApp.DTO.Abstracts
 {
-    public abstract class RecordTimeStampsDTO : INotifyPropertyChanged
+    public abstract class RecordTimeStampsDTO : BaseDTO
     {
         private DateTime createdAt = DateTime.Now;
         public DateTime CreatedAt
@@ -26,23 +26,5 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return closedAt; }
             set { closedAt = value; OnPropertyChanged("ClosedAt"); }
         }
-        #region INotifyPropertyChanged Members
-        public event PropertyChangedEventHandler PropertyChanged;
-        internal void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-        //public object[] PrimaryKey
-        //{
-        //    get
-        //    {
-        //        return (from property in this.GetType().GetProperties()
-        //                where Attribute.IsDefined(property, typeof(KeyAttribute))
-        //                orderby ((ColumnAttribute)property.GetCustomAttributes(false).Single(
-        //                    attr => attr is ColumnAttribute)).Order ascending
-        //                select property.GetValue(this)).ToArray();
-        //    }
-        //}
     }
 }
