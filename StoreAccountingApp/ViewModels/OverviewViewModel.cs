@@ -19,7 +19,6 @@ namespace StoreAccountingApp.ViewModels
             _accountStore = accountStore;
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigateHomeCommand);
         }
-
         private void OnCurrentAccountChanged()
         {
             //OnPropertyChanged(nameof(Email));

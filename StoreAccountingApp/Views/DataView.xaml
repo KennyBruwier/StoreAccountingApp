@@ -187,6 +187,7 @@
                         Content="Sold products"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
+                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -203,6 +204,7 @@
                         Content="Stores"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
+                        IsEnabled="False"
                         />
                 </StackPanel>
                 <StackPanel x:Name="Stock">
@@ -213,6 +215,7 @@
                         FontSize="14"
                         Text="Stock manager"
                         Padding="5 2"
+                        IsEnabled="False"
                         Margin="5"/>
                     <Button
                         Padding="5 2"
@@ -221,6 +224,7 @@
                         Content="Products in stock"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
+                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -229,6 +233,7 @@
                         Content="Products at suppliers"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
+                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -244,6 +249,7 @@
                         Command="{Binding NavigateOrderProductCommand}"
                         Content="Products ordered"
                         MinWidth="120"
+                        IsEnabled="False"
                         Margin="5 2.5 5 2.5"
                         />
                     <Button
@@ -279,6 +285,7 @@
                         Content="Job functions"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
+                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"

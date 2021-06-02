@@ -11,7 +11,7 @@
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
@@ -30,6 +30,8 @@
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -40,37 +42,90 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Sale Management"
+        <TextBlock Text="Sales Management"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
                    FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Name"
+                   Grid.Column="0"/>
+        <TextBlock Text="Enter InvoiceNr"
                    Grid.Row="2"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Description"
+                   Grid.Column="0"/>
+        <TextBlock Text="Status"
                    Grid.Row="3"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Client"
+                   Grid.Row="4"
+                   Grid.Column="0"/>
+        <TextBlock Text="Store"
+                   Grid.Row="5"
+                   Grid.Column="0"/>
+        <TextBlock Text="Employee"
+                   Grid.Row="6"
+                   Grid.Column="0"/>
+        <TextBlock Text="Guarantee"
+                   Grid.Row="7"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="Discount"
+                   Grid.Row="8"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <TextBlock Text="PaymentMethod"
+                   Grid.Row="9"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+
         <TextBox x:Name="txtSaleId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentSaleDTO.SaleId, Mode=TwoWay}"/>
-        <TextBox x:Name="txtName"
+        <TextBox x:Name="txtInvoiceNr"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentSaleDTO.Name, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDescription"
+                 Text="{Binding Path=CurrentSaleDTO.InvoiceNumber, Mode=TwoWay}"/>
+        <TextBox x:Name="txtStatus"
                  Grid.Row="3"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentSaleDTO.Status, Mode=TwoWay}"/>
+        <TextBox x:Name="txtClient"
+                 Grid.Row="4"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentSaleDTO.Client.Organisation, Mode=TwoWay}"/>
+        <TextBox x:Name="txtStore"
+                 Grid.Row="5"
+                 Grid.Column="1" 
                  Text="{Binding Path=CurrentSaleDTO.Description, Mode=TwoWay}"/>
+        <TextBox x:Name="txtEmployee"
+                 Grid.Row="6"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentSaleDTO.Employee.Firstname, Mode=TwoWay}"/>
+
+        <TextBox x:Name="txtGuarantee"
+                 Grid.Row="7"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentSaleDTO.Guarantee, Mode=TwoWay}"/>
+        <TextBox x:Name="txtDiscount"
+                 Grid.Row="8"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentSaleDTO.Discount, Mode=TwoWay}"/>
+        <TextBox x:Name="txtPaymentMethod"
+                 Grid.Row="9"
+                 Grid.Column="1" 
+                 Text="{Binding Path=CurrentSaleDTO.PaymentMethod, Mode=TwoWay}"/>
+
+
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="4"
+                    Grid.Row="11"
                     Grid.Column="1" Margin="5,8">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
@@ -86,12 +141,12 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
-                   Grid.Row="5"
+                   Grid.Row="12"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgSales"
                   AutoGenerateColumns="False"
-                  Grid.Row="6"
+                  Grid.Row="13"
                   Grid.Column="1" Margin="5,8" Padding="3" 
                   ItemsSource="{Binding Path=SaleList, Mode=TwoWay}">
             <DataGrid.Columns>
@@ -100,13 +155,28 @@
                     Width="auto"
                     Binding="{Binding Path=SaleId}"/>
                 <DataGridTextColumn
-                    Header="Name"
+                    Header="InvoiceNr"
                     Width="auto"
-                    Binding="{Binding Path=Name}"/>
+                    Binding="{Binding Path=InvoiceNumber}"/>
                 <DataGridTextColumn
-                    Header="Description"
+                    Header="Status"
                     Width="auto"
-                    Binding="{Binding Path=Description}"/>
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Client"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Store"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Employee"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Total"
+                    Binding="{Binding Path=Status}"/>
+                <DataGridTextColumn
+                    Header="Expiration Date"
+                    Binding="{Binding Path=ExpirationDate}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

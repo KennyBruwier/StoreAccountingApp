@@ -2,10 +2,12 @@
 using StoreAccountingApp.DTO.Abstracts;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.Models.Abstracts;
+using StoreAccountingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,26 @@ namespace StoreAccountingApp.CustomMethods
 {
     public static class ObjMethods
     {
+        public static List<ComboboxItem> CreateComboboxList<T>(List<T> dtoList, string propertyKey, params string[] propertiesToInclude)
+            where T : BaseDTO
+        {
+            List<ComboboxItem> comboboxItems = new List<ComboboxItem>();
+            var dtoListProperties = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
+            foreach (var dtoItem in dtoList)
+            {
+                ComboboxItem comboboxItem = new ComboboxItem();
+                int iCountText = 0;
+                foreach (PropertyInfo property in dtoListProperties)
+                {
+                    if ((IsNumericType(property)) && (property.Name == propertyKey))
+                        comboboxItem.Key = (int)property.GetValue(dtoItem, null);
+                    if (propertiesToInclude.Contains(property.Name))
+                        comboboxItem.Text += iCountText++>0?" ":"" + property.GetValue(dtoItem, null);
+                }
+                comboboxItems.Add(comboboxItem);
+            }
+            return comboboxItems;
+        }
         public static TU CopyProperties<T, TU>(T source) where TU : new()
         {
             var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
@@ -35,7 +57,17 @@ namespace StoreAccountingApp.CustomMethods
                     {
                         if (p.CanWrite)
                         {
-                            if ((sourceProp.PropertyType != typeof(BaseModel)) && (sourceProp.PropertyType != typeof(BaseDTO)))
+                            if (sourceProp.PropertyType.IsClass)
+                            {
+                                if (typeof(T) == typeof(BaseModel))
+                                {
+                                }
+                                //if (
+                                //    (sourceProp.PropertyType.Assembly.FullName == typeof(T).Assembly.FullName) || 
+                                //    (sourceProp.PropertyType.Assembly.FullName == typeof(TU).Assembly.FullName)
+                                //   )
+                            }
+                            else
                                 p.SetValue(dest, sourceProp.GetValue(source, null), null);
                         }
                     }
@@ -47,6 +79,14 @@ namespace StoreAccountingApp.CustomMethods
                 }
             }
             return dest;
+        }
+        public static bool IsStringType(this object o)
+        {
+            switch (Type.GetTypeCode(o.GetType()))
+            {
+                case TypeCode.String: return true;
+                default: return false;
+            }
         }
         public static bool IsNumericType(this object o)
         {

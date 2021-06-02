@@ -7,13 +7,17 @@ using System.ComponentModel;
 using StoreAccountingApp.Services;
 using StoreAccountingApp.Commands;
 using StoreAccountingApp.DTO;
+using StoreAccountingApp.CustomMethods;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace StoreAccountingApp.ViewModels
 {
     public class DBOrderProductViewModel : ViewModelBase
     {
-        OrderProductService ObjOrderProductService;
+        private OrderProductService _OrderProductService;
+        private OrderService _OrderService;
+        private ProductService _ProductService;
         private OrderProductDTO currentOrderProductDTO;
         public OrderProductDTO CurrentOrderProductDTO
         {
@@ -22,7 +26,9 @@ namespace StoreAccountingApp.ViewModels
         }
         public DBOrderProductViewModel()
         {
-            ObjOrderProductService = new OrderProductService();
+            _OrderProductService = new OrderProductService();
+            _ProductService = new ProductService();
+            _OrderService = new OrderService();
             LoadData();
             CurrentOrderProductDTO = new OrderProductDTO();
             saveCommand = new RelayCommand(Save);
@@ -31,16 +37,50 @@ namespace StoreAccountingApp.ViewModels
             deleteCommand = new RelayCommand(Delete);
         }
         #region DisplayOperation
-        private List<OrderProductDTO> accountTypeList;
+        private List<OrderProductDTO> orderProductList;
         public List<OrderProductDTO> OrderProductList
         {
-            get { return accountTypeList; }
-            set { accountTypeList = value; OnPropertyChanged("OrderProductList"); }
+            get { return orderProductList; }
+            set { orderProductList = value; OnPropertyChanged("OrderProductList"); }
         }
+        private List<ProductDTO> productList;
+
+        public List<ProductDTO> ProductList
+        {
+            get { return productList; }
+            set { productList = value; OnPropertyChanged("ProductList"); }
+        }
+        private List<ComboboxItem> cbProductList;
+
+        public List<ComboboxItem> CbProductList
+        {
+            get { return cbProductList; }
+            set { cbProductList = value; OnPropertyChanged("CbProductList"); }
+        }
+        private List<OrderDTO> orderList;
+        public List<OrderDTO> OrderList
+        {
+            get { return orderList; }
+            set { orderList = value; OnPropertyChanged("OrderList"); }
+        }
+
+        private List<ComboboxItem> cbOrderList;
+
+        public List<ComboboxItem> CbOrderList
+        {
+            get { return cbOrderList; }
+            set { cbOrderList = value; OnPropertyChanged("CbOrderList"); }
+        }
+
         private void LoadData()
         {
-            OrderProductList = ObjOrderProductService.GetAll();
+            OrderProductList = _OrderProductService.GetAll();
+            ProductList = _ProductService.GetAll();
+            OrderList = _OrderService.GetAll();
+            cbProductList = ObjMethods.CreateComboboxList<ProductDTO>(ProductList, "ProductId", "Name", "Manufacturer");
+            cbOrderList = ObjMethods.CreateComboboxList<OrderDTO>(OrderList, "OrderId", "InvoiceNumber", "SupplierName");
         }
+        
         #endregion
         #region SaveOperation
         private RelayCommand saveCommand;
@@ -52,7 +92,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var IsSaved = ObjOrderProductService.Add(CurrentOrderProductDTO);
+                var IsSaved = _OrderProductService.Add(CurrentOrderProductDTO);
                 LoadData();
                 if (IsSaved)
                     Message = "OrderProduct saved";
@@ -81,7 +121,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var ObjOrderProduct = ObjOrderProductService.Search(CurrentOrderProductDTO.OrderId, currentOrderProductDTO.ProductId);
+                var ObjOrderProduct = _OrderProductService.Search(CurrentOrderProductDTO.OrderId, currentOrderProductDTO.ProductId);
                 if (ObjOrderProduct != null)
                 {
                     CurrentOrderProductDTO = ObjOrderProduct;
@@ -109,7 +149,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjOrderProductService.Update(CurrentOrderProductDTO))
+                if (_OrderProductService.Update(CurrentOrderProductDTO))
                 {
                     Message = "OrderProduct updated";
                     LoadData();
@@ -136,7 +176,7 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                if (ObjOrderProductService.Delete(CurrentOrderProductDTO.OrderId, currentOrderProductDTO.ProductId))
+                if (_OrderProductService.Delete(CurrentOrderProductDTO.OrderId, currentOrderProductDTO.ProductId))
                 {
                     Message = "OrderProduct Deleted";
                     LoadData();

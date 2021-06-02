@@ -26,7 +26,9 @@ namespace StoreAccountingApp.Services
                            select OrderProduct;
             foreach (var orderProduct in ObjQuery)
             {
-                orderProductList.Add(ObjMethods.CopyProperties<OrderProduct, OrderProductDTO>(orderProduct));
+                OrderProductDTO newOrderProductDTO = ObjMethods.CopyProperties<OrderProduct, OrderProductDTO>(orderProduct);
+
+                orderProductList.Add(newOrderProductDTO);
             }
             return orderProductList;
         }

@@ -274,6 +274,7 @@
     <Compile Include="ViewModels\UsersListingViewModel.cs" />
     <Compile Include="Stores\UsersStore.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\ComboboxItem.cs" />
     <Page Include="Components\BindablePasswordBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -428,6 +429,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tutorials\TestCases\" />
+    <Folder Include="Views\ViewItems\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

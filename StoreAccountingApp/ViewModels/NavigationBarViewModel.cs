@@ -61,7 +61,6 @@ namespace StoreAccountingApp.ViewModels
         public override void Dispose()
         {
             _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
-
             base.Dispose();
         }
         private INavigationService<HomeViewModel> CreateHomeNavigationService()

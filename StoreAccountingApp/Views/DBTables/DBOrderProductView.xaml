@@ -7,12 +7,19 @@
              mc:Ignorable="d"
              >
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="TextBlockStyle">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style TargetType="TextBox">
+        <Style TargetType="{x:Type ComboBox}"
+               x:Key="ComboBoxStyle">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}"
+               x:Key="TextBoxStyle">
             <Setter Property="MinWidth" Value="30"/>
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
@@ -21,21 +28,50 @@
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
-        <Style TargetType="Button">
+        <Style TargetType="{x:Type Button}"
+               x:Key="ButtonStyle">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}"/>
         <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="5.8"/>
-            
+            <Style.Resources>
+                <Style TargetType="TextBlock"
+                       BasedOn="{StaticResource TextBlockStyle}">
+                </Style>
+                <Style TargetType="TextBox"
+                       BasedOn="{StaticResource TextBoxStyle}">
+                </Style>
+                <Style TargetType="Button"
+                       BasedOn="{StaticResource ButtonStyle}">
+                </Style>
+            </Style.Resources>
         </Style>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -50,47 +86,76 @@
                    Grid.ColumnSpan="2"
                    FontSize="20"
                    FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   HorizontalAlignment="Center" Margin="5,8" Padding="3"
+                   />
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
                    Grid.Column="0"/>
-        <TextBlock Text="Enter Name"
-                   Grid.Row="2"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Description"
-                   Grid.Row="3"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <StackPanel Grid.Row="1"
-                    Grid.Column="0"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
-        </StackPanel>
         <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Left"
                     Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="0">
+                    Grid.Column="1">
             <TextBox x:Name="txtOrderId"
                      Text="{Binding Path=CurrentOrderProductDTO.OrderId, Mode=TwoWay}"/>
-            <TextBlock Text="Order Id"
-                       Padding="10"/>
-
+            <TextBlock Text="Order Id"/>
             <TextBox x:Name="txtProductId"
+                     
                      Text="{Binding Path=CurrentOrderProductDTO.ProductId, Mode=TwoWay}"/>
-            <TextBlock Text="Product Id"
-                       Padding="10"/>
+            <TextBlock Text="Product Id"/>
         </StackPanel>
-        <TextBox x:Name="txtName"
-                 Grid.Row="2"
+        <TextBlock Text="Product"
+                   Grid.Row="2"
+                   Grid.Column="0"/>
+        <ComboBox x:Name="cbProducts"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  ItemsSource="{Binding cbProductList}"/>
+        <TextBlock Text="Order"
+                   Grid.Row="3"
+                   Grid.Column="0"/>
+        <ComboBox x:Name="cbOrders"
+                  Grid.Row="3"
+                  Grid.Column="1"
+                  ItemsSource="{Binding cbOrderList}"/>
+        <TextBlock Text="Status"
+                   Grid.Row="4"
+                   Grid.Column="0"/>
+        <TextBox x:Name="txtStatus"
+                 Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentOrderProductDTO.Status, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDescription"
-                 Grid.Row="3"
-                 Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderProductDTO.Amount, Mode=TwoWay}"/>
+        <TextBlock Text="Amount"
+                   Grid.Row="5"
+                   Grid.Column="0"/>
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="4"
-                    Grid.Column="1" Margin="5,8">
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3">
+            <TextBox x:Name="txtAmount"
+                 Text="{Binding Path=CurrentOrderProductDTO.Amount, Mode=OneWay}"/>
+            <TextBlock Text="Min."/>
+            <TextBox x:Name="txtMinAmount"
+                     Text="{Binding Path=CurrentOrderProductDTO.MinAmount, Mode=OneWay}"/>
+            <TextBlock Text="Max."/>
+            <TextBox x:Name="txtMaxAmount"
+                     Text="{Binding Path=CurrentOrderProductDTO.MaxAmount, Mode=OneWay}"/>
+        </StackPanel>
+        <TextBlock Text="Unite Price"
+                   Grid.Row="6"
+                   Grid.Column="0"/>
+        <TextBox x:Name="txtUnitPrice"
+                 Grid.Row="6"
+                 Grid.Column="1"
+                 Text="{Binding Path=CurrentOrderProductDTO.UnitPrice, Mode=OneWay}"/>
+        <TextBlock Text="Discount"
+                   Grid.Row="7"
+                   Grid.Column="0"/>
+        <TextBox x:Name="txtDiscount"
+                   Grid.Row="7"
+                   Grid.Column="1"
+                   Text="{Binding Path=CurrentOrderProductDTO.Discount, Mode=OneWay}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="17"
+                    Grid.Column="1">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -105,27 +170,27 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
-                   Grid.Row="5"
+                   Grid.Row="18"
                    Grid.Column="1" Margin="5,8" Padding="3"
-                   Text="{Binding Path=Message}"/>
+                   Text="{Binding Path=Message, Mode=OneWay}"/>
         <DataGrid x:Name="dgOrderProducts"
                   AutoGenerateColumns="False"
-                  Grid.Row="6"
+                  Grid.Row="19"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=OrderProductList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=OrderProductList, Mode=OneWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"
                     Width="auto"
-                    Binding="{Binding Path=OrderProductId}"/>
+                    Binding="{Binding Path=OrderProductId, Mode=OneWay}"/>
                 <DataGridTextColumn
                     Header="Name"
                     Width="auto"
-                    Binding="{Binding Path=Name}"/>
+                    Binding="{Binding Path=Name, Mode=OneWay}"/>
                 <DataGridTextColumn
                     Header="Description"
                     Width="auto"
-                    Binding="{Binding Path=Description}"/>
+                    Binding="{Binding Path=Description, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
