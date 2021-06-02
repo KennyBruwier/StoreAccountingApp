@@ -17,6 +17,49 @@
                x:Key="ComboBoxStyle">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
+            <Style.Resources>
+                <Style TargetType="ItemsControl">
+                    <Style.Resources>
+                        <Style TargetType="ItemsPresenter">
+                            <Setter Property="Margin" Value="0"/>
+                            <Style.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+                <Style TargetType="ContentPresenter">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                        <Style TargetType="ContentPresenter">
+                            <Style.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <!--<Style TargetType="ItemsControl">
+            <Style.Resources>
+                <Style TargetType="ItemsPresenter">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Style.Resources>
+        </Style>-->
+        <Style TargetType="{x:Type ComboBoxItem}"
+                    x:Key="ComboBoxItemStyle">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
         <Style TargetType="{x:Type TextBox}"
                x:Key="TextBoxStyle">
@@ -28,6 +71,10 @@
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
+        <Style TargetType="{x:Type Grid}"
+               x:Key="RootGridStyle">
+            <!--<Setter Property=""-->
+        </Style>
         <Style TargetType="{x:Type Button}"
                x:Key="ButtonStyle">
             <Setter Property="Margin" Value="5.8"/>
@@ -35,7 +82,11 @@
         </Style>
         <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}"/>
         <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}">
+            <Style.Resources>
+                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemStyle}"/>
+            </Style.Resources>
+        </Style>
         <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}"/>
         <Style TargetType="StackPanel">
             <Style.Resources>
@@ -51,11 +102,11 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="15">
+    <Grid Margin="15" MinWidth="400">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <!--<ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>-->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -86,7 +137,8 @@
                    Grid.ColumnSpan="2"
                    FontSize="20"
                    FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
                    />
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
@@ -108,14 +160,14 @@
         <ComboBox x:Name="cbProducts"
                   Grid.Row="2"
                   Grid.Column="1"
-                  ItemsSource="{Binding cbProductList}"/>
+                  ItemsSource="{Binding CbProductList}"/>
         <TextBlock Text="Order"
                    Grid.Row="3"
                    Grid.Column="0"/>
         <ComboBox x:Name="cbOrders"
                   Grid.Row="3"
                   Grid.Column="1"
-                  ItemsSource="{Binding cbOrderList}"/>
+                  ItemsSource="{Binding CbOrderList}"/>
         <TextBlock Text="Status"
                    Grid.Row="4"
                    Grid.Column="0"/>

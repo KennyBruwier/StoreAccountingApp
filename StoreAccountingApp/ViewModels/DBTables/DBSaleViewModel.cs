@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBSaleViewModel : ViewModelBase
+    public class DBSaleViewModel : DBViewModelBase
     {
         public ICommand NavigateHomeCommand { get; }
         SaleService ObjSaleService;
@@ -62,7 +62,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         private string message;
@@ -122,7 +122,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         #endregion

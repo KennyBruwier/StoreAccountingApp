@@ -249,7 +249,6 @@
                         Command="{Binding NavigateOrderProductCommand}"
                         Content="Products ordered"
                         MinWidth="120"
-                        IsEnabled="False"
                         Margin="5 2.5 5 2.5"
                         />
                     <Button

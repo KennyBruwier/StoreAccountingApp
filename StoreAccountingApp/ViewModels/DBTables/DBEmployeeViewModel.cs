@@ -13,7 +13,7 @@ using System.Diagnostics;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBEmployeeViewModel : ViewModelBase
+    public class DBEmployeeViewModel : DBViewModelBase
     {
 
         private readonly EmployeeService _employeeService;
@@ -63,17 +63,9 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Save operation failed";
             }
-            catch (DbEntityValidationException ex)
+                        catch (Exception ex)
             {
-                foreach (var validationErrors in ex.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                        Message += String.Format("Property: {0} Error: {1}\n", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-                //Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         private string message;
@@ -133,7 +125,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         #endregion

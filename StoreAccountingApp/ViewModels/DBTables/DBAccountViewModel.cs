@@ -8,10 +8,12 @@ using StoreAccountingApp.Services;
 using StoreAccountingApp.Commands;
 using StoreAccountingApp.DTO;
 using System.Windows.Input;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBAccountViewModel : ViewModelBase
+    public class DBAccountViewModel : DBViewModelBase
     {
         private readonly AccountService _accountService;
         private AccountDTO currentAccountDTO;
@@ -61,7 +63,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         private string message;
@@ -121,7 +123,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         #endregion

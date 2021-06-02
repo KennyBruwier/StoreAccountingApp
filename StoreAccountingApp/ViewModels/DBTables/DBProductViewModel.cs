@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBProductViewModel : ViewModelBase
+    public class DBProductViewModel : DBViewModelBase
     {
         ProductService ObjProductService;
         private ProductDTO currentProductDTO;
@@ -61,7 +61,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         private string message;
@@ -116,12 +116,12 @@ namespace StoreAccountingApp.ViewModels
                 }
                 else
                 {
-                    Message = "Update operation failed";
+                    Message = "Product failed to update";
                 }
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         #endregion

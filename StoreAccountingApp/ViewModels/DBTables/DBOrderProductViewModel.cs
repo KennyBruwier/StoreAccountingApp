@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBOrderProductViewModel : ViewModelBase
+    public class DBOrderProductViewModel : DBViewModelBase
     {
         private OrderProductService _OrderProductService;
         private OrderService _OrderService;
@@ -77,8 +77,8 @@ namespace StoreAccountingApp.ViewModels
             OrderProductList = _OrderProductService.GetAll();
             ProductList = _ProductService.GetAll();
             OrderList = _OrderService.GetAll();
-            cbProductList = ObjMethods.CreateComboboxList<ProductDTO>(ProductList, "ProductId", "Name", "Manufacturer");
-            cbOrderList = ObjMethods.CreateComboboxList<OrderDTO>(OrderList, "OrderId", "InvoiceNumber", "SupplierName");
+            cbProductList = ObjMethods.CreateComboboxList<ProductDTO, ComboboxItem>(ProductList, "ProductId", "Name", "Manufacturer");
+            cbOrderList = ObjMethods.CreateComboboxList<OrderDTO, ComboboxItem>(OrderList, "OrderId", "InvoiceNumber", "SupplierName");
         }
         
         #endregion
@@ -101,7 +101,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         private string message;
@@ -161,7 +161,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         #endregion

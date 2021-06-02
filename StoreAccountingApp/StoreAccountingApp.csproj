@@ -178,6 +178,7 @@
     <Compile Include="ViewModels\DBTables\DBCountryViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBDistrictViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\BaseModels\DBViewModelBase.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBJobFunctionViewModel.cs" />
     <Compile Include="ViewModels\LayoutViewModel.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\BaseModels\ViewModelBase.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
     </Compile>

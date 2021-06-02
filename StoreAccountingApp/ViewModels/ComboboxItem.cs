@@ -9,7 +9,7 @@ namespace StoreAccountingApp.ViewModels
     public class ComboboxItem
     {
         public int Key { get; set; }
-        public string Text { get; set; }
+        public string Text { get; set; } = "";
         public ComboboxItem(int key, string text)
         {
             Key = key;

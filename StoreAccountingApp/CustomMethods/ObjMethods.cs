@@ -13,25 +13,43 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.CustomMethods
 {
+    internal enum ComboFields
+    {
+        NotSelected,
+        Key,
+        Text
+    }
     public static class ObjMethods
     {
-        public static List<ComboboxItem> CreateComboboxList<T>(List<T> dtoList, string propertyKey, params string[] propertiesToInclude)
+        public static List<TU> CreateComboboxList<T, TU>(List<T> dtoList, string propertyKey, params string[] propertiesToInclude)
             where T : BaseDTO
+            where TU: ComboboxItem, new()
         {
-            List<ComboboxItem> comboboxItems = new List<ComboboxItem>();
+            List<TU> comboboxItems = new List<TU>();
             var dtoListProperties = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
             foreach (var dtoItem in dtoList)
             {
-                ComboboxItem comboboxItem = new ComboboxItem();
+                TU comboboxItem = null;
                 int iCountText = 0;
                 foreach (PropertyInfo property in dtoListProperties)
                 {
-                    if ((IsNumericType(property)) && (property.Name == propertyKey))
-                        comboboxItem.Key = (int)property.GetValue(dtoItem, null);
-                    if (propertiesToInclude.Contains(property.Name))
-                        comboboxItem.Text += iCountText++>0?" ":"" + property.GetValue(dtoItem, null);
+                    ComboFields includeAs = ComboFields.NotSelected;
+                    object dtoItemValue = property.GetValue(dtoItem, null);
+                    var propertyName = property.Name;
+                    if (dtoItemValue != null)
+                    {
+                        if ((dtoItemValue is int) && (property.Name == propertyKey))
+                            includeAs = ComboFields.Key;
+                        if (propertiesToInclude.Contains(property.Name))
+                            includeAs = ComboFields.Text;
+                    }
+                    if (includeAs != ComboFields.NotSelected)
+                        if (comboboxItem == null) comboboxItem = new TU();
+                        if (includeAs == ComboFields.Key) comboboxItem.Key = (int)property.GetValue(dtoItem, null);
+                        if (includeAs == ComboFields.Text) comboboxItem.Text += iCountText++ > 0 ? " " : "" + property.GetValue(dtoItem, null).ToString();
                 }
-                comboboxItems.Add(comboboxItem);
+                if (comboboxItem != null)
+                    comboboxItems.Add(comboboxItem);
             }
             return comboboxItems;
         }
@@ -46,36 +64,34 @@ namespace StoreAccountingApp.CustomMethods
                 PropertyInfo p = destProps.FirstOrDefault(x => x.Name == sourceProp.Name);
                 if (p != null)
                 {
-                    //if ((sourceProp.PropertyType != typeof(BaseModel)) && (sourceProp.PropertyType != typeof(BaseDTO)))
-                    //{
-                    if (sourceProp.Name.Substring(sourceProp.Name.Trim().Length - 2).ToLower() == "id")
+                    if (!(sourceProp.PropertyType.IsClass && 
+                        (sourceProp.PropertyType.Assembly.FullName == typeof(T).Assembly.FullName)))
                     {
-                        if (IsNumericType(sourceProp) && (int)sourceProp.GetValue(source, null) == 0)
-                            bContinue = false;
-                    }
-                    if (bContinue)
-                    {
-                        if (p.CanWrite)
+                        var sourcePropValue = sourceProp.GetValue(source, null);
+                        if (sourceProp.Name.Substring(sourceProp.Name.Trim().Length - 2).ToLower() == "id")
                         {
-                            if (sourceProp.PropertyType.IsClass)
+                            if (sourcePropValue is int @int && @int == 0)
+                                bContinue = false;
+                        }
+                        if (bContinue)
+                        {
+                            if (p.CanWrite)
                             {
-                                if (typeof(T) == typeof(BaseModel))
-                                {
-                                }
-                                //if (
-                                //    (sourceProp.PropertyType.Assembly.FullName == typeof(T).Assembly.FullName) || 
-                                //    (sourceProp.PropertyType.Assembly.FullName == typeof(TU).Assembly.FullName)
-                                //   )
-                            }
-                            else
+                                //if (sourceProp.PropertyType.IsClass)
+                                //{
+                                //    if (typeof(T) == typeof(BaseModel))
+                                //    {
+                                //    }
+                                //    //if (
+                                //    //    (sourceProp.PropertyType.Assembly.FullName == typeof(T).Assembly.FullName) || 
+                                //    //    (sourceProp.PropertyType.Assembly.FullName == typeof(TU).Assembly.FullName)
+                                //    //   )
+                                //}
+                                //else
                                 p.SetValue(dest, sourceProp.GetValue(source, null), null);
+                            }
                         }
                     }
-                    //}
-                    //if ((sourceProp.PropertyType == typeof(BaseModel)) && (p.PropertyType == typeof(BaseDTO)))
-                    //{
-                    //    p = sourceProp;
-                    //}
                 }
             }
             return dest;
@@ -90,6 +106,7 @@ namespace StoreAccountingApp.CustomMethods
         }
         public static bool IsNumericType(this object o)
         {
+            var temp = Type.GetTypeCode(o.GetType()).ToString();
             switch (Type.GetTypeCode(o.GetType()))
             {
                 case TypeCode.Byte:

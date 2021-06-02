@@ -69,10 +69,10 @@
                  Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentProductDTO.Description, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDtails"
+        <TextBox x:Name="txtDetails"
                  Grid.Row="5"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentProductDTO.Name, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentProductDTO.Details, Mode=TwoWay}"/>
         <TextBox x:Name="txtBarcode"
                  Grid.Row="6"
                  Grid.Column="1" Margin="5,8" Padding="3"

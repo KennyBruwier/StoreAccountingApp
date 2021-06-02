@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBJobFunctionViewModel : ViewModelBase
+    public class DBJobFunctionViewModel : DBViewModelBase
     {
         JobFunctionService ObjJobFunctionService;
         private JobFunctionDTO currentJobFunctionDTO;
@@ -61,7 +61,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         private string message;
@@ -121,7 +121,7 @@ namespace StoreAccountingApp.ViewModels
             }
             catch (Exception ex)
             {
-                Message = ex.Message;
+                Message = CreateValidationErrorMsg(ex);
             }
         }
         #endregion
