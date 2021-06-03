@@ -10,6 +10,7 @@ using StoreAccountingApp.DTO;
 using StoreAccountingApp.CustomMethods;
 using System.Windows.Input;
 using System.Reflection;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -99,7 +100,7 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Save operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = CreateValidationErrorMsg(ex);
             }
@@ -133,7 +134,7 @@ namespace StoreAccountingApp.ViewModels
                     Message = "OrderProduct not found";
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = ex.Message;
             }
@@ -159,7 +160,7 @@ namespace StoreAccountingApp.ViewModels
                     Message = "Update operation failed";
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = CreateValidationErrorMsg(ex);
             }
@@ -184,7 +185,7 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Delete operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = ex.Message;
             }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.Services
 {
@@ -77,9 +78,13 @@ namespace StoreAccountingApp.Services
                 ctx.Clients.Add(newClient);
                 return ctx.SaveChanges() > 0;
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 throw ((System.Data.Entity.Validation.DbEntityValidationException)ex);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         public ClientDTO Search(int clientId)
@@ -99,7 +104,18 @@ namespace StoreAccountingApp.Services
             {
                 ObjClient = ObjMethods.CopyProperties<ClientDTO, Client>(objClientToUpdate);
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public bool Delete(int clientId)
         {

@@ -61,7 +61,7 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Save operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = CreateValidationErrorMsg(ex);
             }
@@ -95,7 +95,7 @@ namespace StoreAccountingApp.ViewModels
                     Message = "Account not found";
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = ex.Message;
             }
@@ -121,7 +121,7 @@ namespace StoreAccountingApp.ViewModels
                     Message = "Update operation failed";
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = CreateValidationErrorMsg(ex);
             }
@@ -146,7 +146,7 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Delete operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = ex.Message;
             }

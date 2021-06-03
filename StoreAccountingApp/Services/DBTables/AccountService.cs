@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.Services
 {
@@ -51,10 +52,15 @@ namespace StoreAccountingApp.Services
                 ctx.Accounts.Add(ObjMethods.CopyProperties<AccountDTO, Account>(newAccountDTO));
                 return ctx.SaveChanges() > 0;
             }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
             }
+
         }
         public AccountDTO Search(int userId)
         {
@@ -84,7 +90,19 @@ namespace StoreAccountingApp.Services
             {
                 ObjAccount = ObjMethods.CopyProperties<AccountDTO, Account>(objAccountToUpdate);
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         public bool Delete(int userId)
         {

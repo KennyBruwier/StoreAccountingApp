@@ -84,6 +84,10 @@ namespace StoreAccountingApp.Services
                 ctx.Employees.Add(newEmployee);
                 return ctx.SaveChanges() > 0;
             }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -130,7 +134,18 @@ namespace StoreAccountingApp.Services
                 else
                     throw new ArgumentException("Employee not found");
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+            }
+            catch(DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public bool Delete(int employeeId)
         {

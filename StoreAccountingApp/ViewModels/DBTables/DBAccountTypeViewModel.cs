@@ -63,9 +63,18 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Save operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = CreateValidationErrorMsg(ex);
+            }
+            catch (Exception ex)
+            {
+                if (ex is ApplicationException)
+                {
+                    Message = String.Format("Error {0}: ", ex.Message);
+                    if (ex.InnerException != null)
+                        Message += String.Format("\nInner exception: {0}",ex.InnerException.Message);
+                }
             }
         }
         private string message;
@@ -97,7 +106,7 @@ namespace StoreAccountingApp.ViewModels
                     Message = "AccountType not found";
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = ex.Message;
             }
@@ -123,7 +132,7 @@ namespace StoreAccountingApp.ViewModels
                     Message = "Update operation failed";
                 }
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = CreateValidationErrorMsg(ex);
             }
@@ -148,7 +157,7 @@ namespace StoreAccountingApp.ViewModels
                 else
                     Message = "Delete operation failed";
             }
-            catch (Exception ex)
+            catch (DbEntityValidationException ex)
             {
                 Message = ex.Message;
             }

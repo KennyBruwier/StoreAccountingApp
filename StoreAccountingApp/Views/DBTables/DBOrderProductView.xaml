@@ -18,46 +18,19 @@
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
             <Style.Resources>
-                <Style TargetType="ItemsControl">
-                    <Style.Resources>
-                        <Style TargetType="ItemsPresenter">
-                            <Setter Property="Margin" Value="0"/>
-                            <Style.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Margin" Value="0"/>
-                                    <Setter Property="Padding" Value="0"/>
-                                </Style>
-                            </Style.Resources>
-                        </Style>
-                    </Style.Resources>
-                </Style>
-                <Style TargetType="ContentPresenter">
+                <Style TargetType="Grid">
                     <Style.Resources>
                         <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Margin" Value="5 0 0 0"/>
                             <Setter Property="Padding" Value="0"/>
-                        </Style>
-                        <Style TargetType="ContentPresenter">
-                            <Style.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Margin" Value="0"/>
-                                    <Setter Property="Padding" Value="0"/>
-                                </Style>
-                            </Style.Resources>
+                            <Setter Property="TextAlignment" Value="Left"/>
                         </Style>
                     </Style.Resources>
                 </Style>
             </Style.Resources>
         </Style>
-        <!--<Style TargetType="ItemsControl">
-            <Style.Resources>
-                <Style TargetType="ItemsPresenter">
-                    <Setter Property="Margin" Value="0"/>
-                </Style>
-            </Style.Resources>
-        </Style>-->
         <Style TargetType="{x:Type ComboBoxItem}"
-                    x:Key="ComboBoxItemStyle">
+                x:Key="ComboBoxItemStyle">
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
@@ -73,14 +46,24 @@
         </Style>
         <Style TargetType="{x:Type Grid}"
                x:Key="RootGridStyle">
-            <!--<Setter Property=""-->
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="MinWidth" Value="500"/>
+            <Style.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                    <Style.Triggers>
+                        <Trigger Property="Grid.Column" Value="0">
+                            <Setter Property="MinWidth" Value="80"/>
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
         </Style>
         <Style TargetType="{x:Type Button}"
                x:Key="ButtonStyle">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
-        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}"/>
         <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
         <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}">
             <Style.Resources>
@@ -102,7 +85,7 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="15" MinWidth="400">
+    <Grid Style="{StaticResource RootGridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <!--<ColumnDefinition Width="auto"/>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.Services
 {
@@ -65,6 +66,10 @@ namespace StoreAccountingApp.Services
                 ctx.Districts.Add(newDistrict);
                 return ctx.SaveChanges() > 0;
             }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -87,7 +92,17 @@ namespace StoreAccountingApp.Services
             {
                 ObjDistrict = ObjMethods.CopyProperties<DistrictDTO, District>(objDistrictToUpdate);
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+            }catch(DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public bool Delete(string districtId)
         {

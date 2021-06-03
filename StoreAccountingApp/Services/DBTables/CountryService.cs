@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.Services
 {
@@ -53,6 +54,10 @@ namespace StoreAccountingApp.Services
                 ctx.Countries.Add(ObjMethods.CopyProperties<CountryDTO, Country>(newCountryDTO));
                 return ctx.SaveChanges() > 0;
             }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -85,7 +90,15 @@ namespace StoreAccountingApp.Services
             {
                 ObjCountry = ObjMethods.CopyProperties<CountryDTO, Country>(objCountryToUpdate);
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
         }
         public bool Delete(int countryId)
         {

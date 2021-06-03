@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using StoreAccountingApp.CustomMethods;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.Services
 {
@@ -56,9 +57,13 @@ namespace StoreAccountingApp.Services
                 ctx.AccountTypes.Add(objAccountType);
                 return ctx.SaveChanges() > 0; 
             }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
         }
@@ -87,7 +92,18 @@ namespace StoreAccountingApp.Services
                 //ObjAccountType.Name = objAccountTypeToUpdate.Name;
                 //ObjAccountType.Description = objAccountTypeToUpdate.Description;
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public bool Delete(int accountTypeId)
         {

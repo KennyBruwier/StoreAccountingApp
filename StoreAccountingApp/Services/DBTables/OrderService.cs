@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.Entity.Validation;
 
 namespace StoreAccountingApp.Services
 {
@@ -72,6 +73,10 @@ namespace StoreAccountingApp.Services
                 ctx.Orders.Add(ObjMethods.CopyProperties<OrderDTO, Order>(newOrderDTO));
                 return ctx.SaveChanges() > 0;
             }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;
@@ -94,7 +99,19 @@ namespace StoreAccountingApp.Services
             {
                 ObjOrder = ObjMethods.CopyProperties<OrderDTO, Order>(objOrderToUpdate);
             }
-            return ctx.SaveChanges() > 0;
+            try
+            {
+                return ctx.SaveChanges() > 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         public bool Delete(int orderId)
         {

@@ -88,6 +88,7 @@
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="DTO\BaseDTO.cs" />
+    <Compile Include="GeneralClasses\TryCatchResult.cs" />
     <Compile Include="Models\Abstracts\AddressDigitalShort.cs" />
     <Compile Include="Models\Abstracts\AddressDigital.cs" />
     <Compile Include="Models\Abstracts\DBEntity.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
+    <Compile Include="ViewModels\BaseModels\IDBOperation.cs" />
     <Compile Include="ViewModels\DataViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBAccountTypeViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />

@@ -11,4 +11,13 @@ namespace StoreAccountingApp.Services
     {
         void Navigate();
     }
+    /*
+     * private INavigationService<AddUserViewModel> CreateAddUsersNavigationService()
+        {
+            return new LayoutNavigationService<AddUserViewModel>(
+                _navigationStore, 
+                () => new AddUserViewModel(_usersStore, CreateUsersListingNavigationService()),
+                _navigationBarViewModel);
+        }
+     */
 }
