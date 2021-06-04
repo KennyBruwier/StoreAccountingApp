@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreAccountingApp.GeneralClasses;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,6 +10,17 @@ namespace StoreAccountingApp.DTO
 {
     public class BaseDTO : INotifyPropertyChanged
     {
+        private CheckValidation validation;
+        public CheckValidation Validation
+        {
+            get { return validation; }
+            set 
+            { 
+                validation = value; 
+                OnPropertyChanged(nameof(Validation)); 
+            }
+        }
+        public virtual void LoadValidation() { }
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         internal void OnPropertyChanged(string propertyName)

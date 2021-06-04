@@ -1,5 +1,8 @@
-﻿using StoreAccountingApp.GeneralClasses;
-using StoreAccountingApp.ViewModels.BaseModels;
+﻿using StoreAccountingApp.Commands;
+using StoreAccountingApp.DTO;
+using StoreAccountingApp.GeneralClasses;
+using StoreAccountingApp.Models;
+using StoreAccountingApp.Services.DBTables;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -10,83 +13,131 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBViewModelBase : ViewModelBase
+    public class DBViewModelBase<DTOModel, ServiceModel, DBModel> : ViewModelBase
+        where DTOModel:BaseDTO, new()
+        where ServiceModel:BaseService<DTOModel,DBModel>, new()
+        where DBModel:BaseModel, new()
     {
-        protected string tableName;
-
+        private ServiceModel serviceModel;
+        private DTOModel currentDTOModel;
+        public DTOModel CurrentDTOModel
+        {
+            get { return currentDTOModel; }
+            set 
+            { 
+                currentDTOModel = value; 
+                OnPropertyChanged("CurrentDTOModel"); 
+            }
+        }
         public DBViewModelBase()
         {
             this.tableName = GetClassName();
+            serviceModel = new ServiceModel();
+            LoadData();
+            currentDTOModel = new DTOModel();
+            saveCommand = new RelayCommand(SaveAndCatch);
+            searchCommand = new RelayCommand(Search);
+            updateCommand = new RelayCommand(UpdateAndCatch);
+            deleteCommand = new RelayCommand(DeleteAndCatch);
         }
-        protected string GetClassName()
+        private void LoadValidation()
         {
-            string typeName = this.GetType().Name;
-            if (typeName.Contains("DB")) typeName = typeName.Replace("DB", "");
-            if (typeName.Contains("ViewModel")) typeName = typeName.Replace("ViewModel", "");
-            return typeName;
+            currentDTOModel.LoadValidation();
         }
-        private string message;
-        public string Message
+        protected virtual DBModel DTOtoDBModel(DTOModel dtoModelSource)
         {
-            get { return message; }
-            set { message = value; OnPropertyChanged("Message"); }
+            return CustomMethods.ObjMethods.CopyProperties<DTOModel, DBModel>(dtoModelSource);
         }
-
-        #region ValidationError
-        public string CreateValidationErrorMsg(DbEntityValidationException e)
+        #region DisplayOperation
+        private List<DTOModel> dTOModelList;
+        public List<DTOModel> DTOModelList
         {
-            string message = "";
-            foreach (var validationErrors in e.EntityValidationErrors)
-            {
-                foreach (var validationError in validationErrors.ValidationErrors)
-                {
-                    Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    message += String.Format("Property: {0} Error: {1}\n", validationError.PropertyName, validationError.ErrorMessage);
-                }
-            }
-            return message;
+            get { return dTOModelList; }
+            set { dTOModelList = value; OnPropertyChanged("DTOModelList"); }
         }
-        protected void CatchOperation(Func<bool> operationToCatch)
+        private void LoadData()
         {
-            TryCatchResult operationResult = TryCatch(operationToCatch, tableName);
-            if (operationResult.OperationMessage != null)
-                Message = operationResult.OperationMessage;
-            else
-                Message = operationResult.ErrMessage;
+            DTOModelList = serviceModel.GetAll();
         }
-        protected TryCatchResult TryCatch(Func<bool> functionToCatch, string recordName)
+        #endregion
+        #region SaveOperation
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
         {
-            string functionName = functionToCatch.Method.Name.ToLower();
-            string[] operationNames = new string[2]
-            {
-                functionName,
-                functionName.EndsWith("e") ? functionName + 'd': functionName + "ed"
-            };
-
-            TryCatchResult tryCatchResult = new TryCatchResult();
+            get { return saveCommand; }
+        }
+        public void SaveAndCatch()
+        {
+            LoadValidation();
+            CatchOperation(Save);
+            LoadData();
+        }
+        public bool Save()
+        {
+            return serviceModel.Add(DTOtoDBModel(CurrentDTOModel));
+        }
+        #endregion
+        #region SearchOperation
+        private RelayCommand searchCommand;
+        public RelayCommand SearchCommand
+        {
+            get { return searchCommand; }
+        }
+        public void Search()
+        {
             try
             {
-                if (tryCatchResult.Result = functionToCatch())
-                    tryCatchResult.OperationMessage = string.Format("{0} {1}", recordName, operationNames[1]);
+                var recordFound = serviceModel.Search(DTOtoDBModel(CurrentDTOModel).PrimaryKey);
+                if (recordFound != null)
+                {
+                    CurrentDTOModel = recordFound;
+                    Message = String.Format("{0} found",tableName);
+                }
                 else
-                    tryCatchResult.OperationMessage = string.Format("{0} operation failed", operationNames[0]);
+                {
+                    CurrentDTOModel = new DTOModel(); // empty the textbox fields
+                    Message = String.Format("{0} not found", tableName);
+                }
             }
             catch (DbEntityValidationException ex)
             {
-                tryCatchResult.ErrMessage = CreateValidationErrorMsg(ex);
+                Message = ex.Message;
             }
-            catch (Exception ex)
-            {
-                if (ex is ApplicationException)
-                {
-                    tryCatchResult.ErrMessage = String.Format("Error {0}: ", ex.Message);
-                    if (ex.InnerException != null)
-                        tryCatchResult.ErrMessage += String.Format("\nInner exception: {0}", ex.InnerException.Message);
-                }
-                else
-                    tryCatchResult.ErrMessage = ex.Message;
-            }
-            return tryCatchResult;
+        }
+        #endregion
+        #region UpdateOperation
+        private RelayCommand updateCommand;
+        public RelayCommand UpdateCommand
+        {
+            get { return updateCommand; }
+        }
+        public void UpdateAndCatch()
+        {
+            LoadValidation();
+            CatchOperation(Update);
+            LoadData();
+        }
+        public bool Update()
+        {
+            return serviceModel.Update(DTOtoDBModel(CurrentDTOModel));
+        }
+        #endregion
+        #region DeleteOperation
+        private RelayCommand deleteCommand;
+
+        public RelayCommand DeleteCommand
+        {
+            get { return deleteCommand; }
+        }
+        public void DeleteAndCatch()
+        {
+            LoadValidation();
+            CatchOperation(Delete);
+            LoadData();
+        }
+        public bool Delete()
+        {
+            return serviceModel.Delete(CurrentDTOModel.Validation.PrimaryKeysValue());
         }
         #endregion
     }

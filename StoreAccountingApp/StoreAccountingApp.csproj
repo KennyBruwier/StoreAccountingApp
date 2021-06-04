@@ -88,7 +88,11 @@
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="DTO\BaseDTO.cs" />
+    <Compile Include="GeneralClasses\DBField.cs" />
+    <Compile Include="GeneralClasses\ErrorHandling.cs" />
+    <Compile Include="GeneralClasses\NotifyPropertyChanged.cs" />
     <Compile Include="GeneralClasses\TryCatchResult.cs" />
+    <Compile Include="GeneralClasses\CheckValidation.cs" />
     <Compile Include="Models\Abstracts\AddressDigitalShort.cs" />
     <Compile Include="Models\Abstracts\AddressDigital.cs" />
     <Compile Include="Models\Abstracts\DBEntity.cs" />
@@ -119,7 +123,9 @@
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="CustomMethods\ObjMethods.cs" />
+    <Compile Include="Services\Abstracts\IBaseService.cs" />
     <Compile Include="Services\Abstracts\Service.cs" />
+    <Compile Include="Services\DBTables\BaseService.cs" />
     <Compile Include="Services\DBTables\ClientService.cs" />
     <Compile Include="Services\DBTables\CountryService.cs" />
     <Compile Include="Services\DBTables\DistrictService.cs" />
@@ -172,7 +178,6 @@
     <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
-    <Compile Include="ViewModels\BaseModels\IDBOperation.cs" />
     <Compile Include="ViewModels\DataViewModel.cs" />
     <Compile Include="ViewModels\DBTables\DBAccountTypeViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />

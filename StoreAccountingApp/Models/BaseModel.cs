@@ -10,16 +10,16 @@ namespace StoreAccountingApp.Models
 {
     public class BaseModel
     {
-        //public object[] PrimaryKey
-        //{
-        //    get
-        //    {
-        //        return (from property in this.GetType().GetProperties()
-        //                where Attribute.IsDefined(property, typeof(KeyAttribute))
-        //                orderby ((ColumnAttribute)property.GetCustomAttributes(false).Single(
-        //                    attr => attr is ColumnAttribute)).Order ascending
-        //                select property.GetValue(this)).ToArray();
-        //    }
-        //}
+        public object[] PrimaryKey
+        {
+            get
+            {
+                return (from property in this.GetType().GetProperties()
+                        where Attribute.IsDefined(property, typeof(KeyAttribute))
+                        orderby ((ColumnAttribute)property.GetCustomAttributes(false).Single(
+                            attr => attr is ColumnAttribute)).Order ascending
+                        select property.GetValue(this)).ToArray();
+            }
+        }
     }
 }

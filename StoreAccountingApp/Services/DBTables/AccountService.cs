@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Data.Entity.Validation;
+using StoreAccountingApp.Services.DBTables;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.Services
 {
-    public class AccountService
+    public class AccountService : ErrorHandling  //BaseService<AccountDTO>
     {
         private _DBStoreAccountingContext ctx;
 

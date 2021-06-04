@@ -9,10 +9,11 @@ using StoreAccountingApp.Commands;
 using StoreAccountingApp.DTO;
 using System.Windows.Input;
 using System.Data.Entity.Validation;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBOrderViewModel : DBViewModelBase
+    public class DBOrderViewModel : ViewModelBase
     {
         OrderService _orderService;
         private OrderDTO currentOrderDTO;
@@ -26,10 +27,10 @@ namespace StoreAccountingApp.ViewModels
             _orderService = new OrderService();
             LoadData();
             CurrentOrderDTO = new OrderDTO();
-            saveCommand = new RelayCommand(Save);
+            saveCommand = new RelayCommand(SaveAndCatch);
             searchCommand = new RelayCommand(Search);
-            updateCommand = new RelayCommand(Update);
-            deleteCommand = new RelayCommand(Delete);
+            updateCommand = new RelayCommand(UpdateAndCatch);
+            deleteCommand = new RelayCommand(DeleteAndCatch);
         }
         #region DisplayOperation
         private List<OrderDTO> orderList;
@@ -49,27 +50,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return saveCommand; }
         }
-        public void Save()
+        public void SaveAndCatch()
         {
-            try
-            {
-                var IsSaved = _orderService.Add(CurrentOrderDTO);
-                LoadData();
-                if (IsSaved)
-                    Message = "Order saved";
-                else
-                    Message = "Save operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Save);
+            LoadData();
         }
-        private string message;
-        public string Message
+        public bool Save()
         {
-            get { return message; }
-            set { message = value; OnPropertyChanged("Message"); }
+            return _orderService.Add(CurrentOrderDTO);
         }
         #endregion
         #region SearchOperation
@@ -106,24 +94,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return updateCommand; }
         }
-        public void Update()
+        public void UpdateAndCatch()
         {
-            try
-            {
-                if (_orderService.Update(CurrentOrderDTO))
-                {
-                    Message = "Order updated";
-                    LoadData();
-                }
-                else
-                {
-                    Message = "Update operation failed";
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Update);
+            LoadData();
+        }
+        public bool Update()
+        {
+            return _orderService.Update(CurrentOrderDTO);
         }
         #endregion
         #region DeleteOperation
@@ -133,22 +111,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return deleteCommand; }
         }
-        public void Delete()
+        public void DeleteAndCatch()
         {
-            try
-            {
-                if (_orderService.Delete(CurrentOrderDTO.OrderId))
-                {
-                    Message = "Order Deleted";
-                    LoadData();
-                }
-                else
-                    Message = "Delete operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = ex.Message;
-            }
+            CatchOperation(Delete);
+            LoadData();
+        }
+        public bool Delete()
+        {
+            return _orderService.Delete(CurrentOrderDTO.OrderId);
         }
         #endregion
     }

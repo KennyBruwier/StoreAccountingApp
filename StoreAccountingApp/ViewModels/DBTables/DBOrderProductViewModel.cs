@@ -11,10 +11,11 @@ using StoreAccountingApp.CustomMethods;
 using System.Windows.Input;
 using System.Reflection;
 using System.Data.Entity.Validation;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBOrderProductViewModel : DBViewModelBase
+    public class DBOrderProductViewModel : ViewModelBase
     {
         private OrderProductService _OrderProductService;
         private OrderService _OrderService;
@@ -32,10 +33,10 @@ namespace StoreAccountingApp.ViewModels
             _OrderService = new OrderService();
             LoadData();
             CurrentOrderProductDTO = new OrderProductDTO();
-            saveCommand = new RelayCommand(Save);
+            saveCommand = new RelayCommand(SaveAndCatch);
             searchCommand = new RelayCommand(Search);
-            updateCommand = new RelayCommand(Update);
-            deleteCommand = new RelayCommand(Delete);
+            updateCommand = new RelayCommand(UpdateAndCatch);
+            deleteCommand = new RelayCommand(DeleteAndCatch);
         }
         #region DisplayOperation
         private List<OrderProductDTO> orderProductList;
@@ -89,27 +90,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return saveCommand; }
         }
-        public void Save()
+        public void SaveAndCatch()
         {
-            try
-            {
-                var IsSaved = _OrderProductService.Add(CurrentOrderProductDTO);
-                LoadData();
-                if (IsSaved)
-                    Message = "OrderProduct saved";
-                else
-                    Message = "Save operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Save);
+            LoadData();
         }
-        private string message;
-        public string Message
+        public bool Save()
         {
-            get { return message; }
-            set { message = value; OnPropertyChanged("Message"); }
+            return _OrderProductService.Add(CurrentOrderProductDTO);
         }
         #endregion
         #region SearchOperation
@@ -146,49 +134,30 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return updateCommand; }
         }
-        public void Update()
+        public void UpdateAndCatch()
         {
-            try
-            {
-                if (_OrderProductService.Update(CurrentOrderProductDTO))
-                {
-                    Message = "OrderProduct updated";
-                    LoadData();
-                }
-                else
-                {
-                    Message = "Update operation failed";
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Update);
+            LoadData();
+        }
+        public bool Update()
+        {
+            return _OrderProductService.Update(CurrentOrderProductDTO);
         }
         #endregion
         #region DeleteOperation
         private RelayCommand deleteCommand;
-
         public RelayCommand DeleteCommand
         {
             get { return deleteCommand; }
         }
-        public void Delete()
+        public void DeleteAndCatch()
         {
-            try
-            {
-                if (_OrderProductService.Delete(CurrentOrderProductDTO.OrderId, currentOrderProductDTO.ProductId))
-                {
-                    Message = "OrderProduct Deleted";
-                    LoadData();
-                }
-                else
-                    Message = "Delete operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = ex.Message;
-            }
+            CatchOperation(Delete);
+            LoadData();
+        }
+        public bool Delete()
+        {
+            return _OrderProductService.Delete(CurrentOrderProductDTO.OrderId, currentOrderProductDTO.ProductId);
         }
         #endregion
     }

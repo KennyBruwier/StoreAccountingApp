@@ -9,10 +9,11 @@ using StoreAccountingApp.Commands;
 using StoreAccountingApp.DTO;
 using System.Windows.Input;
 using System.Data.Entity.Validation;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBSaleViewModel : DBViewModelBase
+    public class DBSaleViewModel : ViewModelBase
     {
         public ICommand NavigateHomeCommand { get; }
         SaleService ObjSaleService;
@@ -27,10 +28,10 @@ namespace StoreAccountingApp.ViewModels
             ObjSaleService = new SaleService();
             LoadData();
             CurrentSaleDTO = new SaleDTO();
-            saveCommand = new RelayCommand(Save);
+            saveCommand = new RelayCommand(SaveAndCatch);
             searchCommand = new RelayCommand(Search);
-            updateCommand = new RelayCommand(Update);
-            deleteCommand = new RelayCommand(Delete);
+            updateCommand = new RelayCommand(UpdateAndCatch);
+            deleteCommand = new RelayCommand(DeleteAndCatch);
         }
         #region DisplayOperation
         private List<SaleDTO> accountTypeList;
@@ -50,27 +51,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return saveCommand; }
         }
-        public void Save()
+        public void SaveAndCatch()
         {
-            try
-            {
-                var IsSaved = ObjSaleService.Add(CurrentSaleDTO);
-                LoadData();
-                if (IsSaved)
-                    Message = "Sale saved";
-                else
-                    Message = "Save operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Save);
+            LoadData();
         }
-        private string message;
-        public string Message
+        public bool Save()
         {
-            get { return message; }
-            set { message = value; OnPropertyChanged("Message"); }
+            return ObjSaleService.Add(CurrentSaleDTO);
         }
         #endregion
         #region SearchOperation
@@ -107,24 +95,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return updateCommand; }
         }
-        public void Update()
+        public void UpdateAndCatch()
         {
-            try
-            {
-                if (ObjSaleService.Update(CurrentSaleDTO))
-                {
-                    Message = "Sale updated";
-                    LoadData();
-                }
-                else
-                {
-                    Message = "Update operation failed";
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Update);
+            LoadData();
+        }
+        public bool Update()
+        {
+            return ObjSaleService.Update(CurrentSaleDTO);
         }
         #endregion
         #region DeleteOperation
@@ -134,22 +112,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return deleteCommand; }
         }
-        public void Delete()
+        public void DeleteAndCatch()
         {
-            try
-            {
-                if (ObjSaleService.Delete(CurrentSaleDTO.SaleId))
-                {
-                    Message = "Sale Deleted";
-                    LoadData();
-                }
-                else
-                    Message = "Delete operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = ex.Message;
-            }
+            CatchOperation(Delete);
+            LoadData();
+        }
+        public bool Delete()
+        {
+            return ObjSaleService.Delete(CurrentSaleDTO.SaleId);
         }
         #endregion
     }

@@ -8,7 +8,7 @@ using StoreAccountingApp.CustomMethods;
 
 namespace StoreAccountingApp.DTO
 {
-    public class AccountTypeDTO : INotifyPropertyChanged
+    public class AccountTypeDTO : BaseDTO
     {
         private int accountTypeId;
         public int AccountTypeId 
@@ -23,7 +23,7 @@ namespace StoreAccountingApp.DTO
             set 
             {
                 name = value; 
-                //OnPropertyChanged("Name");
+                OnPropertyChanged("Name");
             }
         }
         private string description;
@@ -37,17 +37,20 @@ namespace StoreAccountingApp.DTO
             AccountTypeId = accountTypeId;
             Name = name;
             Description = description;
+
+
         }
         public AccountTypeDTO()
         {
-
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(AccountTypeId), AccountTypeId);
+            Validation.AddNonNullFields(nameof(Name), Name);
         }
-        #region INotifyPropertyChanged Members
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public override void LoadValidation()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(AccountTypeId), AccountTypeId);
+            Validation.AddNonNullFields(nameof(Name), Name);
         }
-        #endregion
     }
 }

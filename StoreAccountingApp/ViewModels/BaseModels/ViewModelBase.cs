@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public class ViewModelBase : ErrorHandling
     {
-        #region INotifyPropertyChanged_Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-        public virtual void Dispose() { }
+
     }
 }

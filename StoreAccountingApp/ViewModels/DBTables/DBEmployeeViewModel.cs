@@ -14,7 +14,7 @@ using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBEmployeeViewModel : DBViewModelBase
+    public class DBEmployeeViewModel : ViewModelBase
     {
 
         private readonly EmployeeService _employeeService;

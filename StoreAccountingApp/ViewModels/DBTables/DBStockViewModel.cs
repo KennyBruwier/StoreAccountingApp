@@ -9,10 +9,11 @@ using StoreAccountingApp.Commands;
 using StoreAccountingApp.DTO;
 using System.Windows.Input;
 using System.Data.Entity.Validation;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBStockViewModel : DBViewModelBase
+    public class DBStockViewModel : ViewModelBase
     {
         StockService ObjStockService;
         private StockDTO currentStockDTO;
@@ -26,10 +27,10 @@ namespace StoreAccountingApp.ViewModels
             ObjStockService = new StockService();
             LoadData();
             CurrentStockDTO = new StockDTO();
-            saveCommand = new RelayCommand(Save);
+            saveCommand = new RelayCommand(SaveAndCatch);
             searchCommand = new RelayCommand(Search);
-            updateCommand = new RelayCommand(Update);
-            deleteCommand = new RelayCommand(Delete);
+            updateCommand = new RelayCommand(UpdateAndCatch);
+            deleteCommand = new RelayCommand(DeleteAndCatch);
         }
         #region DisplayOperation
         private List<StockDTO> accountTypeList;
@@ -49,27 +50,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return saveCommand; }
         }
-        public void Save()
+        public void SaveAndCatch()
         {
-            try
-            {
-                var IsSaved = ObjStockService.Add(CurrentStockDTO);
-                LoadData();
-                if (IsSaved)
-                    Message = "Stock saved";
-                else
-                    Message = "Save operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Save);
+            LoadData();
         }
-        private string message;
-        public string Message
+        public bool Save()
         {
-            get { return message; }
-            set { message = value; OnPropertyChanged("Message"); }
+            return ObjStockService.Add(CurrentStockDTO);
         }
         #endregion
         #region SearchOperation
@@ -106,24 +94,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return updateCommand; }
         }
-        public void Update()
+        public void UpdateAndCatch()
         {
-            try
-            {
-                if (ObjStockService.Update(CurrentStockDTO))
-                {
-                    Message = "Stock updated";
-                    LoadData();
-                }
-                else
-                {
-                    Message = "Update operation failed";
-                }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = CreateValidationErrorMsg(ex);
-            }
+            CatchOperation(Update);
+            LoadData();
+        }
+        public bool Update()
+        {
+            return ObjStockService.Update(CurrentStockDTO);
         }
         #endregion
         #region DeleteOperation
@@ -133,22 +111,14 @@ namespace StoreAccountingApp.ViewModels
         {
             get { return deleteCommand; }
         }
-        public void Delete()
+        public void DeleteAndCatch()
         {
-            try
-            {
-                if (ObjStockService.Delete(CurrentStockDTO.StoreId, CurrentStockDTO.ProductId))
-                {
-                    Message = "Stock Deleted";
-                    LoadData();
-                }
-                else
-                    Message = "Delete operation failed";
-            }
-            catch (DbEntityValidationException ex)
-            {
-                Message = ex.Message;
-            }
+            CatchOperation(Delete);
+            LoadData();
+        }
+        public bool Delete()
+        {
+            return ObjStockService.Delete(CurrentStockDTO.StoreId, CurrentStockDTO.ProductId);
         }
         #endregion
     }

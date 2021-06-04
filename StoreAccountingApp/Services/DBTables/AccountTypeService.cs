@@ -9,29 +9,30 @@ using System.Threading.Tasks;
 using System.Windows;
 using StoreAccountingApp.CustomMethods;
 using System.Data.Entity.Validation;
+using StoreAccountingApp.Services.DBTables;
 
 namespace StoreAccountingApp.Services
 {
-    public class AccountTypeService 
+    public class AccountTypeService : BaseService<AccountTypeDTO,AccountType>
     {
-        private readonly _DBStoreAccountingContext ctx;
+        //private readonly _DBStoreAccountingContext ctx;
 
-        public object DialogResult { get; private set; }
+        //public object DialogResult { get; private set; }
         public AccountTypeService()
         {
-            ctx = new _DBStoreAccountingContext();
+            //ctx = new _DBStoreAccountingContext();
         }
-        public List<AccountTypeDTO>GetAll()
-        {
-            List<AccountTypeDTO> accountTypeList = new List<AccountTypeDTO>();
-            var ObjQuery =  from AccountType in ctx.AccountTypes
-                            select AccountType;
-            foreach (var accountType in ObjQuery)
-            {
-                accountTypeList.Add(new AccountTypeDTO(accountTypeId: accountType.AccountTypeId, name: accountType.Name, description: accountType.Description));
-            }
-            return accountTypeList;
-        }
+        //public List<AccountTypeDTO>GetAll()
+        //{
+        //    List<AccountTypeDTO> accountTypeList = new List<AccountTypeDTO>();
+        //    var ObjQuery =  from AccountType in ctx.AccountTypes
+        //                    select AccountType;
+        //    foreach (var accountType in ObjQuery)
+        //    {
+        //        accountTypeList.Add(new AccountTypeDTO(accountTypeId: accountType.AccountTypeId, name: accountType.Name, description: accountType.Description));
+        //    }
+        //    return accountTypeList;
+        //}
         public bool Add(AccountTypeDTO newAccountType)
         {
             //bool IsAdded = false;

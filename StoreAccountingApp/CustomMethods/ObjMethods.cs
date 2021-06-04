@@ -104,7 +104,7 @@ namespace StoreAccountingApp.CustomMethods
                 default: return false;
             }
         }
-        public static bool IsNumericType(this object o)
+        public static bool IsNumericType(object o)
         {
             var temp = Type.GetTypeCode(o.GetType()).ToString();
             switch (Type.GetTypeCode(o.GetType()))
