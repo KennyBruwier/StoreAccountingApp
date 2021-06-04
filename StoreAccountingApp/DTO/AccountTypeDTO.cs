@@ -37,14 +37,9 @@ namespace StoreAccountingApp.DTO
             AccountTypeId = accountTypeId;
             Name = name;
             Description = description;
-
-
         }
         public AccountTypeDTO()
         {
-            Validation = new GeneralClasses.CheckValidation();
-            Validation.AddPrimaryKey(nameof(AccountTypeId), AccountTypeId);
-            Validation.AddNonNullFields(nameof(Name), Name);
         }
         public override void LoadValidation()
         {

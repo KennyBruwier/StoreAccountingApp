@@ -99,15 +99,15 @@
         <TextBox x:Name="txtSupplierId"
                  Grid.Row="1"
                  Grid.Column="1"
-                 Text="{Binding Path=CurrentSupplierDTO.SupplierId, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.SupplierId, Mode=TwoWay}"/>
         <TextBox x:Name="txtStatus"
                  Grid.Row="2"
                  Grid.Column="1"
-                 Text="{Binding Path=CurrentSupplierDTO.Status, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
         <TextBox x:Name="txtFirstname"
                  Grid.Row="3"
                  Grid.Column="1" Grid.ColumnSpan="3"
-                 Text="{Binding Path=CurrentSupplierDTO.Firstname, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Firstname, Mode=TwoWay}"/>
         <TextBox x:Name="txtLastname"
                  Grid.Row="4"
                  Grid.Column="1" Grid.ColumnSpan="3"
@@ -115,32 +115,32 @@
         <TextBox x:Name="txtEmail"
                  Grid.Row="5"
                  Grid.Column="1" Grid.ColumnSpan="3"
-                 Text="{Binding Path=CurrentSupplierDTO.EmailAddress, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.EmailAddress, Mode=TwoWay}"/>
         <TextBox x:Name="Organisation"
                  Grid.Row="6"
                  Grid.Column="1" Grid.ColumnSpan="3"
-                 Text="{Binding Path=CurrentSupplierDTO.Organistaion, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Organistaion, Mode=TwoWay}"/>
         <TextBox x:Name="Streetname"
                 Grid.Row="7"
                 Grid.Column="1"
-                Text="{Binding Path=CurrentSupplierDTO.Streetname, Mode=TwoWay}"/>
+                Text="{Binding Path=CurrentDTOModel.Streetname, Mode=TwoWay}"/>
         <TextBox x:Name="Nr"
                 Grid.Row="7"
                 Grid.Column="3"
-                Text="{Binding Path=CurrentSupplierDTO.HouseNr, Mode=TwoWay}"/>
+                Text="{Binding Path=CurrentDTOModel.HouseNr, Mode=TwoWay}"/>
         <TextBox x:Name="Postalcode"
                 Grid.Row="8"
                 Grid.Column="1"
-                Text="{Binding Path=CurrentSupplierDTO.PostalCodeId, Mode=TwoWay}"/>
+                Text="{Binding Path=CurrentDTOModel.PostalCodeId, Mode=TwoWay}"/>
         <TextBox x:Name="District"
                 Grid.Row="8"
                 Grid.Column="3"
-                Text="{Binding Path=CurrentSupplierDTO.DistrictName, Mode=TwoWay}"/>
+                Text="{Binding Path=CurrentDTOModel.DistrictName, Mode=TwoWay}"/>
         <TextBox x:Name="Country"
                 Grid.Row="9"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
-                Text="{Binding Path=CurrentSupplierDTO.CountryName, Mode=TwoWay}"/>
+                Text="{Binding Path=CurrentDTOModel.CountryName, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
@@ -165,7 +165,7 @@
                   AutoGenerateColumns="False"
                   Grid.Row="19"
                   Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=SupplierList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"

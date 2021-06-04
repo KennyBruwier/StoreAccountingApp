@@ -21,5 +21,13 @@ namespace StoreAccountingApp.DTO
             get { return organisation; }
             set { organisation = value; OnPropertyChanged("Organisation"); }
         }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(SupplierId), SupplierId);
+            Validation.AddNonNullFields(nameof(Firstname), Firstname);
+            Validation.AddNonNullFields(nameof(Lastname), Lastname);
+            Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+        }
     }
 }

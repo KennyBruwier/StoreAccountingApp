@@ -12,7 +12,7 @@ namespace StoreAccountingApp.Models
     public class Stock : ProductRecord
     {
         [Key, Column(Order = 0)]
-        public int StoreId { get; set; }
+        public int ShopId { get; set; }
         [Key, Column(Order = 1)]
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }

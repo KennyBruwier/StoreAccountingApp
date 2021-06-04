@@ -21,5 +21,13 @@ namespace StoreAccountingApp.DTO
             get { return dUNSNumber; }
             set { dUNSNumber = value; OnPropertyChanged(nameof(DUNSNumber)); }
         }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(ShopId), ShopId);
+            Validation.AddNonNullFields(nameof(BuildingName), BuildingName);
+            Validation.AddNonNullFields(nameof(Status), Status);
+            Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+        }
     }
 }

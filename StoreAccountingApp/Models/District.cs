@@ -19,7 +19,7 @@ namespace StoreAccountingApp.Models
         public int CountryId { get; set; }
         public virtual Country Country { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<Shop> Stores { get; set; }
+        public virtual ICollection<Shop> Shops { get; set; }
         public virtual ICollection<Client> Clients { get; set; }
         public virtual ICollection<Supplier> Suppliers { get; set; }
     }

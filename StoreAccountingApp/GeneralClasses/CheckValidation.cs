@@ -25,6 +25,7 @@ namespace StoreAccountingApp.GeneralClasses
         }
         private List<DBField> PrimaryKeys { get; set; }
         private List<DBField> NonNullableFields { get; set; }
+        private List<DBField[]> UniqueValueFields { get; set; }
         public string ValidationErrors { get; set; } = String.Empty;
         private bool CheckIfPKEmpty()
         {
@@ -79,6 +80,25 @@ namespace StoreAccountingApp.GeneralClasses
         {
             if (NonNullableFields == null) NonNullableFields = new List<DBField>();
             NonNullableFields.Add(new DBField(fieldName, fieldValue));
+        }
+        // single unique fieldvalue
+        public void AddUniqueValueFields(string fieldName, object fieldValue)
+        {
+            if (UniqueValueFields == null) UniqueValueFields = new List<DBField[]>();
+            {
+                DBField[] fieldToAdd = new DBField[1] { new DBField(fieldName, fieldValue) };
+            }
+            UniqueValueFields.Add(new DBField[1] { new DBField(fieldName, fieldValue) });
+        }
+        // combined unique fieldvalues
+        public void AddUniqueValueFields(DBField[]dBFieldsToAdd)
+        {
+            if (dBFieldsToAdd != null)
+            {
+                if (UniqueValueFields == null) 
+                    UniqueValueFields = new List<DBField[]>();
+                UniqueValueFields.Add(dBFieldsToAdd);
+            }
         }
         public object[] PrimaryKeysValue()
         {

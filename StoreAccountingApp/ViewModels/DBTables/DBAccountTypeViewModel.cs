@@ -20,15 +20,5 @@ namespace StoreAccountingApp.ViewModels
         public DBAccountTypeViewModel()
         {
         }
-        protected override AccountType DTOtoDBModel(AccountTypeDTO dtoModelSource)
-        {
-            return base.DTOtoDBModel(dtoModelSource);
-        }
-        public override void LoadValidation()
-        {
-            CurrentValidation = new GeneralClasses.CheckValidation();
-            CurrentValidation.AddPrimaryKey(nameof(CurrentDTOModel.AccountTypeId), CurrentDTOModel.AccountTypeId);
-            CurrentValidation.AddNonNullFields(nameof(CurrentDTOModel.Name), CurrentDTOModel.Name);
-        }
     }
 }

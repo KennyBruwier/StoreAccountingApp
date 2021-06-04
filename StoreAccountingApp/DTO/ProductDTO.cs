@@ -45,6 +45,11 @@ namespace StoreAccountingApp.DTO
             get { return details; }
             set { details = value; OnPropertyChanged("Details"); }
         }
-
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(ProductId), ProductId);
+            Validation.AddNonNullFields(nameof(Name), Name);
+        }
     }
 }

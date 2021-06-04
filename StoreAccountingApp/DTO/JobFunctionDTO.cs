@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using StoreAccountingApp.DTO.Abstracts;
 
 namespace StoreAccountingApp.DTO
 {
-    public class JobFunctionDTO : INotifyPropertyChanged
+    public class JobFunctionDTO : RecordTimeStampsDTO
     {
         private int jobFunctionId;
         public int JobFunctionId
@@ -33,12 +34,11 @@ namespace StoreAccountingApp.DTO
             get { return category; }
             set { category = value; OnPropertyChanged("Category"); }
         }
-        #region INotifyPropertyChanged Members
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public override void LoadValidation()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(JobFunctionId), JobFunctionId);
+            Validation.AddNonNullFields(nameof(Title), Title);
         }
-        #endregion
     }
 }

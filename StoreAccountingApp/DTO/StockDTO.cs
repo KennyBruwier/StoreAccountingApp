@@ -9,11 +9,11 @@ namespace StoreAccountingApp.DTO
 {
     public class StockDTO : RecordTimeStampsDTO
     {
-        private int storeId;
-        public int StoreId
+        private int shopId;
+        public int ShopId
         {
-            get { return storeId; }
-            set { storeId = value; OnPropertyChanged("StoreId"); }
+            get { return shopId; }
+            set { shopId = value; OnPropertyChanged("ShopId"); }
         }
         private int productId;
         public int ProductId
@@ -50,6 +50,12 @@ namespace StoreAccountingApp.DTO
         {
             get { return unitPrice; }
             set { unitPrice = value; OnPropertyChanged("UnitPrice"); }
+        }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(ShopId), ShopId);
+            Validation.AddPrimaryKey(nameof(ProductId), ProductId);
         }
     }
 }

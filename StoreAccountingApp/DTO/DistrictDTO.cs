@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreAccountingApp.DTO.Abstracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.DTO
 {
-    public class DistrictDTO : INotifyPropertyChanged
+    public class DistrictDTO : RecordTimeStampsDTO
     {
         private string postalCodeId;
         public string PostalCodeId
@@ -33,19 +34,12 @@ namespace StoreAccountingApp.DTO
             get { return countryDTO; }
             set { countryDTO = value; OnPropertyChanged("CountryDTO"); }
         }
-
-        //private int countryName;
-        //public int CountryName
-        //{
-        //    get { return countryName; }
-        //    set { countryName = value; OnPropertyChanged("CountryName"); }
-        //}
-        #region INotifyPropertyChanged Members
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public override void LoadValidation()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(PostalCodeId), PostalCodeId);
+            Validation.AddNonNullFields(nameof(Name), Name);
+            Validation.AddNonNullFields(nameof(CountryId), CountryId);
         }
-        #endregion
     }
 }

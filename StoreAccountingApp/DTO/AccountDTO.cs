@@ -45,6 +45,18 @@ namespace StoreAccountingApp.DTO
             get { return password; }
             set { password = value; OnPropertyChanged("Password"); }
         }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(AccountId),AccountId);
+            Validation.AddNonNullFields(nameof(AccountTypeId), AccountTypeId);
+            Validation.AddNonNullFields(nameof(Username), Username);
+            Validation.AddNonNullFields(nameof(Password), Password);
+            Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+        }
+        public AccountDTO()
+        {
 
+        }
     }
 }

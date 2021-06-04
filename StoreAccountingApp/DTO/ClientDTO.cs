@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using StoreAccountingApp.DTO.Abstracts;
+using StoreAccountingApp.GeneralClasses;
 
 namespace StoreAccountingApp.DTO
 {
@@ -66,6 +67,18 @@ namespace StoreAccountingApp.DTO
         }
         public ClientDTO()
         {
+        }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(ClientId), ClientId);
+            Validation.AddNonNullFields(nameof(Firstname), Firstname);
+            Validation.AddNonNullFields(nameof(Lastname), Lastname);
+            Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+            List<DBField> dBFields = new List<DBField>();
+            dBFields.Add(new DBField() { Name = nameof(Firstname), Value = Firstname });
+            dBFields.Add(new DBField() { Name = nameof(Lastname), Value = Lastname });
+            Validation.AddUniqueValueFields(dBFields.ToArray());
         }
     }
 }

@@ -60,15 +60,15 @@
         <TextBox x:Name="txtSaleProductId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentSaleProductDTO.SaleProductId, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.SaleProductId, Mode=TwoWay}"/>
         <TextBox x:Name="txtName"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentSaleProductDTO.Name, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Name, Mode=TwoWay}"/>
         <TextBox x:Name="txtDescription"
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentSaleProductDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
                     Grid.Column="1" Margin="5,8">
@@ -93,7 +93,7 @@
                   AutoGenerateColumns="False"
                   Grid.Row="6"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=SaleProductList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"

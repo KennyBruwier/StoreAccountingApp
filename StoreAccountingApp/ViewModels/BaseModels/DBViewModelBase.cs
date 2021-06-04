@@ -40,7 +40,7 @@ namespace StoreAccountingApp.ViewModels
             updateCommand = new RelayCommand(UpdateAndCatch);
             deleteCommand = new RelayCommand(DeleteAndCatch);
         }
-        private void LoadValidation()
+        public override void LoadValidation()
         {
             currentDTOModel.LoadValidation();
         }

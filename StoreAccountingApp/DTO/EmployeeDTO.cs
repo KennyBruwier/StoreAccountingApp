@@ -52,5 +52,13 @@ namespace StoreAccountingApp.DTO
         {
 
         }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(EmployeeId), EmployeeId);
+            Validation.AddNonNullFields(nameof(Firstname), Firstname);
+            Validation.AddNonNullFields(nameof(Lastname), Lastname);
+            Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+        }
     }
 }

@@ -17,12 +17,16 @@ namespace StoreAccountingApp.Services.DBTables
 {
     public abstract class BaseService<DTOModel, DBModel> : ErrorHandling, IBaseService<DTOModel, DBModel>
         where DTOModel : BaseDTO, new()
-        where DBModel : BaseModel
+        where DBModel : BaseModel, new()
     {
         protected _DBStoreAccountingContext ctx;
         public BaseService()
         {
             ctx = new _DBStoreAccountingContext();
+        }
+        public virtual DBModel DTOtoDBModel(DTOModel dtoModelSource)
+        {
+            return ObjMethods.CopyProperties<DTOModel, DBModel>(dtoModelSource);
         }
         public bool Add(DBModel recordToAdd)
         {

@@ -115,7 +115,7 @@ namespace StoreAccountingApp.Models
             Employee userToAdd = null;
             userToAdd = context.Employees.FirstOrDefault(e=>e.Firstname.Equals("kenny",StringComparison.OrdinalIgnoreCase));
             if (userToAdd != null && !accountService.UserNameExists("kenny"))
-                accountService.Add(new AccountDTO { Username = userToAdd.Firstname, Password = "123", EmailAddress = userToAdd.EmailAddress, AccountTypeId = 1, EmployeeId = 1});
+                accountService.Add(new Account { Username = userToAdd.Firstname, Password = "123", EmailAddress = userToAdd.EmailAddress, AccountTypeId = 1, EmployeeId = 1});
         }
         private bool WriteDataSet<T>(List<T>dataToAdd)
         {

@@ -130,11 +130,11 @@
                     Grid.Row="1"
                     Grid.Column="1">
             <TextBox x:Name="txtOrderId"
-                     Text="{Binding Path=CurrentOrderProductDTO.OrderId, Mode=TwoWay}"/>
+                     Text="{Binding Path=CurrentDTOModel.OrderId, Mode=TwoWay}"/>
             <TextBlock Text="Order Id"/>
             <TextBox x:Name="txtProductId"
                      
-                     Text="{Binding Path=CurrentOrderProductDTO.ProductId, Mode=TwoWay}"/>
+                     Text="{Binding Path=CurrentDTOModel.ProductId, Mode=TwoWay}"/>
             <TextBlock Text="Product Id"/>
         </StackPanel>
         <TextBlock Text="Product"
@@ -157,7 +157,7 @@
         <TextBox x:Name="txtStatus"
                  Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentOrderProductDTO.Status, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
         <TextBlock Text="Amount"
                    Grid.Row="5"
                    Grid.Column="0"/>
@@ -166,13 +166,13 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="3">
             <TextBox x:Name="txtAmount"
-                 Text="{Binding Path=CurrentOrderProductDTO.Amount, Mode=OneWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Amount, Mode=OneWay}"/>
             <TextBlock Text="Min."/>
             <TextBox x:Name="txtMinAmount"
-                     Text="{Binding Path=CurrentOrderProductDTO.MinAmount, Mode=OneWay}"/>
+                     Text="{Binding Path=CurrentDTOModel.MinAmount, Mode=OneWay}"/>
             <TextBlock Text="Max."/>
             <TextBox x:Name="txtMaxAmount"
-                     Text="{Binding Path=CurrentOrderProductDTO.MaxAmount, Mode=OneWay}"/>
+                     Text="{Binding Path=CurrentDTOModel.MaxAmount, Mode=OneWay}"/>
         </StackPanel>
         <TextBlock Text="Unite Price"
                    Grid.Row="6"
@@ -180,14 +180,14 @@
         <TextBox x:Name="txtUnitPrice"
                  Grid.Row="6"
                  Grid.Column="1"
-                 Text="{Binding Path=CurrentOrderProductDTO.UnitPrice, Mode=OneWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.UnitPrice, Mode=OneWay}"/>
         <TextBlock Text="Discount"
                    Grid.Row="7"
                    Grid.Column="0"/>
         <TextBox x:Name="txtDiscount"
                    Grid.Row="7"
                    Grid.Column="1"
-                   Text="{Binding Path=CurrentOrderProductDTO.Discount, Mode=OneWay}"/>
+                   Text="{Binding Path=CurrentDTOModel.Discount, Mode=OneWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"
                     Grid.Column="1">
@@ -212,7 +212,7 @@
                   AutoGenerateColumns="False"
                   Grid.Row="19"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=OrderProductList, Mode=OneWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=OneWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"

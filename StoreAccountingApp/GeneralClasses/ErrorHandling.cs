@@ -29,6 +29,7 @@ namespace StoreAccountingApp.GeneralClasses
         }
         public virtual void LoadValidation()
         {
+
         }        
         protected string GetClassName()
         {

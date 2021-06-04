@@ -33,5 +33,15 @@ namespace StoreAccountingApp.DTO
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(SaleId), SaleId);
+            Validation.AddNonNullFields(nameof(ClientId), ClientId);
+            Validation.AddNonNullFields(nameof(StoreId), StoreId);
+            Validation.AddNonNullFields(nameof(EmployeeId), EmployeeId);
+            Validation.AddNonNullFields(nameof(InvoiceNumber), InvoiceNumber);
+            Validation.AddNonNullFields(nameof(Status), Status);
+        }
     }
 }

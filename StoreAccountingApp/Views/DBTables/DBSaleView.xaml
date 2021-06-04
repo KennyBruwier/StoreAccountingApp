@@ -88,40 +88,40 @@
         <TextBox x:Name="txtSaleId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentSaleDTO.SaleId, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.SaleId, Mode=TwoWay}"/>
         <TextBox x:Name="txtInvoiceNr"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentSaleDTO.InvoiceNumber, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.InvoiceNumber, Mode=TwoWay}"/>
         <TextBox x:Name="txtStatus"
                  Grid.Row="3"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.Status, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
         <TextBox x:Name="txtClient"
                  Grid.Row="4"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.Client.Organisation, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Client.Organisation, Mode=TwoWay}"/>
         <TextBox x:Name="txtStore"
                  Grid.Row="5"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
         <TextBox x:Name="txtEmployee"
                  Grid.Row="6"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.Employee.Firstname, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Employee.Firstname, Mode=TwoWay}"/>
 
         <TextBox x:Name="txtGuarantee"
                  Grid.Row="7"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.Guarantee, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Guarantee, Mode=TwoWay}"/>
         <TextBox x:Name="txtDiscount"
                  Grid.Row="8"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.Discount, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Discount, Mode=TwoWay}"/>
         <TextBox x:Name="txtPaymentMethod"
                  Grid.Row="9"
                  Grid.Column="1" 
-                 Text="{Binding Path=CurrentSaleDTO.PaymentMethod, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.PaymentMethod, Mode=TwoWay}"/>
 
 
         <StackPanel Orientation="Horizontal"
@@ -148,7 +148,7 @@
                   AutoGenerateColumns="False"
                   Grid.Row="13"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=SaleList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"

@@ -51,27 +51,27 @@
         <TextBox x:Name="txtCountryId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentCountryDTO.CountryId, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.CountryId, Mode=TwoWay}"/>
         <TextBox x:Name="txtName"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentCountryDTO.Name, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Name, Mode=TwoWay}"/>
         <TextBox x:Name="txtIso3166Code"
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentCountryDTO.Iso3166Code, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Iso3166Code, Mode=TwoWay}"/>
         <TextBox x:Name="txtCapital"
                  Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentCountryDTO.Capital, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Capital, Mode=TwoWay}"/>
         <TextBox x:Name="txtPhoneCode"
                  Grid.Row="5"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentCountryDTO.PhoneCode, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.PhoneCode, Mode=TwoWay}"/>
         <TextBox x:Name="txtTimeDiff_UTC"
                  Grid.Row="6"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentCountryDTO.TimeDiff_UTC, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.TimeDiff_UTC, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="7"
                     Grid.Column="1" Margin="5,8">
@@ -96,7 +96,7 @@
                   AutoGenerateColumns="False"
                   Grid.Row="9"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=CountryList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"

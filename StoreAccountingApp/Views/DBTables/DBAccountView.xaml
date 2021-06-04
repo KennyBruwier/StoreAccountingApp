@@ -53,23 +53,23 @@
         <TextBox x:Name="txtAccountId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentAccountDTO.AccountId, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.AccountId, Mode=TwoWay}"/>
         <TextBox x:Name="txtUsername"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentAccountDTO.Name, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Name, Mode=TwoWay}"/>
         <TextBox x:Name="txtEmailAddress"
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentAccountDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
         <TextBox x:Name="txtPassword"
                  Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentAccountDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
         <TextBox x:Name="txtAccountType"
                  Grid.Row="5"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentAccountDTO.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
 
 
         <StackPanel Orientation="Horizontal"
@@ -96,7 +96,7 @@
                   AutoGenerateColumns="False"
                   Grid.Row="9"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=AccountList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"

@@ -22,6 +22,11 @@ namespace StoreAccountingApp.DTO
             get { return productId; }
             set { productId = value; }
         }
-
+        public override void LoadValidation()
+        {
+            Validation = new GeneralClasses.CheckValidation();
+            Validation.AddPrimaryKey(nameof(SupplierId), SupplierId);
+            Validation.AddPrimaryKey(nameof(ProductId), ProductId);
+        }
     }
 }
