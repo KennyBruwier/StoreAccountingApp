@@ -18,10 +18,10 @@ namespace StoreAccountingApp.Models.Abstracts
         [Required]
         public int MaxAmount { get; set; } = 0;
         [Required]
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         [Required]
-        public float Discount { get; set; } = 0;
+        public decimal Discount { get; set; } = 0;
         [Required]
-        public float Guarantee { get; set; } = 0;
+        public decimal Guarantee { get; set; } = 0;
     }
 }

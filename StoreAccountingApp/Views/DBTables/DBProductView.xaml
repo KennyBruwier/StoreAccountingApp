@@ -5,7 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d"
-             >
+             Width="auto"
+             MinWidth="500"
+             Height="auto"
+             MinHeight="500">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock"
+               BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="TextBox"
+               BasedOn="{StaticResource TextBoxStyle}"/>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource SideBarButtonStyle}"/>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -33,70 +44,70 @@
                    Grid.ColumnSpan="2"
                    FontSize="20"
                    FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   HorizontalAlignment="Center"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Name"
                    Grid.Row="2"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Manufacturer"
                    Grid.Row="3"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Description"
                    Grid.Row="4"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Details"
                    Grid.Row="5"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Picture"
                    Grid.Row="6"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
 
         <TextBox x:Name="txtProductId"
                  Grid.Row="1"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.ProductId, Mode=TwoWay}"/>
         <TextBox x:Name="txtName"
                  Grid.Row="2"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.Name, Mode=TwoWay}"/>
         <TextBox x:Name="txtManufacturer"
                  Grid.Row="3"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.Manufacturer, Mode=TwoWay}"/>
         <TextBox x:Name="txtDescription"
                  Grid.Row="4"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
         <TextBox x:Name="txtDetails"
                  Grid.Row="5"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.Details, Mode=TwoWay}"/>
         <TextBox x:Name="txtBarcode"
                  Grid.Row="6"
-                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.Barcode, Mode=TwoWay}"/>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="11"
                     Grid.Column="1" Margin="5,8">
             <Button x:Name="btnAdd"
-                    Content="ADD" Margin="5,8" Padding="3"
+                    Content="ADD"
                     Command="{Binding Path=SaveCommand}"/>
             <Button x:Name="btnSearch"
-                    Content="SEARCH" Margin="5,8" Padding="3"
+                    Content="SEARCH"
                     Command="{Binding Path=SearchCommand}"/>
             <Button x:Name="btnUpdate"
-                    Content="UPDATE" Margin="5,8" Padding="3"
+                    Content="UPDATE"
                     Command="{Binding Path=UpdateCommand}"/>
             <Button x:Name="btnDelete"
-                    Content="DELETE" Margin="5,8" Padding="3"
+                    Content="DELETE"
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
                    Grid.Row="12"
-                   Grid.Column="1" Margin="5,8" Padding="3"
+                   Grid.Column="1"
                    Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgProducts"
                   AutoGenerateColumns="False"

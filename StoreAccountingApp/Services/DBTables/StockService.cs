@@ -14,7 +14,6 @@ namespace StoreAccountingApp.Services
 {
     public class StockService : BaseService<StockDTO,Stock>
     {
-
         public StockService()
         {
 

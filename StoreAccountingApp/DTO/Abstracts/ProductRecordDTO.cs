@@ -36,23 +36,23 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return maxAmount; }
             set { maxAmount = value; OnPropertyChanged("MaxAmount"); }
         }
-        private double unitPrice;
+        private decimal unitPrice;
 
-        public double UnitPrice
+        public decimal UnitPrice
         {
             get { return unitPrice; }
             set { unitPrice = value; OnPropertyChanged("UnitPrice"); }
         }
-        private float discount;
+        private decimal discount;
 
-        public float Discount
+        public decimal Discount
         {
             get { return discount; }
             set { discount = value; OnPropertyChanged("Discount"); }
         }
-        private int guarantee;
+        private decimal guarantee;
 
-        public int Guarantee
+        public decimal Guarantee
         {
             get { return guarantee; }
             set { guarantee = value; OnPropertyChanged("Guarantee"); }

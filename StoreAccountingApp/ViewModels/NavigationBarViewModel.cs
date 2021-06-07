@@ -2,6 +2,7 @@
 using StoreAccountingApp.Services;
 using StoreAccountingApp.Stores;
 using StoreAccountingApp.ViewModels;
+using StoreAccountingApp.ViewModels.Overviews;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace StoreAccountingApp.ViewModels
 {
     public class NavigationBarViewModel : ViewModelBase
     {
-        private readonly AccountStore _accountStore;
+        private AccountStore _accountStore;
         private NavigationStore _navigationStore;
         private UsersStore _usersStore;
         private NavigationBarViewModel _navigationBarViewModel;
@@ -55,7 +56,8 @@ namespace StoreAccountingApp.ViewModels
         private void OnCurrentAccountChanged()
         {
             OnPropertyChanged(nameof(IsLoggedIn));
-            //OnPropertyChanged(nameof(_accountStore.CurrentAccount));
+            OnPropertyChanged(nameof(NotLoggedIn));
+            OnPropertyChanged(nameof(CurrentUser));
         }
 
         public override void Dispose()
@@ -81,7 +83,7 @@ namespace StoreAccountingApp.ViewModels
         {
             return new LayoutNavigationService<OverviewViewModel>(
                 _navigationStore,
-                () => new OverviewViewModel(_accountStore, CreateHomeNavigationService()),
+                () => new OverviewViewModel(_accountStore, new NavigationStore() { CurrentViewModel = new SalesOverviewViewModel() }),
                 _navigationBarViewModel);
         }
         private INavigationService<OrdersViewModel> CreateOrdersNavigationService()
@@ -119,6 +121,5 @@ namespace StoreAccountingApp.ViewModels
                 () => new AddUserViewModel(_usersStore, CreateUsersListingNavigationService()),
                 _navigationBarViewModel);
         }
-
     }
 }

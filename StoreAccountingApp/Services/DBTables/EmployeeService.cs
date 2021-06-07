@@ -15,62 +15,47 @@ namespace StoreAccountingApp.Services
 {
     public class EmployeeService : BaseService<EmployeeDTO,Employee>
     {
-        public override Employee DTOtoDBModel(EmployeeDTO dtoModelSource)
-        {
-            /*  Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(newEmployeeDTO);
-                if (    (newEmployeeDTO.PostalCodeId != "") &&
-                        (newEmployeeDTO.CountryName != "") && 
-                        (ctx.Districts.Find(newEmployeeDTO.PostalCodeId) == null))
-                {
-                    Country country = ctx.Countries.FirstOrDefault(c => c.Name == newEmployeeDTO.CountryName);
-                    if (country == null)
-                    {
-                        Country DBcountry = new Country() { Name = newEmployeeDTO.CountryName };
-                        CountryService countryService = new CountryService();
-                        if (countryService.Add(DBcountry))
-                            country = ctx.Countries.FirstOrDefault(c => c.Name == newEmployeeDTO.CountryName);
-                        else
-                            throw new ArgumentException($"Country add operation failed for countryname: {newEmployeeDTO.CountryName}");
-                    }
-                    District newDistrict = new District()
-                    {
-                        PostalCodeId = newEmployeeDTO.PostalCodeId,
-                        Name = newEmployeeDTO.DistrictName,
-                        Country = country
-                    };
-                    newEmployee.District = newDistrict;
-                }
-                ctx.Employees.Add(newEmployee);
-                return ctx.SaveChanges() > 0;
-
-                    public List<EmployeeDTO> GetAll()
-                    {
-                        List<EmployeeDTO> employeeList = new List<EmployeeDTO>();
-                        var ObjQuery = from Employee in ctx.Employees
-                                       select Employee;
-                        foreach (var employee in ObjQuery)
-                        {
-                            EmployeeDTO newEmployeeDTO = ObjMethods.CopyProperties<Employee, EmployeeDTO>(employee);
-                            if ((employee.PostalCodeId != null) && (employee.PostalCodeId != ""))
-                            {
-                                DistrictService districtService = new DistrictService();
-                                newEmployeeDTO.DistrictDTO = districtService.Search(employee.PostalCodeId);
-                                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO.Name;
-                            }
-                            employeeList.Add(newEmployeeDTO);
-                        }
-                        return employeeList;
-                    }
-
-             */
-            return base.DTOtoDBModel(dtoModelSource);
-        }
-
         public EmployeeService()
         {
 
         }
-
+        public override EmployeeDTO CopyDBtoDTO(Employee source)
+        {
+            EmployeeDTO newEmployeeDTO = ObjMethods.CopyProperties<Employee, EmployeeDTO>(source);
+            if ((source.PostalCodeId != null) && (source.PostalCodeId != ""))
+            {
+                DistrictService districtService = new DistrictService();
+                newEmployeeDTO.DistrictDTO = districtService.Search(source.PostalCodeId);
+                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO.Name;
+            }
+            return newEmployeeDTO;
+        }
+        public override Employee CopyDTOtoDB(EmployeeDTO dtoModel)
+        {
+            Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(dtoModel);
+            if ((dtoModel.PostalCodeId != "") &&
+                (dtoModel.CountryName != "") &&
+                (ctx.Districts.Find(dtoModel.PostalCodeId) == null))
+            {
+                Country country = ctx.Countries.FirstOrDefault(c => c.Name == dtoModel.CountryName);
+                if (country == null)
+                {
+                    CountryService countryService = new CountryService();
+                    if (countryService.Add(new CountryDTO() { Name = dtoModel.CountryName }))
+                        country = ctx.Countries.FirstOrDefault(c => c.Name == dtoModel.CountryName);
+                    else
+                        throw new ArgumentException($"Country add operation failed for countryname: {dtoModel.CountryName}");
+                }
+                District newDistrict = new District()
+                {
+                    PostalCodeId = dtoModel.PostalCodeId,
+                    Name = dtoModel.DistrictName,
+                    Country = country
+                };
+                newEmployee.District = newDistrict;
+            }
+            return newEmployee;
+        }
         //public bool Update(EmployeeDTO objEmployeeToUpdate)
         //{
         //    var ObjEmployee = ctx.Employees.Find(objEmployeeToUpdate.EmployeeId);

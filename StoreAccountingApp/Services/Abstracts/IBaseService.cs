@@ -13,9 +13,11 @@ namespace StoreAccountingApp.Services.Abstracts
         where DBModel : BaseModel
     {
         List<DTOModel> GetAll();
-        bool Add(DBModel dTOModelToAdd);
+        DBModel CopyDTOtoDB(DTOModel source);
+        DTOModel CopyDBtoDTO(DBModel source);
+        bool Add(DTOModel dtoModelToAdd);
         DTOModel Search(object[] idToSearch);
-        bool Update(DBModel dTOModelToUpdate);
+        bool Update(DTOModel dtoModelToUpdate);
         bool Delete(object[] idToDelete);
     }
 }

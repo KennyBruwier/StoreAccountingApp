@@ -55,7 +55,22 @@
             VerticalAlignment="Center"
             Background="DarkCyan"
             >-->
-
+    <UserControl.Resources>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource SideBarButtonStyle}"/>
+        <Style TargetType="TextBlock"
+               BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="StackPanel">
+            <Style.Resources>
+                <Style TargetType="TextBlock"
+                       BasedOn="{StaticResource TextBlockStyle}"/>
+                <Style TargetType="TextBox"
+                       BasedOn="{StaticResource TextBoxStyle}"/>
+                <Style TargetType="Button"
+                       BasedOn="{StaticResource SideBarButtonStyle}"/>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
     <Grid
         MaxWidth="1000"
         Margin="20"
@@ -77,24 +92,17 @@
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <TextBlock Text="Account type"/>
                 <TextBlock
-                    Margin="0 0 0 0"
                     Text="{Binding AccountType}"/>
+                <TextBlock
+                    Text="{Binding Username}" />
+                <TextBlock
+                    Text="{Binding Email}" />
             </StackPanel>
 
-            <TextBlock
-                Grid.Row="2"
-                Margin="0 20 0 0"
-                Text="{Binding Username}" />
-
-            <TextBlock
-                Grid.Row="3"
-                Margin="0 20 0 0"
-                Text="{Binding Email}" />
-
+            
             <Button
                 Grid.Row="4"
                 Margin="0 20 0 0"
-                Padding="5 2"
                 HorizontalAlignment="Left"
                 Command="{Binding NavigateHomeCommand}"
                 Content="Home" />

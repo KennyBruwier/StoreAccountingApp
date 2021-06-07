@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d"
              >
+    <UserControl.Resources>
+        <Style TargetType="ComboBox"
+               BasedOn="{StaticResource ElegantComboBoxStyle}"/>
+    </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -47,9 +51,6 @@
         <TextBlock Text="Password"
                    Grid.Row="4"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="AccountType"
-                   Grid.Row="5"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
         <TextBox x:Name="txtAccountId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
@@ -57,19 +58,40 @@
         <TextBox x:Name="txtUsername"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Name, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Username, Mode=TwoWay}"/>
         <TextBox x:Name="txtEmailAddress"
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.EmailAddress, Mode=TwoWay}"/>
         <TextBox x:Name="txtPassword"
                  Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
-        <TextBox x:Name="txtAccountType"
+                 Text="{Binding Path=CurrentDTOModel.Password, Mode=TwoWay}"/>
+        <!--<TextBox x:Name="txtAccountType"
                  Grid.Row="5"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.AccountType, Mode=TwoWay}"/>-->
+        <TextBlock Text="AccountType"
+                   Grid.Row="5"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <ComboBox x:Name="cbAccountType"
+                  Grid.Row="5"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbAccountTypeList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.AccountTypeId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
+        <TextBlock Text="Employee"
+                   Grid.Row="6"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <ComboBox x:Name="cbEmployeeList"
+                  Grid.Row="6"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbEmployeeList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.EmployeeId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
+
 
 
         <StackPanel Orientation="Horizontal"
@@ -109,7 +131,7 @@
                 <DataGridTextColumn
                     Header="Email"
                     Width="auto"
-                    Binding="{Binding Path=Email}"/>
+                    Binding="{Binding Path=EmailAddress}"/>
                 <DataGridTextColumn
                     Header="Password"
                     Width="auto"
@@ -117,7 +139,7 @@
                 <DataGridTextColumn
                     Header="AccountType"
                     Width="auto"
-                    Binding="{Binding Path=AccountType}"/>
+                    Binding="{Binding Path=AccountTypeName}"/>
 
             </DataGrid.Columns>
         </DataGrid>

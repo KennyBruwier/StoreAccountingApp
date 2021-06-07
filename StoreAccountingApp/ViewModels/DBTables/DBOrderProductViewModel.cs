@@ -18,8 +18,8 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DBOrderProductViewModel : DBViewModelBase<OrderProductDTO,OrderProductService,OrderProduct>
     {
-        private OrderService _OrderService;
-        private ProductService _ProductService;
+        private readonly OrderService _OrderService;
+        private readonly ProductService _ProductService;
         public DBOrderProductViewModel()
         {
             _ProductService = new ProductService();

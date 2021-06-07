@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="StoreAccountingApp.Views.Overviews.SalesOverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoreAccountingApp.Views.Overviews"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Width="auto"
+             MinWidth="500"
+             Height="auto"
+             MinHeight="500">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="5.8"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="Sales overview"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   FontSize="20"
+                   HorizontalAlignment="Center"/>
+            <DockPanel>
+                <StackPanel
+                    DockPanel.Dock="Top" 
+                    HorizontalAlignment="Center"
+                    >
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="ColumnDefinition">
+                                <Setter Property="MinWidth"
+                                        Value="100"/>
+                            </Style>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="MinWidth"
+                                        Value="150"/>
+                                <Setter Property="Margin"
+                                        Value="10 0 0 10"/>
+                                <Setter Property="Padding" 
+                                        Value="1" />
+                                
+                            </Style>                                   
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions >
+                            
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Select Sales Order"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           />
+                        <ComboBox x:Name="cbSales"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                          ItemsSource="{Binding CbSaleList}"
+                          SelectedValue="{Binding CbSelectedSale, Mode=TwoWay}"/>
+                        <TextBlock Text="Select product"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           />
+                        <ComboBox x:Name="cbProducts"
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          ItemsSource="{Binding CbProductList}"
+                          SelectedValue="{Binding CbSelectedProduct, Mode=TwoWay}"/>
+                        <TextBlock Text="Select employee"
+                           Grid.Row="0"
+                           Grid.Column="3"
+                           />
+                        <ComboBox x:Name="cbEmployees"
+                          Grid.Column="4"
+                          Grid.Row="0"
+                          ItemsSource="{Binding CbEmployeeList}"
+                          SelectedValue="{Binding CbSelectedEmployee,Mode=TwoWay}"/>
+                        <TextBlock Text="Select sale"
+                           Grid.Row="1"
+                           Grid.Column="3"
+                           />
+                        <ComboBox x:Name="cbClients"
+                          Grid.Column="4"
+                          Grid.Row="1"
+                          ItemsSource="{Binding CbClientList}"
+                          SelectedValue="{Binding CbSelectedClient,Mode=TwoWay}"/>
+
+                    </Grid>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+        
+        <lvc:CartesianChart 
+            Series="{Binding Collection}" LegendLocation="Left"
+            Grid.Row="5"
+            Grid.Column="1"
+            Height="400"
+            Width="600">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="{Binding XaxisLabel}" Labels="{Binding Labels}"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="{Binding YaxisLabel}" LabelFormatter="{Binding Formatter}"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+    </Grid>
+</UserControl>

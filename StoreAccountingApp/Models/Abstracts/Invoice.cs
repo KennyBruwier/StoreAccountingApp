@@ -16,9 +16,9 @@ namespace StoreAccountingApp.Models.Abstracts
         [MaxLength(20)]
         public string Status { get; set; } = "Active";
         [Required]
-        public float Guarantee { get; set; } = 0;
+        public decimal Guarantee { get; set; } = 0;
         [Required]
-        public float Discount { get; set; } = 0;
+        public decimal Discount { get; set; } = 0;
         public string PaymentMethod { get; set; }
         [Required]
         public DateTime PurchaseDate { get; set; } = DateTime.Now;

@@ -13,6 +13,6 @@ namespace StoreAccountingApp.Models.Abstracts
         [Required]
         public string Status { get; set; } = "Active";
         [Required]
-        public float VAT { get; set; } = 0;
+        public decimal VAT { get; set; } = 0;
     }
 }

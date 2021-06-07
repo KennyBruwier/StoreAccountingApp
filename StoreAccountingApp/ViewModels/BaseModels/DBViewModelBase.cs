@@ -18,7 +18,7 @@ namespace StoreAccountingApp.ViewModels
         where ServiceModel:BaseService<DTOModel,DBModel>, new()
         where DBModel:BaseModel, new()
     {
-        private ServiceModel serviceModel;
+        private readonly ServiceModel serviceModel;
         private DTOModel currentDTOModel;
         public DTOModel CurrentDTOModel
         {
@@ -44,10 +44,6 @@ namespace StoreAccountingApp.ViewModels
         {
             currentDTOModel.LoadValidation();
         }
-        protected virtual DBModel DTOtoDBModel(DTOModel dtoModelSource)
-        {
-            return CustomMethods.ObjMethods.CopyProperties<DTOModel, DBModel>(dtoModelSource);
-        }
         #region DisplayOperation
         private List<DTOModel> dTOModelList;
         public List<DTOModel> DTOModelList
@@ -61,7 +57,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region SaveOperation
-        private RelayCommand saveCommand;
+        private readonly RelayCommand saveCommand;
         public RelayCommand SaveCommand
         {
             get { return saveCommand; }
@@ -74,11 +70,11 @@ namespace StoreAccountingApp.ViewModels
         }
         public bool Save()
         {
-            return serviceModel.Add(DTOtoDBModel(CurrentDTOModel));
+            return serviceModel.Add(CurrentDTOModel);
         }
         #endregion
         #region SearchOperation
-        private RelayCommand searchCommand;
+        private readonly RelayCommand searchCommand;
         public RelayCommand SearchCommand
         {
             get { return searchCommand; }
@@ -87,7 +83,8 @@ namespace StoreAccountingApp.ViewModels
         {
             try
             {
-                var recordFound = serviceModel.Search(DTOtoDBModel(CurrentDTOModel).PrimaryKey);
+                CurrentDTOModel.LoadValidation();
+                var recordFound = serviceModel.Search(CurrentDTOModel.Validation.GetPrimaryKeysValue());
                 if (recordFound != null)
                 {
                     CurrentDTOModel = recordFound;
@@ -106,7 +103,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region UpdateOperation
-        private RelayCommand updateCommand;
+        private readonly RelayCommand updateCommand;
         public RelayCommand UpdateCommand
         {
             get { return updateCommand; }
@@ -119,12 +116,11 @@ namespace StoreAccountingApp.ViewModels
         }
         public bool Update()
         {
-            return serviceModel.Update(DTOtoDBModel(CurrentDTOModel));
+            return serviceModel.Update(CurrentDTOModel);
         }
         #endregion
         #region DeleteOperation
-        private RelayCommand deleteCommand;
-
+        private readonly RelayCommand deleteCommand;
         public RelayCommand DeleteCommand
         {
             get { return deleteCommand; }
@@ -137,7 +133,7 @@ namespace StoreAccountingApp.ViewModels
         }
         public bool Delete()
         {
-            return serviceModel.Delete(CurrentDTOModel.Validation.PrimaryKeysValue());
+            return serviceModel.Delete(CurrentDTOModel.Validation.GetPrimaryKeysValue());
         }
         #endregion
     }

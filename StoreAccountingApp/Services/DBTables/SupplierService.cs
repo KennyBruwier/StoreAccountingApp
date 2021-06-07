@@ -16,6 +16,7 @@ namespace StoreAccountingApp.Services
     {
         public SupplierService()
         {
+
         }
     }
 }

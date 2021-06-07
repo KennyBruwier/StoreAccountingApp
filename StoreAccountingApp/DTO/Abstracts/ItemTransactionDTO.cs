@@ -21,8 +21,8 @@ namespace StoreAccountingApp.DTO.Abstracts
         //    get { return unitPrice; }
         //    set { unitPrice = value; OnPropertyChanged("UnitPrice"); }
         //}
-        private float vAT;
-        public float VAT
+        private decimal vAT;
+        public decimal VAT
         {
             get { return vAT; }
             set { vAT = value; OnPropertyChanged("VAT"); }

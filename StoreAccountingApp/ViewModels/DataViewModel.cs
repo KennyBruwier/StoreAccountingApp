@@ -12,7 +12,6 @@ namespace StoreAccountingApp.ViewModels
 {
     public class DataViewModel : ViewModelBase
     {
-        public NavigationBarViewModel NavigationBarViewModel { get; }
         private readonly AccountStore _accountStore;
         //private NavigationStore _navigationStore;
         private readonly NavigationStore _tableNavigationStore;

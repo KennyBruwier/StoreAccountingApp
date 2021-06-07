@@ -22,7 +22,7 @@ namespace StoreAccountingApp.Services.Interfaces
     {
         protected readonly string _constring = string.Empty;
         private readonly DbContext dbc;
-        private readonly _DBStoreAccountingContext ctx;
+        private readonly DBStoreAccountingContext ctx;
         public Service(string connectionString)
         {
             _constring = connectionString;
@@ -32,7 +32,7 @@ namespace StoreAccountingApp.Services.Interfaces
         }
         public Service()
         {
-            ctx = new _DBStoreAccountingContext();
+            ctx = new DBStoreAccountingContext();
         }
         public bool Add(DTOEntity newDTOEntity)
         {

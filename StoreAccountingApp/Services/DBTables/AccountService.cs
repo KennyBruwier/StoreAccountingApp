@@ -15,56 +15,33 @@ namespace StoreAccountingApp.Services
 {
     public class AccountService : BaseService<AccountDTO,Account>
     {
+        private AccountTypeService _accountTypeService;
+        private EmployeeService _employeeService;
         public AccountService()
         {
-
+            _accountTypeService = new AccountTypeService();
+            _employeeService = new EmployeeService();
         }
-
-        //public bool Add(AccountDTO newAccountDTO)
-        //{
-        //    //                                                          <----- Add validations here
-        //    if (newAccountDTO.AccountId != 0)
-        //    {
-        //        if (ctx.Accounts.Find(newAccountDTO.AccountId) != null)
-        //        {
-        //            MessageBoxResult dialogResult = MessageBox.Show($"An user record with user id {newAccountDTO.AccountId}was already found, do you want to update it instead?",
-        //                                                            "Account already exists", MessageBoxButton.YesNo);
-        //            if (dialogResult == MessageBoxResult.Yes)
-        //                return Update(newAccountDTO);
-        //            else
-        //                throw new ArgumentException($"Add operation failed, user id {newAccountDTO.AccountId}already exists");
-        //        }
-        //    }
-
-        //    try
-        //    {
-        //        ctx.Accounts.Add(ObjMethods.CopyProperties<AccountDTO, Account>(newAccountDTO));
-        //        return ctx.SaveChanges() > 0;
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //}
-        //public AccountDTO Search(int userId)
-        //{
-        //    AccountDTO ObjAccount = null;
-        //    var ObjAccountToFind = ctx.Accounts.Find(userId);
-        //    if (ObjAccountToFind != null)
-        //    {
-        //        ObjAccount = ObjMethods.CopyProperties<Account, AccountDTO>(ObjAccountToFind);
-        //    }
-        //    return ObjAccount;
-        //}
+        public override AccountDTO CopyDBtoDTO(Account source)
+        {
+            AccountDTO newAccountDTO = null;
+            if (source != null)
+            {
+                newAccountDTO = ObjMethods.CopyProperties<Account, AccountDTO>(source);
+                if (newAccountDTO.AccountTypeId != 0)
+                    newAccountDTO.AccountTypeName = _accountTypeService.Search(newAccountDTO.AccountTypeId).Name;
+                if (newAccountDTO.EmployeeId != 0)
+                {
+                    EmployeeDTO currentEmployeeDTO = _employeeService.Search(newAccountDTO.EmployeeId);
+                    newAccountDTO.EmployeeFullname = String.Format("{0} {1}", currentEmployeeDTO.Firstname, currentEmployeeDTO.Lastname);
+                }
+            }
+            return newAccountDTO;
+        }
         public bool UserNameExists(string username)
         {
             return ctx.Accounts.FirstOrDefault(a => 
-                a.Username.Equals(username, StringComparison.OrdinalIgnoreCase)) == null ? false : true ;
+                a.Username.Equals(username, StringComparison.OrdinalIgnoreCase)) != null ;
         }
         public Account LoggedIn(string username, string password)
         {
@@ -72,34 +49,5 @@ namespace StoreAccountingApp.Services
                 (a.Username.Equals(username,StringComparison.OrdinalIgnoreCase) && 
                 (a.Password.Equals(password,StringComparison.OrdinalIgnoreCase))));
         }
-        //public bool Update(AccountDTO objAccountToUpdate)
-        //{
-        //    var ObjAccount = ctx.Accounts.Find(objAccountToUpdate.AccountId);
-        //    if (ObjAccount != null)
-        //    {
-        //        ObjAccount = ObjMethods.CopyProperties<AccountDTO, Account>(objAccountToUpdate);
-        //    }
-        //    try
-        //    {
-        //        return ctx.SaveChanges() > 0;
-        //    }
-        //    catch (DbEntityValidationException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //}
-        //public bool Delete(int userId)
-        //{
-        //    var ObjAccountToDelete = ctx.Accounts.Find(userId);
-        //    if (ObjAccountToDelete != null)
-        //        ctx.Accounts.Remove(ObjAccountToDelete);
-        //    return ctx.SaveChanges() > 0;
-        //}
-
     }
 }

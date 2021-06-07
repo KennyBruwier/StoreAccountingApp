@@ -18,6 +18,7 @@ using StoreAccountingApp.ViewModels;
 using StoreAccountingApp.Stores;
 using StoreAccountingApp.Services;
 using StoreAccountingApp.Commands;
+using StoreAccountingApp.ViewModels.Overviews;
 
 namespace StoreAccountingApp
 {
@@ -52,7 +53,7 @@ namespace StoreAccountingApp
             INavigationService<HomeViewModel> homeNavigationService = CreateHomeNavigationService();
             homeNavigationService.Navigate();
             //_navigationStore.CurrentViewModel = new HomeViewModel(_navigationBarViewModel,_accountStore, _navigationStore);
-            DataContext = new MainViewModel(_navigationStore);
+            DataContext = new MainViewModel(_navigationStore,_accountStore);
             InitializeComponent();
             InitializeDB();
         }
@@ -68,7 +69,7 @@ namespace StoreAccountingApp
         {
             return new LayoutNavigationService<OverviewViewModel>(
                 _navigationStore,
-                () => new OverviewViewModel(_accountStore, CreateHomeNavigationService()),
+                () => new OverviewViewModel(_accountStore, new NavigationStore() { CurrentViewModel = new SalesOverviewViewModel() }),
                 _navigationBarViewModel);
         }
         private INavigationService<OrdersViewModel> CreateOrdersNavigationService()
@@ -124,7 +125,7 @@ namespace StoreAccountingApp
         private void InitializeDB()
         {
             Debug.WriteLine("Starting DB...");
-            _DBStoreAccountingContext ctx = new _DBStoreAccountingContext();
+            DBStoreAccountingContext ctx = new DBStoreAccountingContext();
             ctx.LoadDemoData();
             Debug.WriteLine("Db successfully initialized");
         }

@@ -24,6 +24,13 @@ namespace StoreAccountingApp.DTO
             get { return accountTypeId; }
             set { accountTypeId = value; OnPropertyChanged("AccountTypeId"); }
         }
+        private string accountTypeName;
+        public string AccountTypeName
+        {
+            get { return accountTypeName; }
+            set { accountTypeName = value; OnPropertyChanged(nameof(AccountTypeName)); }
+        }
+
         private int employeeId;
 
         public int EmployeeId
@@ -31,6 +38,14 @@ namespace StoreAccountingApp.DTO
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
+        private string employeeFullname;
+
+        public string EmployeeFullname
+        {
+            get { return employeeFullname; }
+            set { employeeFullname = value; OnPropertyChanged(nameof(EmployeeFullname)); }
+        }
+
         private string username;
 
         public string Username

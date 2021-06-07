@@ -14,7 +14,11 @@ namespace StoreAccountingApp.GeneralClasses
         public CheckValidation CurrentValidation
         {
             get { return currentValidation; }
-            set { currentValidation = value; OnPropertyChanged(nameof(CurrentValidation)); }
+            set 
+            { 
+                currentValidation = value; 
+                OnPropertyChanged(nameof(CurrentValidation)); 
+            }
         }
         protected string tableName;
         private string message;
@@ -42,6 +46,7 @@ namespace StoreAccountingApp.GeneralClasses
         #region ErrorCatching
         protected void CatchOperation(Func<bool> operationToCatch)
         {
+            Message = "";
             TryCatchResult operationResult = TryCatch(operationToCatch, tableName);
             if (operationResult.OperationMessage != null)
                 Message = operationResult.OperationMessage;
@@ -75,6 +80,7 @@ namespace StoreAccountingApp.GeneralClasses
             };
             TryCatchResult tryCatchResult = new TryCatchResult();
             LoadValidation();
+            if (currentValidation == null) currentValidation = new CheckValidation();
             currentValidation.ValidationErrors = String.Empty;
             if (!(tryCatchResult.Result = ValidationSuccess(functionName)))
             {
@@ -102,7 +108,13 @@ namespace StoreAccountingApp.GeneralClasses
                             tryCatchResult.ErrMessage += String.Format("\nInner exception: {0}", ex.InnerException.Message);
                     }
                     else
-                        tryCatchResult.ErrMessage = ex.Message;
+                    {
+                        if (ex.InnerException != null)
+                            tryCatchResult.ErrMessage = ex.InnerException.Message;
+                        else
+                            tryCatchResult.ErrMessage = ex.Message;
+
+                    }
                 }
             }
             return tryCatchResult;

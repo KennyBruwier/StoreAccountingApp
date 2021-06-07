@@ -85,9 +85,6 @@ namespace StoreAccountingApp.GeneralClasses
         public void AddUniqueValueFields(string fieldName, object fieldValue)
         {
             if (UniqueValueFields == null) UniqueValueFields = new List<DBField[]>();
-            {
-                DBField[] fieldToAdd = new DBField[1] { new DBField(fieldName, fieldValue) };
-            }
             UniqueValueFields.Add(new DBField[1] { new DBField(fieldName, fieldValue) });
         }
         // combined unique fieldvalues
@@ -95,12 +92,11 @@ namespace StoreAccountingApp.GeneralClasses
         {
             if (dBFieldsToAdd != null)
             {
-                if (UniqueValueFields == null) 
-                    UniqueValueFields = new List<DBField[]>();
+                if (UniqueValueFields == null) UniqueValueFields = new List<DBField[]>();
                 UniqueValueFields.Add(dBFieldsToAdd);
             }
         }
-        public object[] PrimaryKeysValue()
+        public object[] GetPrimaryKeysValue()
         {
             List<object> keysValue = null;
             if (PrimaryKeys!=null)
@@ -115,6 +111,11 @@ namespace StoreAccountingApp.GeneralClasses
                 return keysValue.ToArray();
             else
                 return null;
+        }
+        public DBField[][] GetUniqueValueFields()
+        {
+            if (UniqueValueFields != null) return UniqueValueFields.ToArray();
+            return null;
         }
     }
 }

@@ -19,36 +19,52 @@ namespace StoreAccountingApp.Services.DBTables
         where DTOModel : BaseDTO, new()
         where DBModel : BaseModel, new()
     {
-        protected _DBStoreAccountingContext ctx;
+        protected DBStoreAccountingContext ctx;
         public BaseService()
         {
-            ctx = new _DBStoreAccountingContext();
+            ctx = new DBStoreAccountingContext();
         }
-        public virtual DBModel DTOtoDBModel(DTOModel dtoModelSource)
+        public virtual DTOModel CopyDBtoDTO(DBModel source)
         {
-            return ObjMethods.CopyProperties<DTOModel, DBModel>(dtoModelSource);
+            return ObjMethods.CopyProperties<DBModel, DTOModel>(source);
         }
-        public bool Add(DBModel recordToAdd)
+        public virtual DBModel CopyDTOtoDB(DTOModel source)
         {
-            ctx.Set<DBModel>().Add(recordToAdd);
+            return ObjMethods.CopyProperties<DTOModel, DBModel>(source);
+        }
+        public bool Add(DTOModel dtoModelToAdd)
+        {
+            DBModel dBModel = CopyDTOtoDB(dtoModelToAdd);
+            ctx.Set<DBModel>().Add(CopyDTOtoDB(dtoModelToAdd));
             return ctx.SaveChanges() > 0;
         }
-
-        public bool Delete(object[] idToDelete)
+        public bool Delete(params object[] idToDelete)
         {
             var recordToDelete = ctx.Set<DBModel>().Find(idToDelete);
             if (recordToDelete != null)
                 ctx.Set<DBModel>().Remove(recordToDelete);
             return ctx.SaveChanges() > 0;
         }
-
         public List<DTOModel> GetAll()
         {
             List<DTOModel> recordList = new List<DTOModel>();
             var ObjQuery = ctx.Set<DBModel>().ToList();
             foreach (var record in ObjQuery)
             {
-                recordList.Add(ObjMethods.CopyProperties<DBModel, DTOModel>(record));
+                recordList.Add(CopyDBtoDTO(record));
+            }
+            return recordList;
+        }
+        public List<DTOModel> GetAll(params object[] rangeIdsToSearch)
+        {
+            List<DTOModel> recordList = new List<DTOModel>();
+            foreach (object idToSearch in rangeIdsToSearch)
+            {
+                DTOModel recordFound = Search(idToSearch);
+                if (recordFound != null)
+                {
+                    recordList.Add(recordFound);
+                }
             }
             return recordList;
         }
@@ -58,90 +74,125 @@ namespace StoreAccountingApp.Services.DBTables
             var recordFound = ctx.Set<DBModel>().Find(idToSearch);
             if (recordFound != null)
             {
-                currentDTOModel = ObjMethods.CopyProperties<DBModel, DTOModel>(recordFound);
+                currentDTOModel = CopyDBtoDTO(recordFound);
             }
             return currentDTOModel;
         }
-        public bool Update(DBModel recordToUpdate)
+        public DTOModel Search(object idToSearch)
         {
-            var recordFound = ctx.Set<DBModel>().Find(recordToUpdate.PrimaryKey);
+            DTOModel currentDTOModel = null;
+            var recordFound = ctx.Set<DBModel>().Find(idToSearch);
             if (recordFound != null)
             {
-                recordFound = recordToUpdate;
+                currentDTOModel = CopyDBtoDTO(recordFound);
+            }
+            return currentDTOModel;
+        }
+        public DTOModel Search(DBField dbFieldToSearch)
+        {
+            DTOModel currentDTOModel = null;
+            if ((dbFieldToSearch != null) &&
+                    (dbFieldToSearch.Name != null) &&
+                    (dbFieldToSearch.Name.Length > 0)
+                )
+            {
+                PropertyInfo property = typeof(DTOModel).GetProperty(dbFieldToSearch.Name);
+                if (property != null)
+                {
+                    var recordFound = ctx.Set<DBModel>().FirstOrDefault(d => property.GetValue(d, null) == dbFieldToSearch.Value);
+                    if (recordFound != null)
+                    {
+                        currentDTOModel = CopyDBtoDTO(recordFound);
+                    }
+                }
+            }
+            return currentDTOModel;
+        }
+        public DTOModel Search(DBField[] dbFieldsToSearch)
+        {
+            DTOModel currentDTOModel = null;
+            List<PropertyInfo> properties = null;
+            foreach (DBField field in dbFieldsToSearch)
+            {
+                if ((field != null) &&
+                        (field.Name != null) &&
+                        (field.Name.Length > 0)
+                    )
+                {
+                    if (properties == null) properties = new List<PropertyInfo>();
+                    properties.Add(typeof(DTOModel).GetProperty(field.Name));
+                }
+            }
+            if (properties != null)
+            {
+                var recordsFound = ctx.Set<DBModel>().Where(d => properties[0].GetValue(d, null) == dbFieldsToSearch[0].Value).DefaultIfEmpty();
+                if (properties.Count > 1)
+                    for (int i = 1; i < properties.Count - 1; i++)
+                    {
+                        if (recordsFound != null)
+                            recordsFound = recordsFound.Where(d => properties[i].GetValue(d, null) == dbFieldsToSearch[i].Value).DefaultIfEmpty();
+                        else
+                            break;
+                    }
+                if (recordsFound != null)
+                {
+                    currentDTOModel = CopyDBtoDTO(recordsFound.FirstOrDefault());
+                }
+            }
+            return currentDTOModel;
+        }
+        public string Search(object[] idToSearch, params string[] columnNamesToReturn)
+        {
+            string toReturn = String.Empty;
+            if (idToSearch != null)
+            {
+                toReturn = ReturnColumnsValue(Search(idToSearch),columnNamesToReturn);
+            }
+            return toReturn;
+        }
+        public string Search(object idToSearch, params string[] columnNamesToReturn)
+        {
+            string toReturn = String.Empty;
+            if (idToSearch != null)
+            {
+                toReturn = ReturnColumnsValue(Search(idToSearch), columnNamesToReturn);
+            }
+            return toReturn;
+        }
+        public bool Update(DTOModel dtoModelToUpdate)
+        {
+            DBModel recordFound = ctx.Set<DBModel>().Find(dtoModelToUpdate.Validation.GetPrimaryKeysValue());
+            if (recordFound != null)
+            {
+                recordFound = CopyDTOtoDB(dtoModelToUpdate);
+                
+                return ctx.SaveChanges() > 0;
             }
             else
                 return false;
-            try
-            {
-                return ctx.SaveChanges() > 0;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    return ctx.SaveChanges() > 0;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
-        private PropertyInfo PK_GetByProperties
+        private string ReturnColumnsValue(DTOModel record, params string[] columnNamesToReturn)
         {
-            get
+            string toReturn = String.Empty;
+            if (record != null)
             {
-                return typeof(DBModel).GetProperties().FirstOrDefault(p => p.Name.Equals("ID", StringComparison.OrdinalIgnoreCase) ||
-                                                                                p.Name.Equals(typeof(DBModel).Name + "ID", StringComparison.OrdinalIgnoreCase));
-            }
-        }
-        private PropertyInfo PK_GetByKeyAttritbutes
-        {
-            get
-            {
-                return typeof(DBModel).GetProperties().FirstOrDefault(p => p.CustomAttributes.Any(attr => attr.AttributeType == typeof(KeyAttribute)));
-            }
-        }
-        private IEnumerable<string> K_NamesGetByFluentAPI
-        {
-            get
-            {
-                // DbContext ctx = dbc != null ? dbc : ctx;
-                IEnumerable<string> keys = null;
-                if (ctx != null)
+                var sourceProps = typeof(DTOModel).GetProperties().Where(x => x.CanRead).ToList();
+                int iCount = 0;
+                foreach (PropertyInfo property in sourceProps)
                 {
-                    ObjectContext objectContext = ((IObjectContextAdapter)ctx).ObjectContext;
-                    ObjectSet<DBModel> set = objectContext.CreateObjectSet<DBModel>();
-                    keys = set.EntitySet.ElementType.KeyMembers.Select(k => k.Name);
+                    if (columnNamesToReturn.Contains(property.Name))
+                        toReturn += (iCount++ == 0 ? "" : " ") + property.GetValue(record, null).ToString();
                 }
-                return keys;
             }
-        }
-        private PropertyInfo PK_GetByFluentAPI
-        {
-            get
-            {
-                return K_GetByFluentAPI.FirstOrDefault();
-            }
-        }
-        private PropertyInfo[] K_GetByFluentAPI
-        {
-            get
-            {
-                IEnumerable<string> keyNames = K_NamesGetByFluentAPI;
-                List<PropertyInfo> keys = new List<PropertyInfo>();
-                foreach (var keyName in keyNames)
-                {
-                    keys.Add(typeof(DBModel).GetProperties().FirstOrDefault(p => p.Name == keyName));
-                }
-                return keys.ToArray();
-            }
-        }
-        private PropertyInfo FindPK
-        {
-            get
-            {
-                PropertyInfo PKfound = null;
-                PKfound = PK_GetByProperties;
-                if (PKfound == null)
-                    PKfound = PK_GetByKeyAttritbutes;
-                if (PKfound == null)
-                    PKfound = PK_GetByFluentAPI;
-                return PKfound;
-            }
+            return toReturn;
         }
     }
 }

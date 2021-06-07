@@ -23,8 +23,8 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return inService; }
             set { inService = value; OnPropertyChanged("InService"); }
         }
-        private DateTime outOfService;
-        public DateTime OutOfService
+        private DateTime? outOfService;
+        public DateTime? OutOfService
         {
             get { return outOfService; }
             set { outOfService = value; OnPropertyChanged("OutOfService"); }

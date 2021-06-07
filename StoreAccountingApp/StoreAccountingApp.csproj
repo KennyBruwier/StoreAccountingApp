@@ -44,6 +44,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -91,6 +97,7 @@
     <Compile Include="GeneralClasses\DBField.cs" />
     <Compile Include="GeneralClasses\ErrorHandling.cs" />
     <Compile Include="GeneralClasses\NotifyPropertyChanged.cs" />
+    <Compile Include="GeneralClasses\SourceTargetProps.cs" />
     <Compile Include="GeneralClasses\TryCatchResult.cs" />
     <Compile Include="GeneralClasses\CheckValidation.cs" />
     <Compile Include="Models\Abstracts\AddressDigitalShort.cs" />
@@ -114,7 +121,7 @@
     <Compile Include="Models\SaleProduct.cs" />
     <Compile Include="Models\Stock.cs" />
     <Compile Include="Models\SupplierProduct.cs" />
-    <Compile Include="Models\_DBStoreAccountingContext.cs" />
+    <Compile Include="Models\DBStoreAccountingContext.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\JobFunction.cs" />
@@ -174,7 +181,6 @@
     <Compile Include="Services\LayoutNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\ParameterNavigationService.cs" />
-    <Compile Include="StoreAccountingDBModel.cs" />
     <Compile Include="Stores\AccountStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Tutorials\ComplexAbstract.cs" />
@@ -203,6 +209,9 @@
     <Compile Include="ViewModels\DBTables\DBAccountViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\BaseOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\SalesOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\StocksOverviewViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\BaseModels\ViewModelBase.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
@@ -273,6 +282,12 @@
     <Compile Include="Views\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Overviews\SalesOverviewView.xaml.cs">
+      <DependentUpon>SalesOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\StocksOverviewView.xaml.cs">
+      <DependentUpon>StocksOverviewView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OverviewView.xaml.cs">
       <DependentUpon>OverviewView.xaml</DependentUpon>
     </Compile>
@@ -283,6 +298,14 @@
     <Compile Include="Stores\UsersStore.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ComboboxItem.cs" />
+    <Page Include="ButtonDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ComboBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\BindablePasswordBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -299,6 +322,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="GridDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,6 +338,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TextBlockDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -399,6 +434,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Overviews\SalesOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\StocksOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OverviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -437,7 +480,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tutorials\TestCases\" />
-    <Folder Include="Views\ViewItems\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

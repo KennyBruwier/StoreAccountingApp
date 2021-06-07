@@ -3,15 +3,15 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:StoreAccountingApp.Components"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="DarkCyan"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
+        <Style TargetType="Button"
+               BasedOn="{StaticResource MenuButtonStyle}">
+            <!--<Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
@@ -32,11 +32,19 @@
                         </Setter.Value>
                     </Setter>
                 </Trigger>
-            </Style.Triggers>
+            </Style.Triggers>-->
+        </Style>
+        <Style TargetType="TextBlock"
+               BasedOn="{StaticResource MenuTextBlockStyle}">
         </Style>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style TargetType="StackPanel">
+            <Style.Resources>
+                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            </Style.Resources>
+        </Style>
     </UserControl.Resources>
-    <Grid MaxWidth="1000" Margin="20 10">
+    <Grid MaxWidth="1000" Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />

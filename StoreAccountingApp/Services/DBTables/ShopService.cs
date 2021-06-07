@@ -14,7 +14,6 @@ namespace StoreAccountingApp.Services
 {
     public class ShopService : BaseService<ShopDTO,Shop>
     {
-
         public ShopService()
         {
         }

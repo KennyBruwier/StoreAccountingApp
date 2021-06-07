@@ -5,6 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d"
+             Width="auto"
+             MinWidth="500"
+             Height="auto"
+             MinHeight="500"
              >
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -111,7 +115,7 @@
         <TextBox x:Name="txtLastname"
                  Grid.Row="4"
                  Grid.Column="1" Grid.ColumnSpan="3"
-                 Text="{Binding Path=CurrentEmployeeDTO.Lastname, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Lastname, Mode=TwoWay}"/>
         <TextBox x:Name="txtEmail"
                  Grid.Row="5"
                  Grid.Column="1" Grid.ColumnSpan="3"
@@ -119,7 +123,7 @@
         <TextBox x:Name="Organisation"
                  Grid.Row="6"
                  Grid.Column="1" Grid.ColumnSpan="3"
-                 Text="{Binding Path=CurrentDTOModel.Organistaion, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Organisation, Mode=TwoWay}"/>
         <TextBox x:Name="Streetname"
                 Grid.Row="7"
                 Grid.Column="1"

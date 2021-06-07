@@ -16,14 +16,14 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return status; }
             set { status = value; OnPropertyChanged("Status"); }
         }
-        private float guarantee;
-        public float Guarantee
+        private decimal guarantee;
+        public decimal Guarantee
         {
             get { return guarantee; }
             set { guarantee = value; OnPropertyChanged("Guarantee"); }
         }
-        private float discount;
-        public float Discount
+        private decimal discount;
+        public decimal Discount
         {
             get { return discount; }
             set { discount = value; OnPropertyChanged("Discount"); }
@@ -34,26 +34,26 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return paymentMethod; }
             set { paymentMethod = value; OnPropertyChanged("PaymentMethod"); }
         }
-        private DateTime purchaseDate;
+        private DateTime purchaseDate = DateTime.Now;
         public DateTime PurchaseDate
         {
             get { return purchaseDate; }
             set { purchaseDate = value; OnPropertyChanged("PurchaseDate"); }
         }
-        private DateTime expirationDate;
-        public DateTime ExpirationDate
+        private DateTime? expirationDate;
+        public DateTime? ExpirationDate
         {
             get { return expirationDate;; }
             set { expirationDate = value; OnPropertyChanged("ExpirationDate"); }
         }
-        private DateTime paymentDate;
-        public DateTime PaymentDate
+        private DateTime? paymentDate;
+        public DateTime? PaymentDate
         {
             get { return paymentDate; }
             set { paymentDate = value; OnPropertyChanged("PaymentDate"); }
         }
-        private DateTime deliveryDate;
-        public DateTime DeliveryDate
+        private DateTime? deliveryDate;
+        public DateTime? DeliveryDate
         {
             get { return deliveryDate; }
             set { deliveryDate = value; OnPropertyChanged("Deliverydate"); }

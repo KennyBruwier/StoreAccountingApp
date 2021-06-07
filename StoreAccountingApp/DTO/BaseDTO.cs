@@ -20,6 +20,10 @@ namespace StoreAccountingApp.DTO
                 OnPropertyChanged(nameof(Validation)); 
             }
         }
+        public BaseDTO()
+        {
+            LoadValidation();
+        }
         public virtual void LoadValidation() { }
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

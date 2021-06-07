@@ -14,7 +14,6 @@ namespace StoreAccountingApp.Services
 {
     public class OrderService : BaseService<OrderDTO,Order>
     {
-
         public OrderService()
         {
 

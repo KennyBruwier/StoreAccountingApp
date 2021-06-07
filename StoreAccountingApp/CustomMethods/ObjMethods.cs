@@ -1,11 +1,14 @@
 ﻿using StoreAccountingApp.DTO;
 using StoreAccountingApp.DTO.Abstracts;
+using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.Models.Abstracts;
+using StoreAccountingApp.Services.DBTables;
 using StoreAccountingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -21,6 +24,68 @@ namespace StoreAccountingApp.CustomMethods
     }
     public static class ObjMethods
     {
+        public static void SaveDataIfNotFound<DTOModel, DBModel, ServiceModel>(DTOModel[] dataToAdd, params string[] uniqueColumns)
+            where DBModel : BaseModel, new()
+            where DTOModel : BaseDTO, new()
+            where ServiceModel : BaseService<DTOModel, DBModel>, new()
+        {
+            DBStoreAccountingContext ctx = new DBStoreAccountingContext();
+            ServiceModel serviceModel = new ServiceModel();
+            List<SourceTargetProps> sourceTargetProperties = new List<SourceTargetProps>();
+            foreach (var item in uniqueColumns)
+            {
+                SourceTargetProps sourceTargetProps = new SourceTargetProps();
+                sourceTargetProps.sourceProp = typeof(DTOModel).GetProperties().Where(x => x.CanRead).Where(x => item.Equals(x.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                sourceTargetProps.targetProp = typeof(DBModel).GetProperties().Where(x => x.CanRead).Where(x => item.Equals(x.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                if ((sourceTargetProps.sourceProp != null)&&
+                    (sourceTargetProps.targetProp != null))
+                    sourceTargetProperties.Add(sourceTargetProps);
+            }
+            if (sourceTargetProperties != null)
+            {
+                foreach (DTOModel item in dataToAdd)
+                {
+                    int propIndex = 0;
+                    var sourceValue = sourceTargetProperties[propIndex].sourceProp.GetValue(item, null);
+                    //var recordsFound = ctx.Set<DBModel>().Where(x => (sourceTargetProperties[propIndex].targetProp).GetValue(x, null) == sourceValue).DefaultIfEmpty();
+                    var recordsFound = ctx.Set<DBModel>().Where(PropertyEquals<DBModel, string>(sourceTargetProperties[propIndex].targetProp, sourceValue.ToString()));
+                    propIndex++;
+                    while (propIndex < sourceTargetProperties.Count && (recordsFound != null))
+                    {
+                        recordsFound = recordsFound.Where(x => sourceTargetProperties[propIndex].targetProp.GetValue(x, null) == sourceTargetProperties[propIndex].sourceProp.GetValue(item, null)).DefaultIfEmpty();
+                        propIndex++;
+                    }
+                    if (recordsFound == null)
+                        serviceModel.Add(item);
+                }
+            }
+        }
+        public static Expression<Func<TItem, bool>> PropertyEquals<TItem, TValue>(PropertyInfo property, TValue value)
+        {
+            var param = Expression.Parameter(typeof(TItem));
+            var body = Expression.Equal(Expression.Property(param, property),
+                Expression.Constant(value));
+            return Expression.Lambda<Func<TItem, bool>>(body, param);
+        }
+        public static List<TU> CreateComboboxListFromProp<T,TU>()
+            where TU:ComboboxItem, new()
+        {
+            List<TU> comboboxItems = new List<TU>();
+            var dtoListProperties = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
+            int propertyIndex = 0;
+            foreach (var property in dtoListProperties)
+            {
+                if (property.Name != null)
+                {
+                    comboboxItems.Add(new TU() 
+                    { 
+                        Key = ++propertyIndex,
+                        Text = property.Name.Trim()
+                    });
+                }
+            }
+            return comboboxItems;
+        }
         public static List<TU> CreateComboboxList<T, TU>(List<T> dtoList, string propertyKey, params string[] propertiesToInclude)
             where T : BaseDTO
             where TU: ComboboxItem, new()
@@ -70,7 +135,8 @@ namespace StoreAccountingApp.CustomMethods
                         var sourcePropValue = sourceProp.GetValue(source, null);
                         if (sourceProp.Name.Substring(sourceProp.Name.Trim().Length - 2).ToLower() == "id")
                         {
-                            if (sourcePropValue is int @int && @int == 0)
+                            if ((sourcePropValue is int @int && @int == 0) ||
+                                (sourcePropValue is double @double && @double == 0))
                                 bContinue = false;
                         }
                         if (bContinue)

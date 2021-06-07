@@ -4,6 +4,169 @@
              xmlns:local="clr-namespace:StoreAccountingApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="TextBlockStyle">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="MenuTextBlockStyle">
+            <Setter Property="Margin" Value="5 0 5 0"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}"
+               x:Key="TextBoxStyle">
+            <Setter Property="MinWidth" Value="30"/>
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+        <Style TargetType="{x:Type Button}"
+            x:Key="SideBarButtonStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderThickness" Value="0.7" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Margin" Value="10 0 10 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0.7" BorderBrush="Black" Margin="0" Padding="0">
+                            <TextBlock 
+                            Text="{TemplateBinding Content}" 
+                            TextAlignment="Center"
+                            Background="LightGray"
+                            Foreground="Black"
+                            Margin="0"
+                            Padding="3"
+                            />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border BorderThickness="0.7" BorderBrush="Black" Margin="0" Padding="0">
+                                    <TextBlock 
+                                        Text="{TemplateBinding Content}" 
+                                        TextAlignment="Center"
+                                        Background="DarkCyan"
+                                        Foreground="White"
+                                    
+                                        Margin="0"
+                                        Padding="3"
+                                        />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border BorderThickness="0.7" BorderBrush="Black" Margin="0" Padding="0">
+
+                                    <TextBlock 
+                                        Text="{TemplateBinding Content}" 
+                                        TextAlignment="Center"
+                                        Background="LightGray"
+                                        Foreground="Black"
+                                        Margin="0"
+                                        Padding="3"
+                                        />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <Style TargetType="{x:Type Button}"
+           x:Key="MenuButtonStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Height="30"
+                                   Padding="5"
+                                   >
+                            
+                        </TextBlock> 
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <TextBlock  Text="{TemplateBinding Content}" 
+                                            Background="White"
+                                            Foreground="Black"
+                                            VerticalAlignment="Center"
+                                            TextAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Height="30"
+                                            Padding="5"
+                                           />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}"
+               x:Key="ElegantComboBoxStyle">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+            <Style.Resources>
+                <Style TargetType="Grid">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="5 0 0 0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="TextAlignment" Value="Left"/>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+                <Style TargetType="{x:Type ComboBoxItem}"
+                        >
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Grid}"
+               x:Key="RootGridStyle">
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="MinWidth" Value="500"/>
+            <Style.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
+                    <Style.Triggers>
+                        <Trigger Property="Grid.Column" Value="0">
+                            <Setter Property="MinWidth" Value="80"/>
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Application.Resources>
 </Application>
