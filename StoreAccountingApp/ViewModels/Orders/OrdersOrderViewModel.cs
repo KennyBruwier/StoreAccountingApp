@@ -15,6 +15,15 @@ namespace StoreAccountingApp.ViewModels.Orders
         private ProductService _productService;
         private OrderService _orderService;
         private OrderProductService _orderProductService;
+        private SupplierService _supplierService;
+        private List<SupplierDTO> supplierList;
+
+        public List<SupplierDTO> SupplierList
+        {
+            get { return supplierList; }
+            set { supplierList = value; OnPropertyChanged(nameof(SupplierList)); }
+        }
+
         private List<ProductDTO> productsList;
 
         public List<ProductDTO> ProductsList
@@ -57,6 +66,21 @@ namespace StoreAccountingApp.ViewModels.Orders
             get { return currentOrder; }
             set { currentOrder = value; OnPropertyChanged(nameof(CurrentOrder)); }
         }
+        private ComboboxItem selectedOrder;
+
+        public ComboboxItem SelectedOrder
+        {
+            get { return selectedOrder; }
+            set 
+            { 
+                selectedOrder = value;
+                CurrentOrder = OrdersList.Where(o => o.OrderId == value.Key).FirstOrDefault();
+                DgList = CreateDataGridList();
+                OnPropertyChanged(nameof(SelectedOrder)); 
+            }
+        }
+        public event Action CurrentDataGridListChanged;
+
 
         public OrdersOrderViewModel()
         {
@@ -67,8 +91,91 @@ namespace StoreAccountingApp.ViewModels.Orders
             ProductsList = _productService.GetAll().Where(p => OrderProductList.Select(op => op.ProductId).Contains(p.ProductId)).ToList(); ;
             OrdersList = _orderService.GetAll();
             CbOrdersList = ObjMethods.CreateComboboxList<OrderDTO, ComboboxItem>(OrdersList, "OderId", "InvoiceNumber");
-            DgList = CreateDataGridListFromOrderProducts();
+            DgList = CreateDataGridList();
+            this.CurrentDataGridListChanged += OnCurrentDataGridListChange;
         }
+        private void OnCurrentDataGridListChange()
+        {
+            OnPropertyChanged(nameof(DgList));
+        }
+        public List<OrdersDataGrid> CreateDataGridList()
+        {
+            OrdersDataGrid grandTotal = null;
+            List<OrdersDataGrid> newDataGridList = new List<OrdersDataGrid>();
+            if (currentOrder != null && currentOrder.OrderId != 0)
+            {
+                var dDgList = OrderProductList.Where(sp => sp.OrderId == currentOrder.OrderId).Join(ProductsList,
+                    op => op.ProductId,
+                    p => p.ProductId,
+                    (op, p) => new
+                    {
+                        op,
+                        p
+                    })
+                    .GroupBy(p => new { Key = p.p.Name, UnitPrice = p.op.UnitPrice })
+                    .Select(g => new
+                    {
+                        Key = g.Key.Key,
+                        UnitPrice = g.Key.UnitPrice,
+                        Amount = g.Sum(s => s.op.Amount),
+                        Netto = g.Key.UnitPrice * g.Sum(s => s.op.Amount),
+                        VAT = g.Sum(s => (s.op.VAT * s.op.Amount)),
+                        Total = g.Key.UnitPrice * g.Sum(s => s.op.Amount) + g.Sum(s => (s.op.VAT * s.op.Amount))
+                    })
+                    .OrderByDescending(g => g.Total).ToList();
+                foreach (var item in dDgList)
+                {
+                    OrdersDataGrid dgItem = new OrdersDataGrid(item);
+                    if (grandTotal == null) grandTotal = new OrdersDataGrid() { Key = "Total: " };
+                    grandTotal.Total += dgItem.Total;
+                    grandTotal.Netto += dgItem.Netto;
+                    grandTotal.VAT += dgItem.VAT;
+                    grandTotal.Amount += dgItem.Amount;
+                    newDataGridList.Add(dgItem);
+                }
+                if (grandTotal != null)
+                    newDataGridList.Add(grandTotal);
+
+            }
+            else
+            {
+                var dDgList = OrderProductList.Join(ProductsList,
+                    op => op.ProductId,
+                    p => p.ProductId,
+                    (op, p) => new
+                    {
+                        op,
+                        p
+                    })
+                    .GroupBy(p => new { Key = p.p.Name, UnitPrice = p.op.UnitPrice })
+                    .Select(g => new
+                    {
+                        Key = g.Key.Key,
+                        UnitPrice = g.Key.UnitPrice,
+                        Amount = g.Sum(s => s.op.Amount),
+                        Netto = g.Key.UnitPrice * g.Sum(s => s.op.Amount),
+                        VAT = g.Sum(s => (s.op.VAT * s.op.Amount)),
+                        Total = g.Key.UnitPrice * g.Sum(s => s.op.Amount) + g.Sum(s => (s.op.VAT * s.op.Amount))
+                    })
+                    .OrderByDescending(g => g.Total).ToList();
+                foreach (var item in dDgList)
+                {
+                    OrdersDataGrid dgItem = new OrdersDataGrid(item);
+                    if (grandTotal == null) grandTotal = new OrdersDataGrid() { Key = "Total: " };
+                    grandTotal.Total += dgItem.Total;
+                    grandTotal.Netto += dgItem.Netto;
+                    grandTotal.VAT += dgItem.VAT;
+                    grandTotal.Amount += dgItem.Amount;
+                    newDataGridList.Add(dgItem);
+                }
+                if (grandTotal != null)
+                    newDataGridList.Add(grandTotal);
+            }
+
+            return newDataGridList;
+
+        }
+
         public List<OrdersDataGrid>CreateDataGridListFromOrderProducts()
         {
             OrdersDataGrid grandTotal = null;

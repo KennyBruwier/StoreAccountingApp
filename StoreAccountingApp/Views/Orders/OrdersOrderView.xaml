@@ -6,11 +6,20 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <!--<UserControl.Resources>
+        <Style TargetType="TextBlock"
+               BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="ComboBox"
+               BasedOn="{StaticResource ElegantComboBoxStyle}"/>
+        <Style TargetType="TextBox"
+               BasedOn="{StaticResource TextBoxStyle}"/>
+    </UserControl.Resources>-->
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100"/>
             <ColumnDefinition Width="auto" MinWidth="100"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -45,10 +54,59 @@
                    Grid.Row="1"/>
         <ComboBox x:Name="cbOrderList"
                   ItemsSource="{Binding CbOrdersList}"
+                  SelectedItem="{Binding SelectedOrder}"
+                  SelectedValuePath="Key"
                   Grid.Column="1"
                   Grid.Row="1"
                   />
-        <TextBlock Text="{Binding }"
+        <TextBlock Text="Supplier"
+                   Grid.Column="0"
+                   Grid.Row="2"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.SupplierName}"
+                   Grid.Column="1"
+                   Grid.Row="2"/>
+        <TextBlock Text="Store"
+                   Grid.Column="0"
+                   Grid.Row="3"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.ShopName}"
+                   Grid.Column="1"
+                   Grid.Row="3"/>
+        <TextBlock Text="Employee"
+                   Grid.Column="0"
+                   Grid.Row="4"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.EmployeeFullname}"
+                   Grid.Column="1"
+                   Grid.Row="4"/>
+        <TextBlock Text="Status"
+                   Grid.Column="0"
+                   Grid.Row="5"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.Status}"
+                   Grid.Column="1"
+                   Grid.Row="5"/>
+        <TextBlock Text="Order date"
+                   Grid.Column="2"
+                   Grid.Row="2"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.PurchaseDate}"
+                   Grid.Column="3"
+                   Grid.Row="2"/>
+        <TextBlock Text="Expiration date"
+                   Grid.Column="2"
+                   Grid.Row="3"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.ExpirationDate}"
+                   Grid.Column="3"
+                   Grid.Row="3"/>
+        <TextBlock Text="Payment date"
+                   Grid.Column="2"
+                   Grid.Row="4"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.PaymentDate}"
+                   Grid.Column="3"
+                   Grid.Row="4"/>
+        <TextBlock Text="Delivery date"
+                   Grid.Column="2"
+                   Grid.Row="5"/>
+        <TextBlock Text="{Binding Path=CurrentOrder.DeliveryDate}"
+                   Grid.Column="3"
+                   Grid.Row="5"/>
         <DataGrid x:Name="dgProducts"
                   AutoGenerateColumns="False"
                   Grid.Row="13"
@@ -60,6 +118,10 @@
                     Header="Product"
                     Width="auto"
                     Binding="{Binding Path=Product}"/>
+                <DataGridTextColumn
+                    Header="UnitPrice"
+                    Width="auto"
+                    Binding="{Binding Path=UnitPrice}"/>
                 <DataGridTextColumn
                     Header="Amount"
                     Width="auto"

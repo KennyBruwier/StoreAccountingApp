@@ -7,10 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+        <Grid.ColumnDefinitions >
             <ColumnDefinition Width="auto" MinWidth="100"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -47,9 +48,60 @@
                    Grid.Row="1"/>
         <ComboBox x:Name="cbSalesList"
                   ItemsSource="{Binding CbSalesList}"
+                  SelectedItem="{Binding SelectedSale}"
+                  SelectedValuePath="Key"
                   Grid.Column="1"
                   Grid.Row="1"
                   />
+        <TextBlock Text="Supplier"
+                   Grid.Column="0"
+                   Grid.Row="2"/>
+        <TextBlock Text="{Binding Path=CurrentSale.ClientFullname}"
+                   Grid.Column="1"
+                   Grid.Row="2"/>
+        <TextBlock Text="Store"
+                   Grid.Column="0"
+                   Grid.Row="3"/>
+        <TextBlock Text="{Binding Path=CurrentSale.ShopName}"
+                   Grid.Column="1"
+                   Grid.Row="3"/>
+        <TextBlock Text="Employee"
+                   Grid.Column="0"
+                   Grid.Row="4"/>
+        <TextBlock Text="{Binding Path=CurrentSale.EmployeeFullname}"
+                   Grid.Column="1"
+                   Grid.Row="4"/>
+        <TextBlock Text="Status"
+                   Grid.Column="0"
+                   Grid.Row="5"/>
+        <TextBlock Text="{Binding Path=CurrentSale.Status}"
+                   Grid.Column="1"
+                   Grid.Row="5"/>
+        <TextBlock Text="Order date"
+                   Grid.Column="2"
+                   Grid.Row="2"/>
+        <TextBlock Text="{Binding Path=CurrentSale.PurchaseDate}"
+                   Grid.Column="3"
+                   Grid.Row="2"/>
+        <TextBlock Text="Expiration date"
+                   Grid.Column="2"
+                   Grid.Row="3"/>
+        <TextBlock Text="{Binding Path=CurrentSale.ExpirationDate}"
+                   Grid.Column="3"
+                   Grid.Row="3"/>
+        <TextBlock Text="Payment date"
+                   Grid.Column="2"
+                   Grid.Row="4"/>
+        <TextBlock Text="{Binding Path=CurrentSale.PaymentDate}"
+                   Grid.Column="3"
+                   Grid.Row="4"/>
+        <TextBlock Text="Delivery date"
+                   Grid.Column="2"
+                   Grid.Row="5"/>
+        <TextBlock Text="{Binding Path=CurrentSale.DeliveryDate}"
+                   Grid.Column="3"
+                   Grid.Row="5"/>
+
         <DataGrid x:Name="dgProducts"
                   AutoGenerateColumns="False"
                   Grid.Row="13"
@@ -61,6 +113,10 @@
                     Header="Product"
                     Width="auto"
                     Binding="{Binding Path=Key}"/>
+                <DataGridTextColumn
+                    Header="UnitPrice"
+                    Width="auto"
+                    Binding="{Binding Path=UnitPrice}"/>
                 <DataGridTextColumn
                     Header="Amount"
                     Width="auto"

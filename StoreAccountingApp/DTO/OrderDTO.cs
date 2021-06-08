@@ -38,18 +38,25 @@ namespace StoreAccountingApp.DTO
             get { return storeId; }
             set { storeId = value; OnPropertyChanged("StoreId"); }
         }
+        private string shopName;
+        public string ShopName
+        {
+            get { return shopName; }
+            set { shopName = value; OnPropertyChanged(nameof(ShopName)); }
+        }
+
         private int employeeId;
         public int EmployeeId
         {
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
-        private EmployeeDTO employee = new EmployeeDTO();
+        private string employeeFullname;
 
-        public EmployeeDTO Employee
+        public string EmployeeFullname
         {
-            get { return employee; }
-            set { employee = value; OnPropertyChanged("Employee"); }
+            get { return employeeFullname; }
+            set { employeeFullname = value; OnPropertyChanged(nameof(EmployeeFullname)); }
         }
         public override void LoadValidation()
         {

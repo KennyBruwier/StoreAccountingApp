@@ -56,6 +56,13 @@
         <DataTemplate DataType="{x:Type viewmodels:OrdersOrderViewModel}">
             <views:OrdersOrderView />
         </DataTemplate>
+        <Style TargetType="TextBlock"
+            BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="ComboBox"
+            BasedOn="{StaticResource ElegantComboBoxStyle}"/>
+        <Style TargetType="TextBox"
+            BasedOn="{StaticResource TextBoxStyle}"/>
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

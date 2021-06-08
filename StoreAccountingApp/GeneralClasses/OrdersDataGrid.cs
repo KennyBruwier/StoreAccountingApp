@@ -16,6 +16,14 @@ namespace StoreAccountingApp.GeneralClasses
             get { return key; }
             set { key = value; }
         }
+        private decimal unitPrice;
+
+        public decimal UnitPrice
+        {
+            get { return unitPrice; }
+            set { unitPrice = value; }
+        }
+
         private int amount;
 
         public int Amount
