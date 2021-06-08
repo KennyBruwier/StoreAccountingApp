@@ -10,18 +10,22 @@ using System.Windows;
 using System.Data.Entity.Validation;
 using StoreAccountingApp.Services.DBTables;
 using StoreAccountingApp.GeneralClasses;
+using System.Security.Cryptography;
 
 namespace StoreAccountingApp.Services
 {
     public class AccountService : BaseService<AccountDTO,Account>
     {
+
         private AccountTypeService _accountTypeService;
         private EmployeeService _employeeService;
+
         public AccountService()
         {
             _accountTypeService = new AccountTypeService();
             _employeeService = new EmployeeService();
         }
+      
         public override AccountDTO CopyDBtoDTO(Account source)
         {
             AccountDTO newAccountDTO = null;
@@ -45,9 +49,33 @@ namespace StoreAccountingApp.Services
         }
         public Account LoggedIn(string username, string password)
         {
-            return ctx.Accounts.FirstOrDefault(a => 
-                (a.Username.Equals(username,StringComparison.OrdinalIgnoreCase) && 
-                (a.Password.Equals(password,StringComparison.OrdinalIgnoreCase))));
+            //if (password.Length < 4)
+            //{
+            //    return ctx.Accounts.FirstOrDefault(a =>
+            //        (a.Username.Equals(username, StringComparison.OrdinalIgnoreCase) &&
+            //        (a.Password.Equals(password, StringComparison.OrdinalIgnoreCase))));
+            //}
+            //else
+            //{
+                Account userAccount = ctx.Accounts.FirstOrDefault(a =>a.Username.Equals(username, StringComparison.OrdinalIgnoreCase)); 
+                if (userAccount != null)
+                {
+                    /* Extract the bytes */
+                    byte[] hashBytes = Convert.FromBase64String(userAccount.Password);
+                    /* Get the salt */
+                    byte[] salt = new byte[16];
+                    Array.Copy(hashBytes, 0, salt, 0, 16);
+                    /* Compute the hash on the password the user entered */
+                    var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 100000);
+                    byte[] hash = pbkdf2.GetBytes(20);
+                    /* Compare the results */
+                    for (int i = 0; i < 20; i++)
+                        if (hashBytes[i + 16] != hash[i])
+                            return null;
+                }
+                return userAccount;
+            //}
+
         }
     }
 }

@@ -94,9 +94,11 @@
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="DTO\BaseDTO.cs" />
+    <Compile Include="GeneralClasses\CustomDataGridContext.cs" />
     <Compile Include="GeneralClasses\DBField.cs" />
     <Compile Include="GeneralClasses\ErrorHandling.cs" />
     <Compile Include="GeneralClasses\NotifyPropertyChanged.cs" />
+    <Compile Include="GeneralClasses\OrdersDataGrid.cs" />
     <Compile Include="GeneralClasses\SourceTargetProps.cs" />
     <Compile Include="GeneralClasses\TryCatchResult.cs" />
     <Compile Include="GeneralClasses\CheckValidation.cs" />
@@ -209,6 +211,9 @@
     <Compile Include="ViewModels\DBTables\DBAccountViewModel.cs" />
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\Orders\BaseOrderViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrdersOrderViewModel.cs" />
+    <Compile Include="ViewModels\Orders\SalesOrderViewModel.cs" />
     <Compile Include="ViewModels\Overviews\BaseOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\SalesOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\StocksOverviewViewModel.cs" />
@@ -279,6 +284,9 @@
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Orders\OrdersOrderView.xaml.cs">
+      <DependentUpon>OrdersOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
@@ -290,6 +298,9 @@
     </Compile>
     <Compile Include="Views\OverviewView.xaml.cs">
       <DependentUpon>OverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Orders\SalesOrderView.xaml.cs">
+      <DependentUpon>SalesOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UsersListingView.xaml.cs">
       <DependentUpon>UsersListingView.xaml</DependentUpon>
@@ -430,6 +441,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Orders\OrdersOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrdersView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -443,6 +458,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Orders\SalesOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

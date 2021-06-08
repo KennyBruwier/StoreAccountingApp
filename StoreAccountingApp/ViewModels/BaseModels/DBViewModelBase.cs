@@ -57,7 +57,7 @@ namespace StoreAccountingApp.ViewModels
         }
         #endregion
         #region SaveOperation
-        private readonly RelayCommand saveCommand;
+        private RelayCommand saveCommand;
         public RelayCommand SaveCommand
         {
             get { return saveCommand; }
@@ -68,7 +68,7 @@ namespace StoreAccountingApp.ViewModels
             CatchOperation(Save);
             LoadData();
         }
-        public bool Save()
+        public bool Save()            
         {
             return serviceModel.Add(CurrentDTOModel);
         }

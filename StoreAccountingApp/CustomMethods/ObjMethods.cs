@@ -86,6 +86,27 @@ namespace StoreAccountingApp.CustomMethods
             }
             return comboboxItems;
         }
+        public static List<TU> CreateDataGridList<TU>(List<object>sourceList)
+            where TU : OrdersDataGrid, new()
+        {
+            List<TU> datagridList = new List<TU>();
+            var sourceProperties = sourceList.GetType().GetProperties().Where(x => x.CanRead).ToList();
+            var targetProperties = typeof(TU).GetProperties().Where(x => x.CanWrite).ToList();
+            foreach (var item in sourceList)
+            {
+                TU datagridItem = new TU();
+                foreach (PropertyInfo sourceProp in sourceProperties)
+                {
+                    foreach (PropertyInfo targetProp in targetProperties)
+                    {
+                        if (sourceProp.Name == targetProp.Name)
+                            targetProp.SetValue(datagridItem, sourceProp.GetValue(item, null), null);
+                    }
+                }
+                datagridList.Add(datagridItem);
+            }
+            return datagridList;
+        }
         public static List<TU> CreateComboboxList<T, TU>(List<T> dtoList, string propertyKey, params string[] propertiesToInclude)
             where T : BaseDTO
             where TU: ComboboxItem, new()

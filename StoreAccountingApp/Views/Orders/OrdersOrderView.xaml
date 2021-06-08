@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="StoreAccountingApp.Views.OrdersOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoreAccountingApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
+            <ColumnDefinition Width="auto" MinWidth="100"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Orders Invoices"
+                   FontSize="20"
+                   Grid.Column="1"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="3"/>
+        <TextBlock Text="Select Invoice"
+                   Grid.Column="0"
+                   Grid.Row="1"/>
+        <ComboBox x:Name="cbOrderList"
+                  ItemsSource="{Binding CbOrdersList}"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  />
+        <TextBlock Text="{Binding }"
+        <DataGrid x:Name="dgProducts"
+                  AutoGenerateColumns="False"
+                  Grid.Row="13"
+                  Grid.Column="1" Margin="5,8" Padding="3" 
+                  Grid.ColumnSpan="3"
+                  ItemsSource="{Binding Path=DgList, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Product"
+                    Width="auto"
+                    Binding="{Binding Path=Product}"/>
+                <DataGridTextColumn
+                    Header="Amount"
+                    Width="auto"
+                    Binding="{Binding Path=Amount}"/>
+                <DataGridTextColumn
+                    Header="Netto"
+                    Width="auto"
+                    Binding="{Binding Path=Net}"/>
+                <DataGridTextColumn
+                    Header="VAT"
+                    Width="auto"
+                    Binding="{Binding Path=VAT}"/>
+                <DataGridTextColumn
+                    Header="Total"
+                    Width="auto"
+                    Binding="{Binding Path=Total}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</UserControl>

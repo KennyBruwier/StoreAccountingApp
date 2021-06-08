@@ -10,6 +10,7 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,7 @@ namespace StoreAccountingApp.Services.DBTables
         {
             return ObjMethods.CopyProperties<DTOModel, DBModel>(source);
         }
+
         public bool Add(DTOModel dtoModelToAdd)
         {
             DBModel dBModel = CopyDTOtoDB(dtoModelToAdd);

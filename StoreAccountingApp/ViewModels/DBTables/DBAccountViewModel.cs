@@ -35,6 +35,14 @@ namespace StoreAccountingApp.ViewModels
 
         private AccountTypeService _accountTypeService;
         private EmployeeService _employeeService;
+        private string unEncryptedPassword;
+
+        public string UnEncryptedPassword
+        {
+            get { return unEncryptedPassword; }
+            set { unEncryptedPassword = value; OnPropertyChanged(nameof(UnEncryptedPassword)); }
+        }
+
         public DBAccountViewModel()
         {
             _accountTypeService = new AccountTypeService();

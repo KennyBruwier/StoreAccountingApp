@@ -30,6 +30,9 @@
         <Style TargetType="StackPanel">
             <Setter Property="Margin" Value="5.8"/>
         </Style>
+            <Style TargetType="ComboBox"
+               BasedOn="{StaticResource ElegantComboBoxStyle}"/>
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
@@ -70,15 +73,6 @@
         <TextBlock Text="Status"
                    Grid.Row="3"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Client"
-                   Grid.Row="4"
-                   Grid.Column="0"/>
-        <TextBlock Text="Store"
-                   Grid.Row="5"
-                   Grid.Column="0"/>
-        <TextBlock Text="Employee"
-                   Grid.Row="6"
-                   Grid.Column="0"/>
         <TextBlock Text="Guarantee"
                    Grid.Row="7"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
@@ -101,18 +95,36 @@
                  Grid.Row="3"
                  Grid.Column="1" 
                  Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
-        <TextBox x:Name="txtClient"
-                 Grid.Row="4"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.Client.Organisation, Mode=TwoWay}"/>
-        <TextBox x:Name="txtStore"
-                 Grid.Row="5"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
-        <TextBox x:Name="txtEmployee"
-                 Grid.Row="6"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.Employee.Firstname, Mode=TwoWay}"/>
+        <TextBlock Text="Client"
+                   Grid.Row="4"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <ComboBox x:Name="cbClientList"
+                  Grid.Row="4"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbClientList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.ClientId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
+        <TextBlock Text="Store"
+                   Grid.Row="5"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <ComboBox x:Name="cbStoreList"
+                  Grid.Row="5"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbShopList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.ShopId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
+        <TextBlock Text="Employee"
+                   Grid.Row="6"
+                   Grid.Column="0" Margin="5,8" Padding="3"/>
+        <ComboBox x:Name="cbEmployeeList"
+                  Grid.Row="6"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbEmployeeList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.EmployeeId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
 
         <TextBox x:Name="txtGuarantee"
                  Grid.Row="7"
@@ -168,13 +180,13 @@
                     Binding="{Binding Path=Status}"/>
                 <DataGridTextColumn
                     Header="Client"
-                    Binding="{Binding Path=Status}"/>
+                    Binding="{Binding Path=ClientFullname}"/>
                 <DataGridTextColumn
                     Header="Store"
-                    Binding="{Binding Path=Status}"/>
+                    Binding="{Binding Path=ShopName}"/>
                 <DataGridTextColumn
                     Header="Employee"
-                    Binding="{Binding Path=Status}"/>
+                    Binding="{Binding Path=EmployeeFullname}"/>
                 <DataGridTextColumn
                     Header="Total"
                     Binding="{Binding Path=Status}"/>
