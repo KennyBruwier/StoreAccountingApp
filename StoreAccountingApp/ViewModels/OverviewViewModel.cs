@@ -16,6 +16,9 @@ namespace StoreAccountingApp.ViewModels
         private readonly AccountStore _accountStore;
         private readonly NavigationStore _overviewNavigationStore;
         public ViewModelBase OverviewContentViewModel => _overviewNavigationStore.CurrentViewModel;
+        public bool IsAdmin => CheckRole("admin");
+        public bool IsStockManager => CheckRole("stock manager");
+        public bool IsSeller => CheckRole("seller");
         public ICommand NavigateSalesOverviewCommand { get; }
         public ICommand NavigateStocksOverviewCommand { get; }
         public OverviewViewModel(AccountStore accountStore, NavigationStore navigationStore)
@@ -25,12 +28,24 @@ namespace StoreAccountingApp.ViewModels
             _overviewNavigationStore.CurrentViewModelChanged += OnCurrentOverviewChanged;
             NavigateSalesOverviewCommand = new NavigateCommand<SalesOverviewViewModel>(CreateSalesOverviewNavigationService());
             NavigateStocksOverviewCommand = new NavigateCommand<StocksOverviewViewModel>(CreateStocksOverviewNavigationService());
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
         private void OnCurrentAccountChanged()
         {
-            //OnPropertyChanged(nameof(Email));
-            //OnPropertyChanged(nameof(Username));
-            //OnPropertyChanged(nameof(AccountType));
+            OnPropertyChanged(nameof(IsAdmin));
+            OnPropertyChanged(nameof(IsSeller));
+            OnPropertyChanged(nameof(IsStockManager));
+        }
+        private bool CheckRole(string roleName)
+        {
+            if (_accountStore.CurrentAccount != null)
+                switch (roleName.ToLower())
+                {
+                    case "admin": return _accountStore.CurrentAccount.AccountType.Admin;
+                    case "stock manager": return _accountStore.CurrentAccount.AccountType.StockManager;
+                    case "seller": return _accountStore.CurrentAccount.AccountType.Seller;
+                }
+            return false;
         }
         private void OnCurrentOverviewChanged()
         {

@@ -32,6 +32,27 @@ namespace StoreAccountingApp.DTO
             get { return description; }
             set { description = value; OnPropertyChanged("Description"); }
         }
+        private bool admin;
+
+        public bool Admin
+        {
+            get { return admin; }
+            set { admin = value; OnPropertyChanged(nameof(Admin)); }
+        }
+        private bool stockManager;
+
+        public bool StockManager
+        {
+            get { return stockManager; }
+            set { stockManager = value; OnPropertyChanged(nameof(StockManager)); }
+        }
+        private bool seller;
+
+        public bool Seller
+        {
+            get { return seller; }
+            set { seller = value; OnPropertyChanged(nameof(Seller)); }
+        }
         public AccountTypeDTO(int accountTypeId, string name, string description)
         {
             AccountTypeId = accountTypeId;

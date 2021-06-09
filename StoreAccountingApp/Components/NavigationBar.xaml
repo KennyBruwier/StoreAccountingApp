@@ -12,7 +12,7 @@
     Width="auto">
     <UserControl.Resources>
         <Style TargetType="Grid"
-               BasedOn="{StaticResource LinearCyanBG}"/>
+               BasedOn="{StaticResource MenuLinearCyanBG}"/>
         <Style TargetType="Button"
                BasedOn="{StaticResource MenuButtonStyle}">
         </Style>
@@ -46,11 +46,12 @@
         <Border Margin="0"
                 Grid.ColumnSpan="20"
                 >
-        <DockPanel Grid.ColumnSpan="15">
+        <DockPanel Grid.ColumnSpan="20">
             <StackPanel Orientation="Horizontal"
-                        Grid.ColumnSpan="15"
                         MinWidth="700"
+                        Width="auto"
                         DockPanel.Dock="Left"
+                        Grid.ColumnSpan="20"
                         >
                 <TextBlock
                     Grid.Column="0"
@@ -66,18 +67,23 @@
                     <TextBlock
                         FontSize="14"
                         Foreground="White"
-                        Margin="30 0 0 0"
+                        Margin="100 0 0 0"
                         Text="welkom "/>
                     <TextBlock
                         FontSize="14"
                         Foreground="White"
                         Margin="5 0 0 0"
                         Text="{Binding CurrentUser}"/>
-                </StackPanel>
+                    <TextBlock
+                        FontSize="14"
+                        Foreground="White"
+                        Margin="5 0 0 0"
+                        Text="{Binding CurrentRoles}"/>
+                    </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Right"
-                        Grid.ColumnSpan="10">
+                        Grid.ColumnSpan="20">
                 <Button
                     Grid.Column="3"
                     Margin="10 0 0 0"

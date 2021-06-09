@@ -32,6 +32,13 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="10 5 5 5"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+               
     </UserControl.Resources>
 
     <Grid Margin="15">
@@ -42,6 +49,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -75,8 +85,27 @@
                  Grid.Row="3"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
+        <TextBlock Text="Roles"
+                   Grid.Column="0"
+                   Grid.Row="4"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3">
+            <CheckBox x:Name="cbAdmin"
+                  Content="Admin"
+                  IsChecked="{Binding Path=CurrentDTOModel.Admin, Mode=TwoWay}"/>
+            <CheckBox x:Name="cbStockManager"
+                  Content="Stock Manager"
+                  IsChecked="{Binding Path=CurrentDTOModel.StockManager, Mode=TwoWay}"/>
+            <CheckBox x:Name="cbSeller"
+                  Content="Seller"
+                  IsChecked="{Binding Path=CurrentDTOModel.Seller, Mode=TwoWay}"/>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="7"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
@@ -93,12 +122,12 @@
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
                    Style="{StaticResource TextBlockMessageStyle}"
-                   Grid.Row="5"
+                   Grid.Row="8"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>
         <DataGrid x:Name="dgAccountTypes"
                   AutoGenerateColumns="False"
-                  Grid.Row="6"
+                  Grid.Row="9"
                   Grid.Column="1" Margin="5,8" Padding="3" 
                   ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
             <DataGrid.Columns>
@@ -114,6 +143,19 @@
                     Header="Description"
                     Width="auto"
                     Binding="{Binding Path=Description}"/>
+                <DataGridTextColumn
+                    Header="Admin"
+                    Width="auto"
+                    Binding="{Binding Path=Admin}"/>
+                <DataGridTextColumn
+                    Header="Stock Manager"
+                    Width="auto"
+                    Binding="{Binding Path=StockManager}"/>
+                <DataGridTextColumn
+                    Header="Seller"
+                    Width="auto"
+                    Binding="{Binding Path=Seller}"/>
+
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

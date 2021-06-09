@@ -97,6 +97,7 @@
     <Compile Include="GeneralClasses\CustomDataGridContext.cs" />
     <Compile Include="GeneralClasses\DBField.cs" />
     <Compile Include="GeneralClasses\ErrorHandling.cs" />
+    <Compile Include="GeneralClasses\InvoiceToWord.cs" />
     <Compile Include="GeneralClasses\NotifyPropertyChanged.cs" />
     <Compile Include="GeneralClasses\OrdersDataGrid.cs" />
     <Compile Include="GeneralClasses\SourceTargetProps.cs" />

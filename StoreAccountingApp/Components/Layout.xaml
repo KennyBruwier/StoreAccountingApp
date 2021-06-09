@@ -170,6 +170,8 @@
             Grid.Row="1"
             Margin="20"
             MinHeight="600"
+            Height="auto"
+            Width="auto"
             MinWidth="600"
             Content="{Binding ContentViewModel}" />
 

@@ -6,6 +6,19 @@
              xmlns:local="clr-namespace:StoreAccountingApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock"
+               BasedOn="{StaticResource TextBlockStyle}"/>
+        <Style TargetType="ComboBox"
+               BasedOn="{StaticResource ElegantComboBoxStyle}"/>
+        <Style TargetType="TextBox"
+               BasedOn="{StaticResource TextBoxStyle}"/>
+        <Style TargetType="{x:Type DataGrid}"
+               BasedOn="{StaticResource DataGridStyle}"/>
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource SideBarButtonStyle}"/>
+    </UserControl.Resources>
+
     <Grid Margin="15">
         <Grid.ColumnDefinitions >
             <ColumnDefinition Width="auto" MinWidth="100"/>
@@ -53,6 +66,14 @@
                   Grid.Column="1"
                   Grid.Row="1"
                   />
+        <Button x:Name="btWord"
+                Content="Print invoice"
+                Grid.Column="2"
+                Grid.Row="1"
+                Margin="5,8" Padding="3"
+                Command="{Binding PrintCommand}"
+                />
+
         <TextBlock Text="Supplier"
                    Grid.Column="0"
                    Grid.Row="2"/>
@@ -105,8 +126,8 @@
         <DataGrid x:Name="dgProducts"
                   AutoGenerateColumns="False"
                   Grid.Row="13"
-                  Grid.Column="1" Margin="5,8" Padding="3" 
-                  Grid.ColumnSpan="3"
+                  Grid.Column="0" Margin="5,8" Padding="3" 
+                  Grid.ColumnSpan="5"
                   ItemsSource="{Binding Path=DgList, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn

@@ -24,11 +24,13 @@ namespace StoreAccountingApp.ViewModels
         public ICommand NavigateOrdersCommand { get; }
         public ICommand NavigateUsersListingCommand { get; }
         public ICommand LogoutCommand { get; }
-
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
         public bool NotLoggedIn => !_accountStore.IsLoggedIn;
+        public bool IsAdmin => CheckRole("admin");
+        public bool IsStockManager => CheckRole("stock manager");
+        public bool IsSeller => CheckRole("seller");
         public string CurrentUser => _accountStore.CurrentAccount?.Username;
-
+        public string CurrentRoles => CurrentRolesAsText();
         public NavigationBarViewModel(
             AccountStore accountStore,
             NavigationStore navigationStore,
@@ -49,15 +51,40 @@ namespace StoreAccountingApp.ViewModels
             LogoutCommand = new LogoutCommand(_accountStore);
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
-        //public NavigationBarViewModel(AccountStore accountStore)
-        //{
-        //    _accountStore = accountStore;
-        //}
+        private bool CheckRole(string roleName)
+        {
+            if (_accountStore.CurrentAccount != null)
+                switch (roleName.ToLower())
+                {
+                    case "admin": return _accountStore.CurrentAccount.AccountType.Admin;
+                    case "stock manager":return _accountStore.CurrentAccount.AccountType.StockManager;
+                    case "seller":return _accountStore.CurrentAccount.AccountType.Seller;
+                }
+            return false;
+        }
+        private string CurrentRolesAsText()
+        {
+            List<string> roles = new List<string>();
+            if (_accountStore.CurrentAccount != null)
+            {
+                if (_accountStore.CurrentAccount.AccountType.Admin) roles.Add("admin");
+                if (_accountStore.CurrentAccount.AccountType.Seller) roles.Add("seller");
+                if (_accountStore.CurrentAccount.AccountType.StockManager) roles.Add("stock manager");
+            }
+            if (roles.Count > 0)
+                return String.Format("({0})",String.Join(", ", roles.ToArray()));
+            else
+                return String.Empty;
+        }
         private void OnCurrentAccountChanged()
         {
             OnPropertyChanged(nameof(IsLoggedIn));
             OnPropertyChanged(nameof(NotLoggedIn));
             OnPropertyChanged(nameof(CurrentUser));
+            OnPropertyChanged(nameof(IsAdmin));
+            OnPropertyChanged(nameof(IsSeller));
+            OnPropertyChanged(nameof(IsStockManager));
+            OnPropertyChanged(nameof(CurrentRoles));
         }
 
         public override void Dispose()
@@ -90,7 +117,7 @@ namespace StoreAccountingApp.ViewModels
         {
             return new LayoutNavigationService<OrdersViewModel>(
                 _navigationStore,
-                () => new OrdersViewModel(new NavigationStore()),
+                () => new OrdersViewModel(new NavigationStore(),_accountStore),
                 _navigationBarViewModel);
         }
         private INavigationService<LoginViewModel> CreateLoginNavigationService()

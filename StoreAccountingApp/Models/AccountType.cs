@@ -17,6 +17,9 @@ namespace StoreAccountingApp.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Admin { get; set; } = false;
+        public bool StockManager { get; set; } = false;
+        public bool Seller { get; set; } = false;
         public virtual ICollection<Account> Accounts { get; set; }
         public AccountType(string name)
         {

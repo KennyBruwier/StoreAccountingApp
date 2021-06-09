@@ -19,8 +19,17 @@ namespace StoreAccountingApp.Stores
                 CurrentAccountChanged?.Invoke();
             }
         }
+        private AccountType _accountType;
+
+        public AccountType AccountType
+        {
+            get { return _accountType; }
+            set { _accountType = value; }
+        }
+
         public bool IsLoggedIn => CurrentAccount != null;
         public event Action CurrentAccountChanged;
+        public event Action CurrentAccountTypeChanged;
         public void Logout()
         {
             CurrentAccount = null;

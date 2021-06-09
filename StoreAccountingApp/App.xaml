@@ -162,6 +162,7 @@
                x:Key="ElegantComboBoxStyle">
             <Setter Property="Margin" Value="5.8"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="MinWidth" Value="150"/>
             <Style.Resources>
                 <Style TargetType="Grid">
                     <Style.Resources>
@@ -208,6 +209,32 @@
                     <Setter Property="BorderBrush" Value="Peru"/>
                     <Setter Property="BorderThickness" Value="1,1,1,1"/>
                     <Setter Property="CornerRadius" Value="8,8,8,8"/>
+                    <Setter Property="Background" Value="{StaticResource bgBrush}"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="White" Opacity="0.5" BlurRadius="10"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Grid}"
+               x:Key="MenuLinearCyanBG">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Style.Resources>
+                        <LinearGradientBrush x:Key="bgBrush" StartPoint="0,0.2" EndPoint="1,0.90">
+                            <GradientStop Color="#A64B00" Offset="0"/>
+                            <GradientStop Color="#00665E" Offset="0.150"/>
+                            <GradientStop Color="#5DCEC6" Offset="0.333"/>
+                            <GradientStop Color="#00665E" Offset="0.666"/>
+                            <GradientStop Color="#A64B00" Offset="0.950"/>
+                        </LinearGradientBrush>
+                    </Style.Resources>
+                    <Setter Property="Margin" Value="10"/>
+                    <Setter Property="BorderBrush" Value="Peru"/>
+                    <Setter Property="BorderThickness" Value="1,1,1,1"/>
+                    <Setter Property="CornerRadius" Value="0"/>
                     <Setter Property="Background" Value="{StaticResource bgBrush}"/>
                     <Setter Property="Effect">
                         <Setter.Value>

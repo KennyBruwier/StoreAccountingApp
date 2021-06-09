@@ -36,7 +36,6 @@ namespace StoreAccountingApp.Services.DBTables
 
         public bool Add(DTOModel dtoModelToAdd)
         {
-            DBModel dBModel = CopyDTOtoDB(dtoModelToAdd);
             ctx.Set<DBModel>().Add(CopyDTOtoDB(dtoModelToAdd));
             return ctx.SaveChanges() > 0;
         }
@@ -166,20 +165,11 @@ namespace StoreAccountingApp.Services.DBTables
             DBModel recordFound = ctx.Set<DBModel>().Find(dtoModelToUpdate.Validation.GetPrimaryKeysValue());
             if (recordFound != null)
             {
-                recordFound = CopyDTOtoDB(dtoModelToUpdate);
-                
+                ctx.Entry(recordFound).CurrentValues.SetValues(CopyDTOtoDB(dtoModelToUpdate));
                 return ctx.SaveChanges() > 0;
             }
             else
                 return false;
-            //try
-            //{
-            //    return ctx.SaveChanges() > 0;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
         }
         private string ReturnColumnsValue(DTOModel record, params string[] columnNamesToReturn)
         {

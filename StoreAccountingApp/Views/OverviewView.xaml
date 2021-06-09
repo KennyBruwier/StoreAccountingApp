@@ -56,6 +56,7 @@
         <DataTemplate DataType="{x:Type viewmodels:StocksOverviewViewModel}">
             <views:StocksOverviewView />
         </DataTemplate>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style TargetType="StackPanel">
             <Style.Resources>
                 <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -108,7 +109,8 @@
                         IsEnabled="False"
                         />
                 </StackPanel>
-                <StackPanel x:Name="Admin">
+                <StackPanel x:Name="Admin"
+                            Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock
                         HorizontalAlignment="Center"
                         Grid.Row="0"
@@ -126,7 +128,8 @@
                         IsEnabled="false"
                         />
                 </StackPanel>
-                <StackPanel x:Name="Sale">
+                <StackPanel x:Name="Sale"
+                            Visibility="{Binding IsSeller, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock
                         HorizontalAlignment="Center"
                         Grid.Row="0"
@@ -144,7 +147,8 @@
                         Margin="5 2.5 5 2.5"
                        />
                 </StackPanel>
-                <StackPanel x:Name="Stock">
+                <StackPanel x:Name="Stock"
+                            Visibility="{Binding IsStockManager, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock
                         HorizontalAlignment="Center"
                         Grid.Row="0"

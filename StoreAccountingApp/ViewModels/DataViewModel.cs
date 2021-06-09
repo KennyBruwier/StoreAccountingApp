@@ -33,6 +33,10 @@ namespace StoreAccountingApp.ViewModels
         public ICommand NavigateSupplierProductCommand { get; }
         public ICommand NavigateSupplierCommand { get; }
         public ICommand NavigateHomeCommand { get; }
+        public bool IsAdmin => CheckRole("admin");
+        public bool IsStockManager => CheckRole("stock manager");
+        public bool IsSeller => CheckRole("seller");
+
         public DataViewModel(AccountStore accountStore, NavigationStore tableNavigationStore, INavigationService<HomeViewModel> navigateHomeCommand)
         {
             _accountStore = accountStore;
@@ -58,7 +62,26 @@ namespace StoreAccountingApp.ViewModels
             NavigateSupplierCommand = new NavigateCommand<DBSupplierViewModel>(CreateSupplierNavigationService());
             NavigateSupplierProductCommand = new NavigateCommand<DBSupplierProductViewModel>(CreateSupplierProductNavigationService());
             NavigateUserCommand = new NavigateCommand<DBAccountViewModel>(CreateUserNavigationService());
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
+        private void OnCurrentAccountChanged()
+        {
+            OnPropertyChanged(nameof(IsAdmin));
+            OnPropertyChanged(nameof(IsSeller));
+            OnPropertyChanged(nameof(IsStockManager));
+        }
+        private bool CheckRole(string roleName)
+        {
+            if (_accountStore.CurrentAccount != null)
+                switch (roleName.ToLower())
+                {
+                    case "admin": return _accountStore.CurrentAccount.AccountType.Admin;
+                    case "stock manager": return _accountStore.CurrentAccount.AccountType.StockManager;
+                    case "seller": return _accountStore.CurrentAccount.AccountType.Seller;
+                }
+            return false;
+        }
+
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(DBContentViewModel));

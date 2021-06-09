@@ -67,6 +67,8 @@
                 Content="Print invoice"
                 Grid.Column="2"
                 Grid.Row="1"
+                Margin="5,8" Padding="3"
+                Command="{Binding PrintCommand}"
                 />
         <TextBlock Text="Supplier"
                    Grid.Column="0"

@@ -141,8 +141,8 @@ namespace StoreAccountingApp.CustomMethods
         }
         public static TU CopyProperties<T, TU>(T source) where TU : new()
         {
-            var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
-            var destProps = typeof(TU).GetProperties().Where(x => x.CanWrite).ToList();
+            var sourceProps = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.CanRead).ToList();
+            var destProps = typeof(TU).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.CanWrite).ToList();
             TU dest = new TU();
             foreach (PropertyInfo sourceProp in sourceProps)
             {

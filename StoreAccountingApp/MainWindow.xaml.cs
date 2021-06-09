@@ -76,7 +76,7 @@ namespace StoreAccountingApp
         {
             return new LayoutNavigationService<OrdersViewModel>(
                 _navigationStore,
-                () => new OrdersViewModel(new NavigationStore()),
+                () => new OrdersViewModel(new NavigationStore(),_accountStore),
                 _navigationBarViewModel);
         }
         private INavigationService<LoginViewModel> CreateLoginNavigationService()

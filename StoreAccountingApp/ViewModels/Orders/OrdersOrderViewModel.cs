@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.ViewModels.Orders
 {
-    public class OrdersOrderViewModel : BaseOrderViewModel
+    public class OrdersOrderViewModel : BaseOrderViewModel<OrderDTO>
     {
         private ProductService _productService;
         private OrderService _orderService;
@@ -76,11 +76,13 @@ namespace StoreAccountingApp.ViewModels.Orders
                 selectedOrder = value;
                 CurrentOrder = OrdersList.Where(o => o.OrderId == value.Key).FirstOrDefault();
                 DgList = CreateDataGridList();
+                if (InvoiceToPrint == null) InvoiceToPrint = new InvoiceToWord<OrderDTO>();
+                InvoiceToPrint.AddProductList(DgList);
+                InvoiceToPrint.CurrentInvoice = CurrentOrder;
                 OnPropertyChanged(nameof(SelectedOrder)); 
             }
         }
         public event Action CurrentDataGridListChanged;
-
 
         public OrdersOrderViewModel()
         {
