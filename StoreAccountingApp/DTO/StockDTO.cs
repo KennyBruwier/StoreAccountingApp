@@ -15,11 +15,25 @@ namespace StoreAccountingApp.DTO
             get { return shopId; }
             set { shopId = value; OnPropertyChanged("ShopId"); }
         }
+        private ShopDTO shopDTO;
+
+        public ShopDTO ShopDTO
+        {
+            get { return shopDTO; }
+            set { shopDTO = value; OnPropertyChanged(nameof(ShopDTO)); }
+        }
         private int productId;
         public int ProductId
         {
             get { return productId; }
             set { productId = value; OnPropertyChanged("ProductId"); }
+        }
+        private ProductDTO productDTO;
+
+        public ProductDTO ProductDTO
+        {
+            get { return productDTO; }
+            set { productDTO = value; OnPropertyChanged(nameof(ProductDTO)); }
         }
         private string category;
         public string Category

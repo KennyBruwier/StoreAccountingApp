@@ -17,6 +17,43 @@ namespace StoreAccountingApp.Services
         public ShopService()
         {
         }
+        
+        public override ShopDTO CopyDBtoDTO(Shop source)
+        {
+            ShopDTO newShopDTO = ObjMethods.CopyProperties<Shop, ShopDTO>(source);
+            if (newShopDTO.PostalCodeId != null)
+            {
+                DistrictService districtService = new DistrictService();
+                newShopDTO.DistrictDTO = districtService.Search(newShopDTO.PostalCodeId);
+                newShopDTO.DistrictName = newShopDTO.DistrictDTO?.Name;
+            }
+            return newShopDTO;
+        }
+        public override Shop CopyDTOtoDB(ShopDTO dtoModel)
+        {
+            Shop newShop = ObjMethods.CopyProperties<ShopDTO, Shop>(dtoModel);
+            if (dtoModel.PostalCodeId != "")
+            {
+                District newDistrict = ctx.Districts.Find(dtoModel.PostalCodeId);
+                if (newDistrict == null)
+                {
+                    newDistrict = new District()
+                    {
+                        PostalCodeId = dtoModel.PostalCodeId,
+                        Name = dtoModel.DistrictName
+                    };
+                    Country currentDistrictCountry;
+                    currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(dtoModel.CountryName, StringComparison.OrdinalIgnoreCase));
+                    if (currentDistrictCountry == null)
+                    {
+                        currentDistrictCountry = new Country() { Name = dtoModel.CountryName };
+                    }
+                    newDistrict.Country = currentDistrictCountry;
+                }
+                newShop.District = newDistrict;
+            }
+            return newShop;
+        }
 
     }
 }

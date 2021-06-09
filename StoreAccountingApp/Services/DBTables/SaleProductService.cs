@@ -18,5 +18,20 @@ namespace StoreAccountingApp.Services
         {
 
         }
+        public override SaleProductDTO CopyDBtoDTO(SaleProduct source)
+        {
+            SaleProductDTO saleProductDTO = ObjMethods.CopyProperties<SaleProduct, SaleProductDTO>(source);
+            if (saleProductDTO.ProductId != 0)
+            {
+                ProductService productService = new ProductService();
+                saleProductDTO.ProductDTO = productService.Search(saleProductDTO.ProductId);
+            }
+            if (saleProductDTO.SaleId != 0)
+            {
+                SaleService saleService = new SaleService();
+                saleProductDTO.SaleDTO = saleService.Search(saleProductDTO.SaleId);
+            }
+            return saleProductDTO;
+        }
     }
 }

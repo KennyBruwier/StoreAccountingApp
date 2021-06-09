@@ -11,29 +11,33 @@
              MinHeight="500"
              >
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
         </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
         </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource TextBoxStyle}">
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
         </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="5.8"/>
+        <Style TargetType="{x:Type Grid}"
+               BasedOn="{StaticResource RootGridStyle}">
+        </Style>
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource SideBarButtonStyle}">
+        </Style>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
         </Style>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -46,12 +50,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="JobFunction Management"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
@@ -75,7 +76,7 @@
                  Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
-                    Grid.Column="1" Margin="5,8">
+                    Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -90,6 +91,7 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
+                   Style="{StaticResource TextBlockMessageStyle}"
                    Grid.Row="5"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>

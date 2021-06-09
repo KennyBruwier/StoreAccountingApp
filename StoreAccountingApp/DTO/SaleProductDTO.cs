@@ -15,11 +15,25 @@ namespace StoreAccountingApp.DTO
             get { return saleId; }
             set { saleId = value; OnPropertyChanged("SaleId"); }
         }
+        private SaleDTO saleDTO;
+
+        public SaleDTO SaleDTO
+        {
+            get { return saleDTO; }
+            set { saleDTO = value; OnPropertyChanged(nameof(SaleDTO)); }
+        }
         private int productId;
         public int ProductId
         {
             get { return productId; }
             set { productId = value; OnPropertyChanged("ProductId"); }
+        }
+        private ProductDTO productDTO;
+
+        public ProductDTO ProductDTO
+        {
+            get { return productDTO; }
+            set { productDTO = value; OnPropertyChanged(nameof(ProductDTO)); }
         }
         public override void LoadValidation()
         {

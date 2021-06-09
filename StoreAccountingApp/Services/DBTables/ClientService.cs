@@ -19,6 +19,17 @@ namespace StoreAccountingApp.Services
         public ClientService()
         {
         }
+        public override ClientDTO CopyDBtoDTO(Client source)
+        {
+            ClientDTO newClientDTO = ObjMethods.CopyProperties<Client,ClientDTO>(source);
+            if (newClientDTO.PostalCodeId != null)
+            {
+                DistrictService districtService = new DistrictService();
+                newClientDTO.DistrictDTO = districtService.Search(newClientDTO.PostalCodeId);
+                newClientDTO.DistrictName = newClientDTO.DistrictDTO?.Name;
+            }
+            return newClientDTO;
+        }
         public override Client CopyDTOtoDB(ClientDTO dtoModel)
         {
             Client newClient = ObjMethods.CopyProperties<ClientDTO, Client>(dtoModel);

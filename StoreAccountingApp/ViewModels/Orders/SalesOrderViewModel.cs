@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StoreAccountingApp.ViewModels.Orders
 {
-    public class SalesOrderViewModel : ViewModelBase
+    public class SalesOrderViewModel : BaseOrderViewModel
     {
         private ProductService _productService;
         private SaleService _saleService;

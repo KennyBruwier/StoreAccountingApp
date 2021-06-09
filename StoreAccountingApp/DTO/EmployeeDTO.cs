@@ -16,6 +16,7 @@ namespace StoreAccountingApp.DTO
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
         }
+
         private string jobFunctionTitles;
 
         public string JobFunctionTitles

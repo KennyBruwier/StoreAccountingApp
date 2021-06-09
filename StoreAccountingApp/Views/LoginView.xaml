@@ -8,6 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <Style TargetType="Grid"
+               BasedOn="{StaticResource LinearCyanBG}"/>
         <Style TargetType="TextBlock"
                BasedOn="{StaticResource TextBlockStyle}">
             <Setter Property="Background" Value="Transparent" />
@@ -70,43 +72,47 @@
         MaxWidth="1000"
         Margin="20"
         HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Background="DarkCyan"
+        VerticalAlignment="Center"        
         >
+            
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="170" />
+            
+            <ColumnDefinition Width="170" >
+                
+            </ColumnDefinition>
+            
         </Grid.ColumnDefinitions>
-        <TextBlock
-            Grid.Row="0"
-            HorizontalAlignment="Center"
-            FontSize="28"
-            Text="Login" />
+        <Border Margin="-10"></Border>
+        <StackPanel>
+            <TextBlock
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                FontSize="28"
+                Text="Login" />
 
+            <StackPanel Grid.Row="1" Margin="5 20 5 5">
+                <StackPanel Margin="0 0 0 0">
+                    <TextBlock Text="Username" Margin="0 5 0 5" />
+                    <TextBox Text="{Binding Username}" />
+                </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="5 20 5 5">
-            <StackPanel Margin="0 10 0 0">
-                <TextBlock Text="Username" Margin="0 5 0 5" />
-                <TextBox Text="{Binding Username}" />
+                <StackPanel Margin="0 10 0 0">
+                    <TextBlock Text="Password"  Margin="0 5 0 5"/>
+                    <components:BindablePasswordBox Password="{Binding Password}" />
+                </StackPanel>
             </StackPanel>
-
-            <StackPanel Margin="0 10 0 0">
-                <TextBlock Text="Password"  Margin="0 5 0 5"/>
-                <components:BindablePasswordBox Password="{Binding Password}" />
-            </StackPanel>
+            <Button
+                    Grid.Row="2"
+                    Margin="5 20 5 5"
+                    Padding="5 2"
+                    HorizontalAlignment="Left"
+                    Command="{Binding LoginCommand}"
+                    Content="Login" />
         </StackPanel>
-
-        <Button
-            Grid.Row="2"
-            Margin="5 20 5 5"
-            Padding="5 2"
-            HorizontalAlignment="Left"
-            Command="{Binding LoginCommand}"
-            Content="Login" />
-
     </Grid>
 </UserControl>

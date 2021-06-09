@@ -14,14 +14,8 @@ namespace StoreAccountingApp.Services
 {
     public class SaleService : BaseService<SaleDTO,Sale>
     {
-        private ClientService _clientService;
-        private ShopService _shopService;
-        private EmployeeService _employeeService;
         public SaleService()
         {
-            _clientService = new ClientService();
-            _shopService = new ShopService();
-            _employeeService = new EmployeeService();
         }
         public override SaleDTO CopyDBtoDTO(Sale source)
         {
@@ -30,11 +24,23 @@ namespace StoreAccountingApp.Services
             {
                 newSaleDTO = ObjMethods.CopyProperties<Sale, SaleDTO>(source);
                 if (newSaleDTO.ClientId != 0)
-                    newSaleDTO.ClientFullname = _clientService.Search(newSaleDTO.ClientId, "Firstname", "Lastname");
+                {
+                    ClientService clientSevice = new ClientService();
+                    newSaleDTO.ClientDTO = clientSevice.Search(newSaleDTO.ClientId);
+                    newSaleDTO.ClientFullname = String.Format("{0} {1}", newSaleDTO.ClientDTO.Firstname, newSaleDTO.ClientDTO.Lastname);
+                }
                 if (newSaleDTO.EmployeeId != 0)
-                    newSaleDTO.EmployeeFullname = _employeeService.Search(newSaleDTO.EmployeeId,"Firstname","Lastname");
+                {
+                    EmployeeService employeeService = new EmployeeService();
+                    newSaleDTO.EmployeeDTO = employeeService.Search(newSaleDTO.EmployeeId);
+                    newSaleDTO.EmployeeFullname = String.Format("{0} {1}", newSaleDTO.EmployeeDTO.Firstname, newSaleDTO.EmployeeDTO.Lastname);
+                }
                 if (newSaleDTO.ShopId != 0)
-                    newSaleDTO.ShopName = _shopService.Search(newSaleDTO.ShopId, "BuildingName");
+                {
+                    ShopService shopService = new ShopService();
+                    newSaleDTO.ShopDTO = shopService.Search(newSaleDTO.ShopId);
+                    newSaleDTO.ShopName = newSaleDTO.ShopDTO.BuildingName;
+                }
             }
             return newSaleDTO;
         }

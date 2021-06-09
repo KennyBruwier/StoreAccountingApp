@@ -25,6 +25,13 @@ namespace StoreAccountingApp.DTO
             get { return accountTypeId; }
             set { accountTypeId = value; OnPropertyChanged("AccountTypeId"); }
         }
+        private AccountTypeDTO accountTypeDTO;
+
+        public AccountTypeDTO AccountTypeDTO
+        {
+            get { return accountTypeDTO; }
+            set { accountTypeDTO = value; OnPropertyChanged(nameof(AccountTypeDTO)); }
+        }
         private string accountTypeName;
         public string AccountTypeName
         {

@@ -11,34 +11,34 @@
              MinHeight="500"
              >
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
         </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
         </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource TextBoxStyle}">
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
         </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="5.8"/>
+        <Style TargetType="{x:Type Grid}"
+               BasedOn="{StaticResource RootGridStyle}">
         </Style>
-            <Style TargetType="ComboBox"
-               BasedOn="{StaticResource ElegantComboBoxStyle}"/>
-
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource SideBarButtonStyle}">
+        </Style>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
+        </Style>
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -58,12 +58,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Sales Management"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="3"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
                    Grid.Column="0"/>
@@ -71,17 +68,33 @@
                    Grid.Row="2"
                    Grid.Column="0"/>
         <TextBlock Text="Status"
-                   Grid.Row="3"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Row="2"
+                   Grid.Column="2" Margin="5,8" Padding="3"/>
         <TextBlock Text="Guarantee"
-                   Grid.Row="7"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Row="3"
+                   Grid.Column="2" Margin="5,8" Padding="3"/>
         <TextBlock Text="Discount"
-                   Grid.Row="8"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Row="4"
+                   Grid.Column="2" Margin="5,8" Padding="3"/>
         <TextBlock Text="PaymentMethod"
-                   Grid.Row="9"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Row="5"
+                   Grid.Column="2" Margin="5,8" Padding="3"/>
+        <TextBox x:Name="txtStatus"
+                 Grid.Row="2"
+                 Grid.Column="3" 
+                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
+        <TextBox x:Name="txtGuarantee"
+                 Grid.Row="3"
+                 Grid.Column="3" 
+                 Text="{Binding Path=CurrentDTOModel.Guarantee, Mode=TwoWay}"/>
+        <TextBox x:Name="txtDiscount"
+                 Grid.Row="4"
+                 Grid.Column="3" 
+                 Text="{Binding Path=CurrentDTOModel.Discount, Mode=TwoWay}"/>
+        <TextBox x:Name="txtPaymentMethod"
+                 Grid.Row="5"
+                 Grid.Column="3" 
+                 Text="{Binding Path=CurrentDTOModel.PaymentMethod, Mode=TwoWay}"/>
 
         <TextBox x:Name="txtSaleId"
                  Grid.Row="1"
@@ -91,58 +104,41 @@
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentDTOModel.InvoiceNumber, Mode=TwoWay}"/>
-        <TextBox x:Name="txtStatus"
-                 Grid.Row="3"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
         <TextBlock Text="Client"
-                   Grid.Row="4"
+                   Grid.Row="3"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
         <ComboBox x:Name="cbClientList"
-                  Grid.Row="4"
+                  Grid.Row="3"
                   Grid.Column="1"
                   ItemsSource="{Binding CbClientList}"
                   SelectedValue="{Binding Path=CurrentDTOModel.ClientId, Mode=TwoWay}"
                   SelectedValuePath="Key"
                   />
         <TextBlock Text="Store"
-                   Grid.Row="5"
+                   Grid.Row="4"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
         <ComboBox x:Name="cbStoreList"
-                  Grid.Row="5"
+                  Grid.Row="4"
                   Grid.Column="1"
                   ItemsSource="{Binding CbShopList}"
                   SelectedValue="{Binding Path=CurrentDTOModel.ShopId, Mode=TwoWay}"
                   SelectedValuePath="Key"
                   />
         <TextBlock Text="Employee"
-                   Grid.Row="6"
+                   Grid.Row="5"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
         <ComboBox x:Name="cbEmployeeList"
-                  Grid.Row="6"
+                  Grid.Row="5"
                   Grid.Column="1"
                   ItemsSource="{Binding CbEmployeeList}"
                   SelectedValue="{Binding Path=CurrentDTOModel.EmployeeId, Mode=TwoWay}"
                   SelectedValuePath="Key"
                   />
 
-        <TextBox x:Name="txtGuarantee"
-                 Grid.Row="7"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.Guarantee, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDiscount"
-                 Grid.Row="8"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.Discount, Mode=TwoWay}"/>
-        <TextBox x:Name="txtPaymentMethod"
-                 Grid.Row="9"
-                 Grid.Column="1" 
-                 Text="{Binding Path=CurrentDTOModel.PaymentMethod, Mode=TwoWay}"/>
-
-
         <StackPanel Orientation="Horizontal"
                     Grid.Row="11"
-                    Grid.Column="1" Margin="5,8">
+                    Grid.Column="1" Margin="5,8"
+                    Grid.ColumnSpan="4">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -157,6 +153,7 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
+                   Style="{StaticResource TextBlockMessageStyle}"
                    Grid.Row="12"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>

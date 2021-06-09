@@ -66,7 +66,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="250"/>
 
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>

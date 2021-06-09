@@ -21,6 +21,13 @@ namespace StoreAccountingApp.DTO
             get { return clientId; }
             set { clientId = value; OnPropertyChanged("ClientId"); }
         }
+        private ClientDTO clientDTO;
+
+        public ClientDTO ClientDTO
+        {
+            get { return clientDTO; }
+            set { clientDTO = value; OnPropertyChanged(nameof(ClientDTO)); }
+        }
         private string clientFullname;
 
         public string ClientFullname
@@ -35,6 +42,13 @@ namespace StoreAccountingApp.DTO
             get { return shopId; }
             set { shopId = value; OnPropertyChanged("ShopId"); }
         }
+        private ShopDTO shopDTO;
+
+        public ShopDTO ShopDTO
+        {
+            get { return shopDTO; }
+            set { shopDTO = value; OnPropertyChanged(nameof(ShopDTO)); }
+        }
         private string shopName;
 
         public string ShopName
@@ -47,6 +61,13 @@ namespace StoreAccountingApp.DTO
         {
             get { return employeeId; }
             set { employeeId = value; OnPropertyChanged("EmployeeId"); }
+        }
+        private EmployeeDTO employeeDTO;
+
+        public EmployeeDTO EmployeeDTO
+        {
+            get { return employeeDTO; }
+            set { employeeDTO = value; OnPropertyChanged(nameof(EmployeeDTO)); }
         }
         private string employeeFullname;
 

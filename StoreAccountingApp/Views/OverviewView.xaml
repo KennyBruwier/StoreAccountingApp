@@ -56,11 +56,16 @@
         <DataTemplate DataType="{x:Type viewmodels:StocksOverviewViewModel}">
             <views:StocksOverviewView />
         </DataTemplate>
+        <Style TargetType="StackPanel">
+            <Style.Resources>
+                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            </Style.Resources>
+        </Style>
+
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            
+            <ColumnDefinition Width="auto" MinWidth="250"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

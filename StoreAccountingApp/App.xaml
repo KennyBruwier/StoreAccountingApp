@@ -11,6 +11,33 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="{x:Type TextBlock}"
+               x:Key="H2TitleStyle"
+               BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#A64B00"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Grid.ColumnSpan" Value="4"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="H1TitleStyle"
+               BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#A64B00"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Grid.ColumnSpan" Value="4"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="500"/>
+            <Setter Property="Width" Value="auto"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}"
+               x:Key="TextBlockMessageStyle"
+               BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="Grid.ColumnSpan" Value="4"/>
+            <Setter Property="MinHeight" Value="70"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}"
                x:Key="MenuTextBlockStyle">
             <Setter Property="Margin" Value="5 0 5 0"/>
             <Setter Property="Padding" Value="5"/>
@@ -85,7 +112,6 @@
                     </Setter>
                 </Trigger>
             </Style.Triggers>
-
         </Style>
         <Style TargetType="{x:Type Button}"
            x:Key="MenuButtonStyle">
@@ -166,6 +192,46 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Grid}"
+               x:Key="LinearCyanBG">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Style.Resources>
+                        <LinearGradientBrush x:Key="bgBrush" EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                            <GradientStop Color="#00665E" Offset="0"/>
+                            <GradientStop Color="#5DCEC6" Offset="0.567"/>
+                        </LinearGradientBrush>
+                    </Style.Resources>
+                    <Setter Property="Margin" Value="10"/>
+                    <Setter Property="BorderBrush" Value="Peru"/>
+                    <Setter Property="BorderThickness" Value="1,1,1,1"/>
+                    <Setter Property="CornerRadius" Value="8,8,8,8"/>
+                    <Setter Property="Background" Value="{StaticResource bgBrush}"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect ShadowDepth="0" Color="White" Opacity="0.5" BlurRadius="10"/>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type DataGrid}"
+               x:Key="DataGridStyle">
+            <Setter Property="Margin" Value="5.8"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Grid.ColumnSpan" Value="10"/>
+        </Style>
+        <Style TargetType="{x:Type StackPanel}"
+               x:Key="StackPanelStyle">
+            <Style.Resources>
+                <Style TargetType="TextBlock"
+                       BasedOn="{StaticResource TextBlockStyle}"/>
+                <Style TargetType="TextBox"
+                       BasedOn="{StaticResource TextBoxStyle}"/>
+                <Style TargetType="Button"
+                       BasedOn="{StaticResource SideBarButtonStyle}"/>
             </Style.Resources>
         </Style>
     </Application.Resources>

@@ -125,7 +125,7 @@ namespace StoreAccountingApp.ViewModels.Overviews
             { 
                 cbSelectedProduct = value; 
                 OnPropertyChanged(nameof(CbSelectedProduct));
-                CreateNewCollection();
+                CreateNewSoldProductCollection();
             }
         }
         private ComboboxItem cbSelectedSale;
@@ -157,7 +157,6 @@ namespace StoreAccountingApp.ViewModels.Overviews
             set { cbSelectedEmployee = value; OnPropertyChanged(nameof(CbSelectedEmployee)); }
         }
 
-
         #endregion
         private void LoadData()
         {
@@ -171,7 +170,7 @@ namespace StoreAccountingApp.ViewModels.Overviews
             CbEmployeeList = ObjMethods.CreateComboboxList<EmployeeDTO, ComboboxItem>(EmployeesList, "EmployeeId", "Firstname");
             CbClientList = ObjMethods.CreateComboboxList<ClientDTO, ComboboxItem>(ClientsList, "ClientId", "Firstname");
             this.SelectedItemChanged += OnSelectedItemChanged;
-            CreateNewCollection();
+            CreateNewSoldProductCollection();
         }
         private void OnSelectedItemChanged()
         {
@@ -183,7 +182,7 @@ namespace StoreAccountingApp.ViewModels.Overviews
             OnPropertyChanged(nameof(XaxisLabel));
             OnPropertyChanged(nameof(YaxisLabel));
         }
-        private void CreateNewCollection()
+        private void CreateNewSoldProductCollection()
         {
             var myList = SaleProductList.Join(ProductList,
                         sp => sp.ProductId,
@@ -197,24 +196,41 @@ namespace StoreAccountingApp.ViewModels.Overviews
                 .Select(g => new
                 {
                     Key = g.Key,
-                    Count = g.Sum(s=>s.sp.Amount)
+                    Count = g.Sum(s => s.sp.Amount),
+                    Net = g.Sum(s => s.sp.UnitPrice * s.sp.Amount),
+                    Gross = g.Sum(s => s.sp.VAT + s.sp.UnitPrice * s.sp.Amount)
                 })
                 .OrderByDescending(g => g.Count);
             SeriesCollection seriesCollection = new SeriesCollection();
             List<ChartValues<int>> chartvalue = new List<ChartValues<int>>();
             ChartValues<int> listCount = new ChartValues<int>();
+            ChartValues<decimal> listNet = new ChartValues<decimal>();
+            ChartValues<decimal> listGross = new ChartValues<decimal>();
             List<string> newLabels = new List<string>();
             foreach (var group in myList)
             {
                 listCount.Add(group.Count);
+                listNet.Add(group.Net);
+                listGross.Add(group.Gross);
                 newLabels.Add(group.Key);
             }
             seriesCollection.Add(new ColumnSeries
             {
-                Title = "Producten",
+                Title = "Amount",
                 Values = listCount
             });//seriesCollection.Add(new Col)
             Collection = seriesCollection;
+            Collection.Add(new ColumnSeries
+            {
+                Title = "Net",
+                Values = listNet
+            });
+            Collection.Add(new ColumnSeries
+            {
+                Title = "Gross",
+                Values = listGross
+            });
+            //Collection.Add
             Labels = newLabels.ToArray();
             Formatter = value => value.ToString("N");
             YaxisLabel = "Amount sold";

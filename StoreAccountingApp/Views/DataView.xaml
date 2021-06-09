@@ -75,17 +75,11 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
         <TextBlock
-            HorizontalAlignment="Center"
-            TextAlignment="Center"
+            Style="{StaticResource H1TitleStyle}"
             Grid.Row="0"
-            Grid.Column="1"
-            FontSize="28"
+            Grid.Column="0"
             Text="Databeheer"
-            Margin="5"
-            Width="auto"
-            MinWidth="500"
             />
         <DockPanel Grid.Column="0" Grid.Row="1"
                    HorizontalAlignment="Center"
@@ -161,7 +155,6 @@
                         Content="Sold products"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
-                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -178,7 +171,6 @@
                         Content="Stores"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
-                        IsEnabled="False"
                         />
                 </StackPanel>
                 <StackPanel x:Name="Stock">
@@ -189,7 +181,6 @@
                         FontSize="14"
                         Text="Stock manager"
                         Padding="5 2"
-                        IsEnabled="False"
                         Margin="5"/>
                     <Button
                         Padding="5 2"
@@ -198,7 +189,6 @@
                         Content="Products in stock"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
-                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -207,7 +197,6 @@
                         Content="Products at suppliers"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
-                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -258,7 +247,6 @@
                         Content="Job functions"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
-                        IsEnabled="False"
                         />
                     <Button
                         Padding="5 2"
@@ -277,8 +265,6 @@
                         Margin="5 2.5 5 2.5"
                         />
                 </StackPanel>
-
-
             </StackPanel>
         </DockPanel>
         <ContentControl

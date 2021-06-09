@@ -6,33 +6,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Background="DarkCyan"
-    mc:Ignorable="d">
+    Opacity="0.8"
+    
+    mc:Ignorable="d"
+    Width="auto">
     <UserControl.Resources>
+        <Style TargetType="Grid"
+               BasedOn="{StaticResource LinearCyanBG}"/>
         <Style TargetType="Button"
                BasedOn="{StaticResource MenuButtonStyle}">
-            <!--<Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <TextBlock Text="{TemplateBinding Content}" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <TextBlock Text="{TemplateBinding Content}" TextDecorations="Underline" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>-->
         </Style>
         <Style TargetType="TextBlock"
                BasedOn="{StaticResource MenuTextBlockStyle}">
@@ -44,94 +26,108 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <Grid MaxWidth="1000" Margin="0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-
-        <TextBlock
-            Grid.Column="0"
-            FontSize="14"
-            Foreground="White"
-            Text="Accounting application" />
-        <StackPanel 
-            Grid.Column="1" 
-            Orientation="Horizontal"
-            Margin="0"
-            
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock
-                FontSize="14"
-                Foreground="White"
-                Margin="30 0 0 0"
-                Text="welkom "/>
-            <TextBlock
-                FontSize="14"
-                Foreground="White"
-                Margin="5 0 0 0"
-                Text="{Binding CurrentUser}"/>
-        </StackPanel>
-
+    <Grid Margin="0">
         
-        <Button
-            Grid.Column="2"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateHomeCommand}"
-            Content="Home" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Margin="0"
+                Grid.ColumnSpan="20"
+                >
+        <DockPanel Grid.ColumnSpan="15">
+            <StackPanel Orientation="Horizontal"
+                        Grid.ColumnSpan="15"
+                        MinWidth="700"
+                        DockPanel.Dock="Left"
+                        >
+                <TextBlock
+                    Grid.Column="0"
+                    FontSize="14"
+                    Foreground="White"
+                    Text="Accounting application" />
+                <StackPanel 
+                    Grid.Column="1" 
+                    Orientation="Horizontal"
+                    Margin="0"
+            
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        FontSize="14"
+                        Foreground="White"
+                        Margin="30 0 0 0"
+                        Text="welkom "/>
+                    <TextBlock
+                        FontSize="14"
+                        Foreground="White"
+                        Margin="5 0 0 0"
+                        Text="{Binding CurrentUser}"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Right"
+                        Grid.ColumnSpan="10">
+                <Button
+                    Grid.Column="3"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateUsersListingCommand}"
+                    Content="Users" 
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button
+                    Grid.Column="4"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateDataCommand}"
+                    Content="Databeheer" 
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button
+                    Grid.Column="5"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateOverviewCommand}"
+                    Content="Overzicht" 
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button
+                    Grid.Column="4"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateOrdersCommand}"
+                    Content="Bestelling" 
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button
+                    Grid.Column="5"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateAccountCommand}"
+                    Content="Account"
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Button
+                    Grid.Column="6"
+                    Margin="10 0 0 0"
+                    Command="{Binding LogoutCommand}"
+                    Content="Logout"
+                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Button
+                    Grid.Column="12"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateHomeCommand}"
+                    Content="Home" />
+                <Button
+                    Grid.Column="13"
+                    Margin="10 0 0 0"
+                    Command="{Binding NavigateLoginCommand}"
+                    Content="Login" 
+                    Visibility="{Binding NotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-        <Button
-            Grid.Column="3"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateUsersListingCommand}"
-            Content="Users" 
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Button
-            Grid.Column="4"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateDataCommand}"
-            Content="Databeheer" 
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Button
-            Grid.Column="5"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateOverviewCommand}"
-            Content="Overzicht" 
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <Button
-            Grid.Column="6"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateOrdersCommand}"
-            Content="Bestelling" 
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-        <Button
-            Grid.Column="7"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateLoginCommand}"
-            Content="Login" 
-            Visibility="{Binding NotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-        <Button
-            Grid.Column="8"
-            Margin="10 0 0 0"
-            Command="{Binding NavigateAccountCommand}"
-            Content="Account"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
-
-        <Button
-            Grid.Column="9"
-            Margin="10 0 0 0"
-            Command="{Binding LogoutCommand}"
-            Content="Logout"
-            Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
     </Grid>
 </UserControl>

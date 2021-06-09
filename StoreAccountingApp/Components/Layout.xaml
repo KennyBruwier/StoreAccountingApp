@@ -155,6 +155,9 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.Background>
+        <ImageBrush ImageSource="/Images/leaf.jpg" Opacity="0.2"/>
+        </Grid.Background>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -165,8 +168,9 @@
 
         <ContentControl
             Grid.Row="1"
-            MaxWidth="1000"
             Margin="20"
+            MinHeight="600"
+            MinWidth="600"
             Content="{Binding ContentViewModel}" />
 
     </Grid>

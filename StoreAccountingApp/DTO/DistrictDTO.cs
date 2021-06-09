@@ -28,6 +28,15 @@ namespace StoreAccountingApp.DTO
             get { return countryId; }
             set { countryId = value; OnPropertyChanged("CountryId"); }
         }
+
+        private string countryName;
+
+        public string CountryName
+        {
+            get { return countryName; }
+            set { countryName = value; OnPropertyChanged(nameof(CountryName)); }
+        }
+
         private CountryDTO countryDTO;
         public CountryDTO CountryDTO
         {

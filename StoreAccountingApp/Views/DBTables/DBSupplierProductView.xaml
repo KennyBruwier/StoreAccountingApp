@@ -11,29 +11,33 @@
              MinHeight="500"
              >
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
         </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
         </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource TextBoxStyle}">
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
         </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="5.8"/>
+        <Style TargetType="{x:Type Grid}"
+               BasedOn="{StaticResource RootGridStyle}">
+        </Style>
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource SideBarButtonStyle}">
+        </Style>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
         </Style>
     </UserControl.Resources>
-    <Grid Margin="15">
+    <Grid Style="{StaticResource RootGridStyle}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -44,38 +48,92 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="SupplierProduct Management"
+        <TextBlock Text="Supplier Products Management"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Name"
-                   Grid.Row="2"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter Description"
-                   Grid.Row="3"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
-        <TextBox x:Name="txtSupplierProductId"
-                 Grid.Row="1"
-                 Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.SupplierProductId, Mode=TwoWay}"/>
-        <TextBox x:Name="txtName"
-                 Grid.Row="2"
-                 Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Name, Mode=TwoWay}"/>
-        <TextBox x:Name="txtDescription"
-                 Grid.Row="3"
-                 Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Description, Mode=TwoWay}"/>
+                   Grid.Column="0"/>
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="4"
-                    Grid.Column="1" Margin="5,8">
+                    Grid.Row="1"
+                    Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBox x:Name="txtSupplierId"
+                     Text="{Binding Path=CurrentDTOModel.SupplierId, Mode=TwoWay}"/>
+            <TextBlock Text="Supplier Id"/>
+            <TextBox x:Name="txtProductId"
+                     
+                     Text="{Binding Path=CurrentDTOModel.ProductId, Mode=TwoWay}"/>
+            <TextBlock Text="Product Id"/>
+        </StackPanel>
+        <TextBlock Text="Product"
+                   Grid.Row="2"
+                   Grid.Column="0"/>
+        <ComboBox x:Name="cbProducts"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbProductList}"/>
+        <TextBlock Text="Supplier"
+                   Grid.Row="3"
+                   Grid.Column="0"/>
+        <ComboBox x:Name="cbSuppliers"
+                  Grid.Row="3"
+                  Grid.Column="1"
+                  ItemsSource="{Binding CbSupplierList}"/>
+        <TextBlock Text="Status"
+                   Grid.Row="4"
+                   Grid.Column="0"/>
+        <TextBox x:Name="txtStatus"
+                 Grid.Row="4"
+                 Grid.Column="1" Margin="5,8" Padding="3"
+                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
+        <TextBlock Text="Amount"
+                   Grid.Row="5"
+                   Grid.Column="0"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3">
+            <TextBox x:Name="txtAmount"
+                 Text="{Binding Path=CurrentDTOModel.Amount, Mode=OneWay}"/>
+            <TextBlock Text="Min."/>
+            <TextBox x:Name="txtMinAmount"
+                     Text="{Binding Path=CurrentDTOModel.MinAmount, Mode=OneWay}"/>
+            <TextBlock Text="Max."/>
+            <TextBox x:Name="txtMaxAmount"
+                     Text="{Binding Path=CurrentDTOModel.MaxAmount, Mode=OneWay}"/>
+        </StackPanel>
+        <TextBlock Text="Unite Price"
+                   Grid.Row="6"
+                   Grid.Column="0"/>
+        <TextBox x:Name="txtUnitPrice"
+                 Grid.Row="6"
+                 Grid.Column="1"
+                 Text="{Binding Path=CurrentDTOModel.UnitPrice, Mode=OneWay}"/>
+        <TextBlock Text="Discount"
+                   Grid.Row="7"
+                   Grid.Column="0"/>
+        <TextBox x:Name="txtDiscount"
+                   Grid.Row="7"
+                   Grid.Column="1"
+                   Text="{Binding Path=CurrentDTOModel.Discount, Mode=OneWay}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="17"
+                    Grid.Column="1" Grid.ColumnSpan="3">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -90,27 +148,40 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
-                   Grid.Row="5"
+                   Style="{StaticResource TextBlockMessageStyle}"
+                   Grid.Row="18"
                    Grid.Column="1" Margin="5,8" Padding="3"
-                   Text="{Binding Path=Message}"/>
+                   Text="{Binding Path=Message, Mode=OneWay}"/>
         <DataGrid x:Name="dgSupplierProducts"
                   AutoGenerateColumns="False"
-                  Grid.Row="6"
+                  Grid.Row="19"
                   Grid.Column="1" Margin="5,8" Padding="3" 
-                  ItemsSource="{Binding Path=DTOModelList, Mode=TwoWay}">
+                  ItemsSource="{Binding Path=DTOModelList, Mode=OneWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Header="Id"
+                    Header="Supplier Id"
                     Width="auto"
-                    Binding="{Binding Path=SupplierProductId}"/>
+                    Binding="{Binding Path=SupplierId, Mode=OneWay}"/>
                 <DataGridTextColumn
-                    Header="Name"
+                    Header="Product Id"
                     Width="auto"
-                    Binding="{Binding Path=Name}"/>
+                    Binding="{Binding Path=ProductId, Mode=OneWay}"/>
                 <DataGridTextColumn
-                    Header="Description"
+                    Header="Invoice"
                     Width="auto"
-                    Binding="{Binding Path=Description}"/>
+                    Binding="{Binding Path=SupplierDTO.InvoiceNumber, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Product"
+                    Width="auto"
+                    Binding="{Binding Path=ProductDTO.Name, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Status"
+                    Width="auto"
+                    Binding="{Binding Path=Status, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Amount"
+                    Width="auto"
+                    Binding="{Binding Path=Amount, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

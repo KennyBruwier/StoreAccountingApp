@@ -10,9 +10,35 @@
              Height="auto"
              MinHeight="500"
              >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
+        </Style>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
+        </Style>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource TextBoxStyle}">
+        </Style>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
+        </Style>
+        <Style TargetType="{x:Type Grid}"
+               BasedOn="{StaticResource RootGridStyle}">
+        </Style>
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource SideBarButtonStyle}">
+        </Style>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
+        </Style>
+    </UserControl.Resources>
+
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -26,17 +52,10 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="District Management"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="1"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
-        <TextBlock Text="Enter:"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   Margin="5,8" Padding="3"/>
-        <TextBlock Text="PostalCode(Id)"
+                   Grid.Column="0"/>
+        <TextBlock Text="Enter PostalCode(Id)"
                    Grid.Row="1"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
         <TextBlock Text="Name"
@@ -59,7 +78,7 @@
                  Text="{Binding Path=CurrentDTOModel.CountryName, Mode=TwoWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="4"
-                    Grid.Column="1" Margin="5,8">
+                    Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -74,6 +93,7 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
+                   Style="{StaticResource TextBlockMessageStyle}"
                    Grid.Row="5"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>

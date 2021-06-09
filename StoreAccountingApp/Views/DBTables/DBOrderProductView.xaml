@@ -12,88 +12,32 @@
              >
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBlock}"
-               x:Key="TextBlockStyle">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
         </Style>
         <Style TargetType="{x:Type ComboBox}"
-               x:Key="ComboBoxStyle">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
-            <Style.Resources>
-                <Style TargetType="Grid">
-                    <Style.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="5 0 0 0"/>
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="TextAlignment" Value="Left"/>
-                        </Style>
-                    </Style.Resources>
-                </Style>
-            </Style.Resources>
-        </Style>
-        <Style TargetType="{x:Type ComboBoxItem}"
-                x:Key="ComboBoxItemStyle">
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
         </Style>
         <Style TargetType="{x:Type TextBox}"
-               x:Key="TextBoxStyle">
-            <Setter Property="MinWidth" Value="30"/>
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+               BasedOn="{StaticResource TextBoxStyle}">
         </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
         </Style>
         <Style TargetType="{x:Type Grid}"
-               x:Key="RootGridStyle">
-            <Setter Property="Margin" Value="15"/>
-            <Setter Property="MinWidth" Value="500"/>
-            <Style.Resources>
-                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}">
-                    <Style.Triggers>
-                        <Trigger Property="Grid.Column" Value="0">
-                            <Setter Property="MinWidth" Value="80"/>
-                            <Setter Property="TextAlignment" Value="Right"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Style.Resources>
+               BasedOn="{StaticResource RootGridStyle}">
         </Style>
         <Style TargetType="{x:Type Button}"
-               x:Key="ButtonStyle">
-            <Setter Property="Margin" Value="5.8"/>
-            <Setter Property="Padding" Value="3"/>
+               BasedOn="{StaticResource SideBarButtonStyle}">
         </Style>
-        <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxStyle}">
-            <Style.Resources>
-                <Style TargetType="ComboBoxItem" BasedOn="{StaticResource ComboBoxItemStyle}"/>
-            </Style.Resources>
-        </Style>
-        <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}"/>
-        <Style TargetType="StackPanel">
-            <Style.Resources>
-                <Style TargetType="TextBlock"
-                       BasedOn="{StaticResource TextBlockStyle}">
-                </Style>
-                <Style TargetType="TextBox"
-                       BasedOn="{StaticResource TextBoxStyle}">
-                </Style>
-                <Style TargetType="Button"
-                       BasedOn="{StaticResource ButtonStyle}">
-                </Style>
-            </Style.Resources>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
         </Style>
     </UserControl.Resources>
     <Grid Style="{StaticResource RootGridStyle}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <!--<ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>-->
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -119,14 +63,9 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="OrderProduct Management"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   />
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
                    Grid.Column="0"/>
@@ -194,7 +133,7 @@
                    Text="{Binding Path=CurrentDTOModel.Discount, Mode=OneWay}"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"
-                    Grid.Column="1">
+                    Grid.Column="1" Grid.ColumnSpan="3">
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -209,6 +148,7 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
+                   Style="{StaticResource TextBlockMessageStyle}"
                    Grid.Row="18"
                    Grid.Column="1" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message, Mode=OneWay}"/>
@@ -219,17 +159,29 @@
                   ItemsSource="{Binding Path=DTOModelList, Mode=OneWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Header="Id"
+                    Header="Order Id"
                     Width="auto"
-                    Binding="{Binding Path=OrderProductId, Mode=OneWay}"/>
+                    Binding="{Binding Path=OrderId, Mode=OneWay}"/>
                 <DataGridTextColumn
-                    Header="Name"
+                    Header="Product Id"
                     Width="auto"
-                    Binding="{Binding Path=Name, Mode=OneWay}"/>
+                    Binding="{Binding Path=ProductId, Mode=OneWay}"/>
                 <DataGridTextColumn
-                    Header="Description"
+                    Header="Invoice"
                     Width="auto"
-                    Binding="{Binding Path=Description, Mode=OneWay}"/>
+                    Binding="{Binding Path=OrderDTO.InvoiceNumber, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Product"
+                    Width="auto"
+                    Binding="{Binding Path=ProductDTO.Name, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Status"
+                    Width="auto"
+                    Binding="{Binding Path=Status, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Amount"
+                    Width="auto"
+                    Binding="{Binding Path=Amount, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

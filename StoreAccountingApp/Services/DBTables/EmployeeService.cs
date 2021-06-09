@@ -26,7 +26,8 @@ namespace StoreAccountingApp.Services
             {
                 DistrictService districtService = new DistrictService();
                 newEmployeeDTO.DistrictDTO = districtService.Search(source.PostalCodeId);
-                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO.Name;
+                newEmployeeDTO.DistrictName = newEmployeeDTO.DistrictDTO.Name;
+                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO.CountryName;
             }
             return newEmployeeDTO;
         }

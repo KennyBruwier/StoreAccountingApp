@@ -18,6 +18,17 @@ namespace StoreAccountingApp.Services
         {
 
         }
+        public override DistrictDTO CopyDBtoDTO(District source)
+        {
+            DistrictDTO newDistrict = ObjMethods.CopyProperties<District, DistrictDTO>(source);
+            if (newDistrict.CountryId != 0)
+            {
+                CountryService countryService = new CountryService();
+                newDistrict.CountryDTO = countryService.Search(newDistrict.CountryId);
+                newDistrict.CountryName = newDistrict.CountryDTO.Name;
+            }
+            return newDistrict;
+        }
         public override District CopyDTOtoDB(DistrictDTO dtoModel)
         {
             District newDistrict = ObjMethods.CopyProperties<DistrictDTO, District>(dtoModel);

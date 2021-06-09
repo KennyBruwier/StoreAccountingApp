@@ -10,11 +10,35 @@
              Height="auto"
              MinHeight="500"
              >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
+        </Style>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
+        </Style>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource TextBoxStyle}">
+        </Style>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
+        </Style>
+        <Style TargetType="{x:Type Grid}"
+               BasedOn="{StaticResource RootGridStyle}">
+        </Style>
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource SideBarButtonStyle}">
+        </Style>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
+        </Style>
+    </UserControl.Resources>
+
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto" MinWidth="100"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -33,11 +57,9 @@
 
         </Grid.RowDefinitions>
         <TextBlock Text="Client Management"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="3"
-                   FontSize="20"
-                   HorizontalAlignment="Center" Margin="5,8" Padding="3"/>
+                   Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
@@ -129,6 +151,7 @@
                     Command="{Binding Path=DeleteCommand}"/>
         </StackPanel>
         <TextBlock x:Name="txtblockMessage"
+                   Style="{StaticResource TextBlockMessageStyle}"
                    Grid.Row="10"
                    Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8" Padding="3"
                    Text="{Binding Path=Message}"/>
