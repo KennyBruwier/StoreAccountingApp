@@ -29,7 +29,6 @@ namespace StoreAccountingApp.Stores
 
         public bool IsLoggedIn => CurrentAccount != null;
         public event Action CurrentAccountChanged;
-        public event Action CurrentAccountTypeChanged;
         public void Logout()
         {
             CurrentAccount = null;

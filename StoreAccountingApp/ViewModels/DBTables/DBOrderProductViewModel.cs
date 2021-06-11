@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -20,8 +21,10 @@ namespace StoreAccountingApp.ViewModels
     {
         private readonly OrderService _OrderService;
         private readonly ProductService _ProductService;
-        public DBOrderProductViewModel()
+        public DBOrderProductViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
             _ProductService = new ProductService();
             _OrderService = new OrderService();
             LoadData();
@@ -51,13 +54,38 @@ namespace StoreAccountingApp.ViewModels
             get { return cbOrderList; }
             set { cbOrderList = value; OnPropertyChanged("CbOrderList"); }
         }
+        private ComboboxItem selectedOrder;
+
+        public ComboboxItem SelectedOrder
+        {
+            get { return selectedOrder; }
+            set 
+            { 
+                selectedOrder = value; 
+                OnPropertyChanged(nameof(SelectedOrder));
+                CurrentDTOModel.OrderId = selectedOrder.Key;
+            }
+        }
+        private ComboboxItem selectedProduct;
+
+        public ComboboxItem SelectedProduct
+        {
+            get { return selectedProduct; }
+            set 
+            { 
+                selectedProduct = value; 
+                OnPropertyChanged(nameof(SelectedOrder));
+                CurrentDTOModel.ProductId = selectedProduct.Key;
+            }
+        }
+
         #endregion
         private void LoadData()
         {
             ProductList = _ProductService.GetAll();
             OrderList = _OrderService.GetAll();
-            cbProductList = ObjMethods.CreateComboboxList<ProductDTO, ComboboxItem>(ProductList, "ProductId", "Name", "Manufacturer");
-            cbOrderList = ObjMethods.CreateComboboxList<OrderDTO, ComboboxItem>(OrderList, "OrderId", "InvoiceNumber", "SupplierName");
+            cbProductList = ObjMethods.CreateComboboxList<ProductDTO, ComboboxItem>(ProductList, "ProductId", "Name");
+            cbOrderList = ObjMethods.CreateComboboxList<OrderDTO, ComboboxItem>(OrderList, "OrderId", "InvoiceNumber");
         }
     }
 }

@@ -35,7 +35,7 @@
                x:Key="TextBlockMessageStyle"
                BasedOn="{StaticResource TextBlockStyle}">
             <Setter Property="Grid.ColumnSpan" Value="4"/>
-            <Setter Property="MinHeight" Value="70"/>
+            <Setter Property="MinHeight" Value="40"/>
         </Style>
         <Style TargetType="{x:Type TextBlock}"
                x:Key="MenuTextBlockStyle">
@@ -61,13 +61,13 @@
                     <ControlTemplate TargetType="Button">
                         <Border BorderThickness="0.7" BorderBrush="Black" Margin="0" Padding="0">
                             <TextBlock 
-                            Text="{TemplateBinding Content}" 
-                            TextAlignment="Center"
-                            Background="LightGray"
-                            Foreground="Black"
-                            Margin="0"
-                            Padding="3"
-                            />
+                                Text="{TemplateBinding Content}" 
+                                TextAlignment="Center"
+                                Background="LightGray"
+                                Foreground="Black"
+                                Margin="0"
+                                Padding="3"
+                                />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>

@@ -32,13 +32,15 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Style="{StaticResource RootGridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -68,9 +70,11 @@
                    Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
+                   Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                    Grid.Column="0"/>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="1"
+                    Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Grid.Column="1" Grid.ColumnSpan="3">
             <TextBox x:Name="txtSupplierId"
                      Text="{Binding Path=CurrentDTOModel.SupplierId, Mode=TwoWay}"/>
@@ -86,14 +90,20 @@
         <ComboBox x:Name="cbProducts"
                   Grid.Row="2"
                   Grid.Column="1"
-                  ItemsSource="{Binding CbProductList}"/>
+                  ItemsSource="{Binding CbProductList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.ProductId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
         <TextBlock Text="Supplier"
                    Grid.Row="3"
                    Grid.Column="0"/>
         <ComboBox x:Name="cbSuppliers"
                   Grid.Row="3"
                   Grid.Column="1"
-                  ItemsSource="{Binding CbSupplierList}"/>
+                  ItemsSource="{Binding CbSupplierList}"
+                  SelectedValue="{Binding Path=CurrentDTOModel.SupplierId, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  />
         <TextBlock Text="Status"
                    Grid.Row="4"
                    Grid.Column="0"/>
@@ -109,13 +119,13 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="3">
             <TextBox x:Name="txtAmount"
-                 Text="{Binding Path=CurrentDTOModel.Amount, Mode=OneWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Amount, Mode=TwoWay}"/>
             <TextBlock Text="Min."/>
             <TextBox x:Name="txtMinAmount"
-                     Text="{Binding Path=CurrentDTOModel.MinAmount, Mode=OneWay}"/>
+                     Text="{Binding Path=CurrentDTOModel.MinAmount, Mode=TwoWay}"/>
             <TextBlock Text="Max."/>
             <TextBox x:Name="txtMaxAmount"
-                     Text="{Binding Path=CurrentDTOModel.MaxAmount, Mode=OneWay}"/>
+                     Text="{Binding Path=CurrentDTOModel.MaxAmount, Mode=TwoWay}"/>
         </StackPanel>
         <TextBlock Text="Unite Price"
                    Grid.Row="6"
@@ -123,17 +133,20 @@
         <TextBox x:Name="txtUnitPrice"
                  Grid.Row="6"
                  Grid.Column="1"
-                 Text="{Binding Path=CurrentDTOModel.UnitPrice, Mode=OneWay}"/>
-        <TextBlock Text="Discount"
+                 Text="{Binding Path=CurrentDTOModel.UnitPrice,StringFormat=C, ConverterCulture=nl-BE, Mode=TwoWay}"/>
+        <!--<TextBlock Text="Category"
                    Grid.Row="7"
                    Grid.Column="0"/>
-        <TextBox x:Name="txtDiscount"
+        <TextBox x:Name="txtCategory"
                    Grid.Row="7"
                    Grid.Column="1"
-                   Text="{Binding Path=CurrentDTOModel.Discount, Mode=OneWay}"/>
+                   Text="{Binding Path=CurrentDTOModel.Category, Mode=TwoWay}"/>-->
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"
                     Grid.Column="1" Grid.ColumnSpan="3">
+            <Button x:Name="btnClear"
+                    Content="CLEAR" Margin="5,8" Padding="3"
+                    Command="{Binding Path=ClearCommand}"/>
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -161,27 +174,33 @@
                 <DataGridTextColumn
                     Header="Supplier Id"
                     Width="auto"
+                    Visibility="Hidden"
                     Binding="{Binding Path=SupplierId, Mode=OneWay}"/>
                 <DataGridTextColumn
                     Header="Product Id"
                     Width="auto"
+                    Visibility="Hidden"
                     Binding="{Binding Path=ProductId, Mode=OneWay}"/>
                 <DataGridTextColumn
-                    Header="Invoice"
+                    Header="Supplier"
                     Width="auto"
-                    Binding="{Binding Path=SupplierDTO.InvoiceNumber, Mode=OneWay}"/>
+                    Binding="{Binding Path=SupplierDTO.Organisation, Mode=OneWay}"/>
                 <DataGridTextColumn
                     Header="Product"
                     Width="auto"
                     Binding="{Binding Path=ProductDTO.Name, Mode=OneWay}"/>
                 <DataGridTextColumn
-                    Header="Status"
-                    Width="auto"
-                    Binding="{Binding Path=Status, Mode=OneWay}"/>
-                <DataGridTextColumn
                     Header="Amount"
                     Width="auto"
                     Binding="{Binding Path=Amount, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="UnitPrice"
+                    Width="auto"
+                    Binding="{Binding Path=UnitPrice,StringFormat=C, ConverterCulture=nl-BE, Mode=OneWay}"/>
+                <DataGridTextColumn
+                    Header="Total"
+                    Width="auto"
+                    Binding="{Binding Path=Total,StringFormat=C, ConverterCulture=nl-BE, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

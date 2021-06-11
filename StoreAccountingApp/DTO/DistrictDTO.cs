@@ -49,6 +49,7 @@ namespace StoreAccountingApp.DTO
             Validation.AddPrimaryKey(nameof(PostalCodeId), PostalCodeId);
             Validation.AddNonNullFields(nameof(Name), Name);
             Validation.AddNonNullFields(nameof(CountryId), CountryId);
+            Validation.AddUniqueValueFields(nameof(Name), Name);
         }
     }
 }

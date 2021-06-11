@@ -23,6 +23,17 @@ namespace StoreAccountingApp.ViewModels
         public ICommand NavigateOverviewCommand { get; }
         public ICommand NavigateOrdersCommand { get; }
         public ICommand NavigateUsersListingCommand { get; }
+        //private ICommand logoutCommand;
+
+        //public ICommand LogoutCommand
+        //{
+        //    get 
+        //    { 
+        //        return logoutCommand;
+        //    }
+        //    set { logoutCommand = value; }
+        //}
+
         public ICommand LogoutCommand { get; }
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
         public bool NotLoggedIn => !_accountStore.IsLoggedIn;
@@ -48,7 +59,7 @@ namespace StoreAccountingApp.ViewModels
             NavigateOverviewCommand = new NavigateCommand<OverviewViewModel>(CreateOverviewNavigationService());
             NavigateOrdersCommand = new NavigateCommand<OrdersViewModel>(CreateOrdersNavigationService());
             NavigateUsersListingCommand = new NavigateCommand<UsersListingViewModel>(CreateUsersListingNavigationService());
-            LogoutCommand = new LogoutCommand(_accountStore);
+            LogoutCommand = new LogoutCommand<HomeViewModel>(_accountStore, CreateHomeNavigationService());
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
         private bool CheckRole(string roleName)

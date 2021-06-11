@@ -32,13 +32,15 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -63,6 +65,7 @@
                    Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
+                   Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                    Grid.Column="0"/>
         <TextBlock Text="Enter InvoiceNr"
                    Grid.Row="2"
@@ -86,11 +89,11 @@
         <TextBox x:Name="txtGuarantee"
                  Grid.Row="3"
                  Grid.Column="3" 
-                 Text="{Binding Path=CurrentDTOModel.Guarantee, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Guarantee,StringFormat=C, ConverterCulture=nl-BE, Mode=TwoWay}"/>
         <TextBox x:Name="txtDiscount"
                  Grid.Row="4"
                  Grid.Column="3" 
-                 Text="{Binding Path=CurrentDTOModel.Discount, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Discount,StringFormat=C, ConverterCulture=nl-BE, Mode=TwoWay}"/>
         <TextBox x:Name="txtPaymentMethod"
                  Grid.Row="5"
                  Grid.Column="3" 
@@ -98,6 +101,7 @@
 
         <TextBox x:Name="txtSaleId"
                  Grid.Row="1"
+                 Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                  Grid.Column="1" Margin="5,8" Padding="3"
                  Text="{Binding Path=CurrentDTOModel.SaleId, Mode=TwoWay}"/>
         <TextBox x:Name="txtInvoiceNr"
@@ -139,6 +143,9 @@
                     Grid.Row="11"
                     Grid.Column="1" Margin="5,8"
                     Grid.ColumnSpan="4">
+            <Button x:Name="btnClear"
+                    Content="CLEAR" Margin="5,8" Padding="3"
+                    Command="{Binding Path=ClearCommand}"/>
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -165,6 +172,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"
+                    Visibility="Hidden"
                     Width="auto"
                     Binding="{Binding Path=SaleId}"/>
                 <DataGridTextColumn

@@ -89,7 +89,8 @@
                     Margin="10 0 0 0"
                     Command="{Binding NavigateUsersListingCommand}"
                     Content="Users" 
-                    Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    Visibility="Hidden"
+                    />
                 <Button
                     Grid.Column="4"
                     Margin="10 0 0 0"

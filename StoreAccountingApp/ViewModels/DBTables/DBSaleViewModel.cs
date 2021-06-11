@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.CustomMethods;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -20,6 +21,7 @@ namespace StoreAccountingApp.ViewModels
         private ShopService _shopService;
         private EmployeeService _employeeService;
         private ClientService _clientService;
+
         private List<ComboboxItem> cbShopList;
 
         public List<ComboboxItem> CbShopList
@@ -41,8 +43,58 @@ namespace StoreAccountingApp.ViewModels
             get { return cbClientList; }
             set { cbClientList = value; }
         }
-        public DBSaleViewModel()
+        private ComboboxItem selectedShop;
+
+        public ComboboxItem SelectedShop
         {
+            get { return selectedShop; }
+            set
+            {
+                selectedShop = value;
+                OnPropertyChanged(nameof(SelectedShop));
+                CurrentDTOModel.ShopId = selectedShop.Key;
+            }
+        }
+        private ComboboxItem selectedEmployee;
+
+        public ComboboxItem SelectedEmployee
+        {
+            get { return selectedEmployee; }
+            set
+            {
+                selectedEmployee = value;
+                OnPropertyChanged(nameof(SelectedEmployee));
+                CurrentDTOModel.EmployeeId = selectedEmployee.Key;
+            }
+        }
+        private ComboboxItem selectedSale;
+        public ComboboxItem SelectedSale
+        {
+            get { return selectedSale; }
+            set
+            {
+                selectedSale = value;
+                OnPropertyChanged(nameof(SelectedSale));
+                CurrentDTOModel.SaleId = selectedSale.Key;
+            }
+        }
+        private ComboboxItem selectedClient;
+        public ComboboxItem SelectedClient
+        {
+            get { return selectedClient; }
+            set
+            {
+                selectedClient = value;
+                OnPropertyChanged(nameof(SelectedClient));
+                CurrentDTOModel.ClientId = selectedClient.Key;
+            }
+        }
+
+        public DBSaleViewModel(AccountStore accountStore)
+        {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+
             _shopService = new ShopService();
             _employeeService = new EmployeeService();
             _clientService = new ClientService();

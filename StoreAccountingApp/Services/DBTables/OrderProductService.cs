@@ -35,15 +35,45 @@ namespace StoreAccountingApp.Services
             }
             return orderProductDTO;
         }
-        //public override OrderProduct CopyDTOtoDB(OrderProductDTO source)
-        //{
-        //    OrderProduct orderProduct = ObjMethods.CopyProperties<OrderProductDTO,OrderProduct>(source);
-        //    if (orderProduct.OrderId != 0)
-        //    {
-        //        orderProduct.
-        //    }
+        public override OrderProduct CopyDTOtoDB(OrderProductDTO source)
+        {
+            OrderProduct orderProduct = ObjMethods.CopyProperties<OrderProductDTO, OrderProduct>(source);
+            if (orderProduct.OrderId != 0)
+            {
+                Order order = ctx.Orders.Find(orderProduct.OrderId);
+                if (order != null)
+                {
 
-        //    return base.CopyDTOtoDB(source);
+                }
+            }
+
+            return orderProduct;
+        }
+
+        //public override Client CopyDTOtoDBtemp(ClientDTO dtoModel)
+        //{
+        //    Client newClient = ObjMethods.CopyProperties<ClientDTO, Client>(dtoModel);
+        //    if (dtoModel.PostalCodeId != "")
+        //    {
+        //        District newDistrict = ctx.Districts.Find(dtoModel.PostalCodeId);
+        //        if (newDistrict == null)
+        //        {
+        //            newDistrict = new District()
+        //            {
+        //                PostalCodeId = dtoModel.PostalCodeId,
+        //                Name = dtoModel.DistrictName
+        //            };
+        //            Country currentDistrictCountry;
+        //            currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(dtoModel.CountryName, StringComparison.OrdinalIgnoreCase));
+        //            if (currentDistrictCountry == null)
+        //            {
+        //                currentDistrictCountry = new Country() { Name = dtoModel.CountryName };
+        //            }
+        //            newDistrict.Country = currentDistrictCountry;
+        //        }
+        //        newClient.District = newDistrict;
+        //    }
+        //    return newClient;
         //}
 
     }

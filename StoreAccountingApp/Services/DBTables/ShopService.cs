@@ -26,6 +26,7 @@ namespace StoreAccountingApp.Services
                 DistrictService districtService = new DistrictService();
                 newShopDTO.DistrictDTO = districtService.Search(newShopDTO.PostalCodeId);
                 newShopDTO.DistrictName = newShopDTO.DistrictDTO?.Name;
+                newShopDTO.CountryName = newShopDTO.DistrictDTO?.CountryName;
             }
             return newShopDTO;
         }
@@ -37,22 +38,48 @@ namespace StoreAccountingApp.Services
                 District newDistrict = ctx.Districts.Find(dtoModel.PostalCodeId);
                 if (newDistrict == null)
                 {
+                    Country currentDistrictCountry = null;
+                    if (dtoModel.CountryName != null)
+                    {
+                        currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(dtoModel.CountryName, StringComparison.OrdinalIgnoreCase));
+                        if (currentDistrictCountry == null)
+                        {
+                            currentDistrictCountry = new Country() { Name = dtoModel.CountryName };
+                        }
+                    }
                     newDistrict = new District()
                     {
                         PostalCodeId = dtoModel.PostalCodeId,
                         Name = dtoModel.DistrictName
                     };
-                    Country currentDistrictCountry;
-                    currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(dtoModel.CountryName, StringComparison.OrdinalIgnoreCase));
-                    if (currentDistrictCountry == null)
-                    {
-                        currentDistrictCountry = new Country() { Name = dtoModel.CountryName };
-                    }
                     newDistrict.Country = currentDistrictCountry;
                 }
                 newShop.District = newDistrict;
             }
             return newShop;
+
+            //Shop newShop = ObjMethods.CopyProperties<ShopDTO, Shop>(dtoModel);
+            //if (dtoModel.PostalCodeId != "")
+            //{
+            //    District newDistrict = ctx.Districts.Find(dtoModel.PostalCodeId);
+            //    if (newDistrict == null)
+            //    {
+            //        newDistrict = new District()
+            //        {
+            //            PostalCodeId = dtoModel.PostalCodeId,
+            //            Name = dtoModel.DistrictName
+            //        };
+            //        Country currentDistrictCountry;
+            //        currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(dtoModel.CountryName, StringComparison.OrdinalIgnoreCase));
+            //        if (currentDistrictCountry == null)
+            //        {
+            //            currentDistrictCountry = new Country() { Name = dtoModel.CountryName };
+            //        }
+            //        newDistrict.Country = currentDistrictCountry;
+            //    }
+            //    newShop.District = newDistrict;
+            //}
+            //return newShop;
         }
 
     }

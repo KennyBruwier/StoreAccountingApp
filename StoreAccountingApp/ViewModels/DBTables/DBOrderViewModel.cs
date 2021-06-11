@@ -12,10 +12,11 @@ using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.CustomMethods;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
-    public class DBOrderViewModel : DBViewModelBase<OrderDTO,OrderService,Order>
+    public class DBOrderViewModel : DBViewModelBase<OrderDTO, OrderService, Order>
     {
         private ShopService _shopService;
         private EmployeeService _employeeService;
@@ -41,14 +42,17 @@ namespace StoreAccountingApp.ViewModels
             get { return cbSupplierList; }
             set { cbSupplierList = value; }
         }
-        public DBOrderViewModel()
+        public DBOrderViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+
             _shopService = new ShopService();
             _employeeService = new EmployeeService();
             _supplierService = new SupplierService();
             CbShopList = ObjMethods.CreateComboboxList<ShopDTO, ComboboxItem>(_shopService.GetAll(), "ShopId", "BuildingName");
             CbEmployeeList = ObjMethods.CreateComboboxList<EmployeeDTO, ComboboxItem>(_employeeService.GetAll(), "EmployeeId", "Firstname", "Lastname");
-            CbSupplierList = ObjMethods.CreateComboboxList<SupplierDTO, ComboboxItem>(_supplierService.GetAll(), "SupplierId", "Firstname", "Lastname","Organisation");
+            CbSupplierList = ObjMethods.CreateComboboxList<SupplierDTO, ComboboxItem>(_supplierService.GetAll(), "SupplierId", "Firstname", "Lastname", "Organisation");
 
         }
 

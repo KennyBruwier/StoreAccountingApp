@@ -89,6 +89,7 @@ namespace StoreAccountingApp.DTO
             Validation.AddNonNullFields(nameof(EmployeeId), EmployeeId);
             Validation.AddNonNullFields(nameof(InvoiceNumber), InvoiceNumber);
             Validation.AddNonNullFields(nameof(Status), Status);
+            Validation.AddUniqueValueFields(nameof(InvoiceNumber), InvoiceNumber);
         }
     }
 }

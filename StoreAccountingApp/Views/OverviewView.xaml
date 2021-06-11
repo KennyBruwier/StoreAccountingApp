@@ -67,7 +67,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="250"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -77,6 +77,7 @@
         <TextBlock
             HorizontalAlignment="Center"
             TextAlignment="Center"
+            Style="{StaticResource H1TitleStyle}"
             Grid.Row="0"
             Grid.Column="1"
             FontSize="28"
@@ -192,6 +193,8 @@
             Grid.Row="1"
             Grid.Column="1"
             MaxWidth="1000"
+            Width="auto"
+            Grid.ColumnSpan="4"
             Margin="20"
             Content="{Binding OverviewContentViewModel}"
             />

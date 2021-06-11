@@ -50,6 +50,7 @@ namespace StoreAccountingApp.DTO
             Validation = new GeneralClasses.CheckValidation();
             Validation.AddPrimaryKey(nameof(ProductId), ProductId);
             Validation.AddNonNullFields(nameof(Name), Name);
+            Validation.AddUniqueValueFields(nameof(Name), Name);
         }
     }
 }

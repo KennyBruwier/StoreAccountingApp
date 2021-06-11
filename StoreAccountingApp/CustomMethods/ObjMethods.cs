@@ -175,7 +175,9 @@ namespace StoreAccountingApp.CustomMethods
                                 //    //   )
                                 //}
                                 //else
-                                p.SetValue(dest, sourceProp.GetValue(source, null), null);
+                                var destValue = p.GetValue(dest, null);
+                                if (p.GetValue(dest,null) != sourceProp.GetValue(source,null))
+                                    p.SetValue(dest, sourceProp.GetValue(source, null), null);
                             }
                         }
                     }

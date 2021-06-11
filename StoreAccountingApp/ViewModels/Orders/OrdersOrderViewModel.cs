@@ -92,7 +92,7 @@ namespace StoreAccountingApp.ViewModels.Orders
             OrderProductList = _orderProductService.GetAll();
             ProductsList = _productService.GetAll().Where(p => OrderProductList.Select(op => op.ProductId).Contains(p.ProductId)).ToList(); ;
             OrdersList = _orderService.GetAll();
-            CbOrdersList = ObjMethods.CreateComboboxList<OrderDTO, ComboboxItem>(OrdersList, "OderId", "InvoiceNumber");
+            CbOrdersList = ObjMethods.CreateComboboxList<OrderDTO, ComboboxItem>(OrdersList, "OrderId", "InvoiceNumber");
             DgList = CreateDataGridList();
             this.CurrentDataGridListChanged += OnCurrentDataGridListChange;
         }

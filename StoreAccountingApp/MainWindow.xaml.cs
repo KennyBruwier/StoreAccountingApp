@@ -40,16 +40,6 @@ namespace StoreAccountingApp
             _tableNavigationStore = new NavigationStore();
             _accountStore = new AccountStore();
             _navigationBarViewModel = new NavigationBarViewModel(_accountStore,_navigationStore,_usersStore);
-            //_navigationBarViewModel = new NavigationBarViewModel(
-            //    _accountStore,
-            //    CreateHomeNavigationService(),
-            //    CreateAccountNavigationService(),
-            //    CreateLoginNavigationService(),
-            //    CreateDataNavigationService(),
-            //    CreateOverviewNavigationService(),
-            //    CreateOrdersNavigationService(),
-            //    CreateUsersListingNavigationService()
-            //    );
             INavigationService<HomeViewModel> homeNavigationService = CreateHomeNavigationService();
             homeNavigationService.Navigate();
             //_navigationStore.CurrentViewModel = new HomeViewModel(_navigationBarViewModel,_accountStore, _navigationStore);

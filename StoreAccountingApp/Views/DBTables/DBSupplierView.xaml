@@ -32,13 +32,15 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -68,6 +70,7 @@
                    Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
+                   Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                    Grid.Column="0"/>
         <TextBlock Text="Status"
                    Grid.Row="2"
@@ -102,6 +105,7 @@
 
         <TextBox x:Name="txtSupplierId"
                  Grid.Row="1"
+                 Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                  Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.SupplierId, Mode=TwoWay}"/>
         <TextBox x:Name="txtStatus"
@@ -148,6 +152,9 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
+            <Button x:Name="btnClear"
+                    Content="CLEAR" 
+                    Command="{Binding Path=ClearCommand}"/>
             <Button x:Name="btnAdd"
                     Content="ADD"
                     Command="{Binding Path=SaveCommand}"/>
@@ -175,6 +182,7 @@
                 <DataGridTextColumn
                     Header="Id"
                     Width="auto"
+                    Visibility="Hidden"
                     Binding="{Binding Path=SupplierId}"/>
                 <DataGridTextColumn
                     Header="Firstname"

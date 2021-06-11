@@ -113,7 +113,8 @@
                         />
                 </StackPanel>
                 <StackPanel x:Name="Admin"
-                            Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            >
                     <TextBlock
                         HorizontalAlignment="Center"
                         Grid.Row="0"
@@ -250,14 +251,14 @@
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
                        />
-                    <Button
+                    <!--<Button
                         Padding="5 2"
                         HorizontalAlignment="Left"
                         Command="{Binding NavigateJobFunctionCommand}"
                         Content="Job functions"
                         MinWidth="120"
                         Margin="5 2.5 5 2.5"
-                        />
+                        />-->
                     <Button
                         Padding="5 2"
                         HorizontalAlignment="Left"
@@ -283,6 +284,7 @@
             Grid.ColumnSpan="2"
             Width="auto"
             MinWidth="500"
+            Height="auto"
             Margin="20"
             Content="{Binding DBContentViewModel}"
             />

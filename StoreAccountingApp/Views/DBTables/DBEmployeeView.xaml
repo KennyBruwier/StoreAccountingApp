@@ -32,13 +32,15 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -68,7 +70,8 @@
                    Grid.Column="0"/>
         <TextBlock Text="Enter Id"
                    Grid.Row="1"
-                   Grid.Column="0"/>
+                   Grid.Column="0"
+                   Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <TextBlock Text="Status"
                    Grid.Row="2"
                    Grid.Column="0"/>
@@ -81,9 +84,10 @@
         <TextBlock Text="Email Address"
                    Grid.Row="5"
                    Grid.Column="0"/>
-        <TextBlock Text="Job Function"
+        <!--<TextBlock Text="Job Function"
                    Grid.Row="6"
-                   Grid.Column="0"/>
+                   Visibility="Hidden"
+                   Grid.Column="0"/>-->
         <TextBlock Text="Streetname"
                    Grid.Row="7"
                    Grid.Column="0"/>
@@ -103,6 +107,7 @@
         <TextBox x:Name="txtEmployeeId"
                  Grid.Row="1"
                  Grid.Column="1"
+                 Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                  Text="{Binding Path=CurrentDTOModel.EmployeeId, Mode=TwoWay}"/>
         <TextBox x:Name="txtStatus"
                  Grid.Row="2"
@@ -120,10 +125,11 @@
                  Grid.Row="5"
                  Grid.Column="1" Grid.ColumnSpan="3"
                  Text="{Binding Path=CurrentDTOModel.EmailAddress, Mode=TwoWay}"/>
-        <TextBox x:Name="JobFunctionTitles"
+        <!--<TextBox x:Name="JobFunctionTitles"
                  Grid.Row="6"
+                 Visibility="Hidden"
                  Grid.Column="1" Grid.ColumnSpan="3"
-                 Text="{Binding Path=CurrentDTOModel.JobFunctionTitles, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.JobFunctionTitles, Mode=TwoWay}"/>-->
         <TextBox x:Name="Streetname"
                 Grid.Row="7"
                 Grid.Column="1"
@@ -149,6 +155,9 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Row="17"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
+            <Button x:Name="btnClear"
+                    Content="CLEAR"
+                    Command="{Binding Path=ClearCommand}"/>
             <Button x:Name="btnAdd"
                     Content="ADD"
                     Command="{Binding Path=SaveCommand}"/>
@@ -176,6 +185,7 @@
                 <DataGridTextColumn
                     Header="Id"
                     Width="auto"
+                    Visibility="Hidden"
                     Binding="{Binding Path=EmployeeId}"/>
                 <DataGridTextColumn
                     Header="Firstname"

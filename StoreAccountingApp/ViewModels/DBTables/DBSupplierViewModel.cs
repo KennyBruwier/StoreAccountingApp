@@ -11,13 +11,17 @@ using System.Windows.Input;
 using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
     public class DBSupplierViewModel : DBViewModelBase<SupplierDTO,SupplierService,Supplier>
     {
-        public DBSupplierViewModel()
+        public DBSupplierViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+
         }
     }
 }

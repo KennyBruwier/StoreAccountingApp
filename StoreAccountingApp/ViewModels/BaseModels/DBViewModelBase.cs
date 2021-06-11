@@ -3,6 +3,7 @@ using StoreAccountingApp.DTO;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.Services.DBTables;
+using StoreAccountingApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -18,6 +19,7 @@ namespace StoreAccountingApp.ViewModels
         where ServiceModel:BaseService<DTOModel,DBModel>, new()
         where DBModel:BaseModel, new()
     {
+        protected AccountStore _accountStore;
         private readonly ServiceModel serviceModel;
         private DTOModel currentDTOModel;
         public DTOModel CurrentDTOModel
@@ -29,6 +31,8 @@ namespace StoreAccountingApp.ViewModels
                 OnPropertyChanged("CurrentDTOModel"); 
             }
         }
+        public bool IsAdmin => CheckRole("admin");
+
         public DBViewModelBase()
         {
             this.tableName = GetClassName();
@@ -39,7 +43,24 @@ namespace StoreAccountingApp.ViewModels
             searchCommand = new RelayCommand(Search);
             updateCommand = new RelayCommand(UpdateAndCatch);
             deleteCommand = new RelayCommand(DeleteAndCatch);
+            clearCommand = new RelayCommand(Clear);
         }
+        protected void OnCurrentAccountChanged()
+        {
+            OnPropertyChanged(nameof(IsAdmin));
+        }
+        protected bool CheckRole(string roleName)
+        {
+            if (_accountStore.CurrentAccount != null)
+                switch (roleName.ToLower())
+                {
+                    case "admin": return _accountStore.CurrentAccount.AccountType.Admin;
+                    case "stock manager": return _accountStore.CurrentAccount.AccountType.StockManager;
+                    case "seller": return _accountStore.CurrentAccount.AccountType.Seller;
+                }
+            return false;
+        }
+
         public override void LoadValidation()
         {
             currentDTOModel.LoadValidation();
@@ -85,6 +106,12 @@ namespace StoreAccountingApp.ViewModels
             {
                 CurrentDTOModel.LoadValidation();
                 var recordFound = serviceModel.Search(CurrentDTOModel.Validation.GetPrimaryKeysValue());
+                if (recordFound == null)
+                {
+                    DBField[][]UniqueFields = CurrentDTOModel.Validation.GetUniqueValueFields();
+                    if (UniqueFields != null)
+                        recordFound = serviceModel.Search(UniqueFields);
+                }
                 if (recordFound != null)
                 {
                     CurrentDTOModel = recordFound;
@@ -133,8 +160,24 @@ namespace StoreAccountingApp.ViewModels
         }
         public bool Delete()
         {
-            return serviceModel.Delete(CurrentDTOModel.Validation.GetPrimaryKeysValue());
+            bool bSuccess = serviceModel.Delete(CurrentDTOModel.Validation.GetPrimaryKeysValue());
+            if (bSuccess) CurrentDTOModel = new DTOModel() ;
+            return bSuccess;
         }
         #endregion
+        private readonly RelayCommand clearCommand;
+        public RelayCommand ClearCommand
+        {
+            get { return clearCommand; }
+        }
+        public void Clear()
+        {
+            CurrentDTOModel = new DTOModel();
+        }
+        public override void Dispose()
+        {
+            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
+            base.Dispose();
+        }
     }
 }

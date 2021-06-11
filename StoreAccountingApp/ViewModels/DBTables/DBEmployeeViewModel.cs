@@ -12,13 +12,16 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
     public class DBEmployeeViewModel : DBViewModelBase<EmployeeDTO,EmployeeService,Employee>
     {
-        public DBEmployeeViewModel()
+        public DBEmployeeViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
 
         }
     }

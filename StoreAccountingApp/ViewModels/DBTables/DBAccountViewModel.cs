@@ -13,6 +13,7 @@ using System.Diagnostics;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.CustomMethods;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -43,8 +44,10 @@ namespace StoreAccountingApp.ViewModels
             set { unEncryptedPassword = value; OnPropertyChanged(nameof(UnEncryptedPassword)); }
         }
 
-        public DBAccountViewModel()
+        public DBAccountViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
             _accountTypeService = new AccountTypeService();
             _employeeService = new EmployeeService();
             _accountTypeList = _accountTypeService.GetAll();

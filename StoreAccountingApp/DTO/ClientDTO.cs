@@ -79,6 +79,10 @@ namespace StoreAccountingApp.DTO
             dBFields.Add(new DBField() { Name = nameof(Firstname), Value = Firstname });
             dBFields.Add(new DBField() { Name = nameof(Lastname), Value = Lastname });
             Validation.AddUniqueValueFields(dBFields.ToArray());
+            //Validation.AddUniqueValueFields(nameof(Firstname), Firstname);
+            //Validation.AddNonNullFields(nameof(Lastname), Lastname);
+            Validation.AddUniqueValueFields(nameof(EmailAddress), EmailAddress);
+
         }
     }
 }

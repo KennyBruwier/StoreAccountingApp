@@ -69,6 +69,7 @@ namespace StoreAccountingApp.DTO
             Validation.AddPrimaryKey(nameof(CountryId), CountryId);
             Validation.AddNonNullFields(nameof(Name), Name);
             Validation.AddNonNullFields(nameof(TimeDiff_UTC), TimeDiff_UTC);
+            Validation.AddUniqueValueFields(nameof(Name), Name);
         }
     }
 }

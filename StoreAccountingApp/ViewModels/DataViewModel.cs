@@ -102,97 +102,97 @@ namespace StoreAccountingApp.ViewModels
         {
             return new NavigationService<DBAccountTypeViewModel>(
                 _tableNavigationStore,
-                () => new DBAccountTypeViewModel());
+                () => new DBAccountTypeViewModel(_accountStore));
         }
         private INavigationService<DBClientViewModel> CreateClientNavigationService()
         {
             return new NavigationService<DBClientViewModel>(
                 _tableNavigationStore,
-                () => new DBClientViewModel());
+                () => new DBClientViewModel(_accountStore));
         }
         private INavigationService<DBCountryViewModel> CreateCountryNavigationService()
         {
             return new NavigationService<DBCountryViewModel>(
                 _tableNavigationStore,
-                () => new DBCountryViewModel());
+                () => new DBCountryViewModel(_accountStore));
         }
         private INavigationService<DBDistrictViewModel> CreateDistrictNavigationService()
         {
             return new NavigationService<DBDistrictViewModel>(
                 _tableNavigationStore,
-                () => new DBDistrictViewModel());
+                () => new DBDistrictViewModel(_accountStore));
         }
         private INavigationService<DBEmployeeViewModel> CreateEmployeeNavigationService()
         {
             return new NavigationService<DBEmployeeViewModel>(
                 _tableNavigationStore,
-                () => new DBEmployeeViewModel());
+                () => new DBEmployeeViewModel(_accountStore));
         }
         private INavigationService<DBJobFunctionViewModel> CreateJobFunctionNavigationService()
         {
             return new NavigationService<DBJobFunctionViewModel>(
                 _tableNavigationStore,
-                () => new DBJobFunctionViewModel());
+                () => new DBJobFunctionViewModel(_accountStore));
         }
         private INavigationService<DBOrderProductViewModel> CreateOrderProductNavigationService()
         {
             return new NavigationService<DBOrderProductViewModel>(
                 _tableNavigationStore,
-                () => new DBOrderProductViewModel());
+                () => new DBOrderProductViewModel(_accountStore));
         }
         private INavigationService<DBOrderViewModel> CreateOrderNavigationService()
         {
             return new NavigationService<DBOrderViewModel>(
                 _tableNavigationStore,
-                () => new DBOrderViewModel());
+                () => new DBOrderViewModel(_accountStore));
         }
         private INavigationService<DBProductViewModel> CreateProductNavigationService()
         {
             return new NavigationService<DBProductViewModel>(
                 _tableNavigationStore,
-                () => new DBProductViewModel());
+                () => new DBProductViewModel(_accountStore));
         }
         private INavigationService<DBSaleProductViewModel> CreateSaleProductNavigationService()
         {
             return new NavigationService<DBSaleProductViewModel>(
                 _tableNavigationStore,
-                () => new DBSaleProductViewModel());
+                () => new DBSaleProductViewModel(_accountStore));
         }
         private INavigationService<DBSaleViewModel> CreateSaleNavigationService()
         {
             return new NavigationService<DBSaleViewModel>(
                 _tableNavigationStore,
-                () => new DBSaleViewModel());
+                () => new DBSaleViewModel(_accountStore));
         }
         private INavigationService<DBStockViewModel> CreateStockNavigationService()
         {
             return new NavigationService<DBStockViewModel>(
                 _tableNavigationStore,
-                () => new DBStockViewModel());
+                () => new DBStockViewModel(_accountStore));
         }
         private INavigationService<DBShopViewModel> CreateShopNavigationService()
         {
             return new NavigationService<DBShopViewModel>(
                 _tableNavigationStore,
-                () => new DBShopViewModel());
+                () => new DBShopViewModel(_accountStore));
         }
         private INavigationService<DBSupplierProductViewModel> CreateSupplierProductNavigationService()
         {
             return new NavigationService<DBSupplierProductViewModel>(
                 _tableNavigationStore,
-                () => new DBSupplierProductViewModel());
+                () => new DBSupplierProductViewModel(_accountStore));
         }
         private INavigationService<DBSupplierViewModel> CreateSupplierNavigationService()
         {
             return new NavigationService<DBSupplierViewModel>(
                 _tableNavigationStore,
-                () => new DBSupplierViewModel());
+                () => new DBSupplierViewModel(_accountStore));
         }
         private INavigationService<DBAccountViewModel> CreateUserNavigationService()
         {
             return new NavigationService<DBAccountViewModel>(
                 _tableNavigationStore,
-                () => new DBAccountViewModel());
+                () => new DBAccountViewModel(_accountStore));
         }
     }   
 }

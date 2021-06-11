@@ -26,36 +26,62 @@ namespace StoreAccountingApp.Services
             {
                 DistrictService districtService = new DistrictService();
                 newEmployeeDTO.DistrictDTO = districtService.Search(source.PostalCodeId);
-                newEmployeeDTO.DistrictName = newEmployeeDTO.DistrictDTO.Name;
-                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO.CountryName;
+                newEmployeeDTO.DistrictName = newEmployeeDTO.DistrictDTO?.Name;
+                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO?.CountryName;
             }
             return newEmployeeDTO;
         }
         public override Employee CopyDTOtoDB(EmployeeDTO dtoModel)
         {
             Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(dtoModel);
-            if ((dtoModel.PostalCodeId != "") &&
-                (dtoModel.CountryName != "") &&
-                (ctx.Districts.Find(dtoModel.PostalCodeId) == null))
+            if (dtoModel.PostalCodeId != "")
             {
-                Country country = ctx.Countries.FirstOrDefault(c => c.Name == dtoModel.CountryName);
-                if (country == null)
+                District newDistrict = ctx.Districts.Find(dtoModel.PostalCodeId);
+                if (newDistrict == null)
                 {
-                    CountryService countryService = new CountryService();
-                    if (countryService.Add(new CountryDTO() { Name = dtoModel.CountryName }))
-                        country = ctx.Countries.FirstOrDefault(c => c.Name == dtoModel.CountryName);
-                    else
-                        throw new ArgumentException($"Country add operation failed for countryname: {dtoModel.CountryName}");
+                    Country currentDistrictCountry = null;
+                    if (dtoModel.CountryName != null)
+                    {
+                        currentDistrictCountry = ctx.Countries.FirstOrDefault(c => c.Name.Equals(dtoModel.CountryName, StringComparison.OrdinalIgnoreCase));
+                        if (currentDistrictCountry == null)
+                        {
+                            currentDistrictCountry = new Country() { Name = dtoModel.CountryName };
+                        }
+                    }
+                    newDistrict = new District()
+                    {
+                        PostalCodeId = dtoModel.PostalCodeId,
+                        Name = dtoModel.DistrictName
+                    };
+                    newDistrict.Country = currentDistrictCountry;
                 }
-                District newDistrict = new District()
-                {
-                    PostalCodeId = dtoModel.PostalCodeId,
-                    Name = dtoModel.DistrictName,
-                    Country = country
-                };
                 newEmployee.District = newDistrict;
             }
             return newEmployee;
+
+            //Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(dtoModel);
+            //if ((dtoModel.PostalCodeId != "") &&
+            //    (dtoModel.CountryName != "") &&
+            //    (ctx.Districts.Find(dtoModel.PostalCodeId) == null))
+            //{
+            //    Country country = ctx.Countries.FirstOrDefault(c => c.Name == dtoModel.CountryName);
+            //    if (country == null)
+            //    {
+            //        CountryService countryService = new CountryService();
+            //        if (countryService.Add(new CountryDTO() { Name = dtoModel.CountryName }))
+            //            country = ctx.Countries.FirstOrDefault(c => c.Name == dtoModel.CountryName);
+            //        else
+            //            throw new ArgumentException($"Country add operation failed for countryname: {dtoModel.CountryName}");
+            //    }
+            //    District newDistrict = new District()
+            //    {
+            //        PostalCodeId = dtoModel.PostalCodeId,
+            //        Name = dtoModel.DistrictName,
+            //        Country = country
+            //    };
+            //    newEmployee.District = newDistrict;
+            //}
+            //return newEmployee;
         }
         //public bool Update(EmployeeDTO objEmployeeToUpdate)
         //{

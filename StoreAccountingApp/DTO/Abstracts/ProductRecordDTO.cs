@@ -57,6 +57,10 @@ namespace StoreAccountingApp.DTO.Abstracts
             get { return guarantee; }
             set { guarantee = value; OnPropertyChanged("Guarantee"); }
         }
+        public decimal Total
+        {
+            get { return UnitPrice * Amount - Discount; }
+        }
 
     }
 }

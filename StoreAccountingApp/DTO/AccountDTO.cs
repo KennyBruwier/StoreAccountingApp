@@ -79,7 +79,9 @@ namespace StoreAccountingApp.DTO
                 Array.Copy(hash, 0, hashBytes, 16, 20);
                 password = Convert.ToBase64String(hashBytes);
 
-                OnPropertyChanged("Password"); }
+                OnPropertyChanged("Password");
+
+            }
         }
         public override void LoadValidation()
         {
@@ -89,6 +91,8 @@ namespace StoreAccountingApp.DTO
             Validation.AddNonNullFields(nameof(Username), Username);
             Validation.AddNonNullFields(nameof(Password), Password);
             Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+            Validation.AddUniqueValueFields(nameof(Username), Username);
+            Validation.AddUniqueValueFields(nameof(EmailAddress), EmailAddress);
         }
         public AccountDTO()
         {

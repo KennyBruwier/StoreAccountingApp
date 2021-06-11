@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LiveCharts;
 using LiveCharts.Wpf;
+using StoreAccountingApp.Commands;
 using StoreAccountingApp.CustomMethods;
 using StoreAccountingApp.DTO;
 using StoreAccountingApp.Models;
@@ -14,7 +15,14 @@ namespace StoreAccountingApp.ViewModels.Overviews
 {
     public class SalesOverviewViewModel : BaseOverviewViewModel<SaleProductDTO,SaleProductService,SaleProduct>
     {
-        public SeriesCollection Collection { get; set; }
+        private SeriesCollection collection;
+
+        public SeriesCollection Collection
+        {
+            get { return collection; }
+            set { collection = value; OnPropertyChanged(nameof(Collection)); }
+        }
+
         private string xaxisLabel;
 
         public string XaxisLabel
@@ -29,8 +37,14 @@ namespace StoreAccountingApp.ViewModels.Overviews
             get { return yaxisLabel; }
             set { yaxisLabel = value; OnPropertyChanged(nameof(YaxisLabel)); }
         }
+        private string[] labels;
 
-        public string[] Labels { get; set; }
+        public string[] Labels
+        {
+            get { return labels; }
+            set { labels = value; OnPropertyChanged(nameof(Labels)); }
+        }
+
         public Func<double, string> Formatter { get; set; }
         private readonly SaleService _SaleService;
         private readonly ProductService _ProductService;
@@ -38,6 +52,62 @@ namespace StoreAccountingApp.ViewModels.Overviews
         private readonly EmployeeService _EmployeeService;
         private readonly ClientService _ClientService;
         public event Action SelectedItemChanged;
+        public event Action CollectionChanged;
+        private readonly RelayCommand searchCommand;
+        public RelayCommand SearchCommand
+        {
+            get { return searchCommand; }
+        }
+        public void Search()
+        {
+            var myList = SaleProductList
+                .Join(SaleList,
+                    sp => sp.SaleId,
+                    s => s.SaleId,
+                    (sp, s) => new { sp, s })
+                    .Join(EmployeesList,
+                        s => s.s.EmployeeId,
+                        e => e.EmployeeId,
+                        (s, e) => new { s, e })
+                        .GroupBy(g => String.Format("{0} {1}", g.e.Firstname, g.e.Lastname))
+                            .Select(s => new
+                            {
+                                Key = s.Key,
+                                Count = s.Sum(o => o.s.sp.Amount)
+                            });
+
+            SeriesCollection seriesCollection = new SeriesCollection();
+            List<ChartValues<int>> chartvalue = new List<ChartValues<int>>();
+            ChartValues<int> listCount = new ChartValues<int>();
+            List<string> newLabels = new List<string>();
+            foreach (var group in myList)
+            {
+                listCount.Add(group.Count);
+                newLabels.Add(group.Key);
+            }
+            seriesCollection.Add(new ColumnSeries
+            {
+                Title = "Amount",
+                Values = listCount
+            });//seriesCollection.Add(new Col)
+            Collection = seriesCollection;
+            //Collection.Add(new ColumnSeries
+            //{
+            //    Title = "Net",
+            //    Values = listNet
+            //});
+            //Collection.Add(new ColumnSeries
+            //{
+            //    Title = "Gross",
+            //    Values = listGross
+            //});
+            //Collection.Add
+            Labels = newLabels.ToArray();
+            Formatter = value => value.ToString("N");
+            YaxisLabel = "Amount sold";
+            XaxisLabel = "Salesman";
+
+        }
 
         public SalesOverviewViewModel()
         {
@@ -46,6 +116,10 @@ namespace StoreAccountingApp.ViewModels.Overviews
             _SaleProductService = new SaleProductService();
             _EmployeeService = new EmployeeService();
             _ClientService = new ClientService();
+            salesmanCommand = new RelayCommand(CreateSalesmanCollection);
+            soldProductCommand = new RelayCommand(CreateNewSoldProductCollection);
+            searchCommand = new RelayCommand(Search);
+            searchCommand = new RelayCommand(Search);
             LoadData();
         }
         #region DisplayOperation
@@ -156,6 +230,16 @@ namespace StoreAccountingApp.ViewModels.Overviews
             get { return cbSelectedEmployee; }
             set { cbSelectedEmployee = value; OnPropertyChanged(nameof(CbSelectedEmployee)); }
         }
+        private readonly RelayCommand salesmanCommand;
+        public RelayCommand SalesmanCommand
+        {
+            get { return salesmanCommand; }
+        }
+        private readonly RelayCommand soldProductCommand;
+        public RelayCommand SoldProductCommand
+        {
+            get { return soldProductCommand; }
+        }
 
         #endregion
         private void LoadData()
@@ -182,7 +266,56 @@ namespace StoreAccountingApp.ViewModels.Overviews
             OnPropertyChanged(nameof(XaxisLabel));
             OnPropertyChanged(nameof(YaxisLabel));
         }
-        private void CreateNewSoldProductCollection()
+        public void CreateSalesmanCollection()
+        {
+            var myList = SaleProductList
+                .Join(SaleList,
+                    sp => sp.SaleId,
+                    s => s.SaleId,
+                    (sp, s) => new { sp, s })
+                    .Join(EmployeesList,
+                        s => s.s.EmployeeId,
+                        e => e.EmployeeId,
+                        (s, e) => new { s, e })
+                        .GroupBy(g => String.Format("{0} {1}", g.e.Firstname, g.e.Lastname))
+                            .Select(s => new
+                            {
+                                Key = s.Key,
+                                Count = s.Sum(o => o.s.sp.Amount)
+                            });
+
+            SeriesCollection seriesCollection = new SeriesCollection();
+            List<ChartValues<int>> chartvalue = new List<ChartValues<int>>();
+            ChartValues<int> listCount = new ChartValues<int>();
+            List<string> newLabels = new List<string>();
+            foreach (var group in myList)
+            {
+                listCount.Add(group.Count);
+                newLabels.Add(group.Key);
+            }
+            seriesCollection.Add(new ColumnSeries
+            {
+                Title = "Amount",
+                Values = listCount
+            });//seriesCollection.Add(new Col)
+            Collection = seriesCollection;
+            //Collection.Add(new ColumnSeries
+            //{
+            //    Title = "Net",
+            //    Values = listNet
+            //});
+            //Collection.Add(new ColumnSeries
+            //{
+            //    Title = "Gross",
+            //    Values = listGross
+            //});
+            //Collection.Add
+            Labels = newLabels.ToArray();
+            Formatter = value => value.ToString("N");
+            YaxisLabel = "Amount sold";
+            XaxisLabel = "Salesman";
+        }
+        public void CreateNewSoldProductCollection()
         {
             var myList = SaleProductList.Join(ProductList,
                         sp => sp.ProductId,
@@ -196,9 +329,7 @@ namespace StoreAccountingApp.ViewModels.Overviews
                 .Select(g => new
                 {
                     Key = g.Key,
-                    Count = g.Sum(s => s.sp.Amount),
-                    Net = g.Sum(s => s.sp.UnitPrice * s.sp.Amount),
-                    Gross = g.Sum(s => s.sp.VAT + s.sp.UnitPrice * s.sp.Amount)
+                    Count = g.Sum(s => s.sp.Amount)
                 })
                 .OrderByDescending(g => g.Count);
             SeriesCollection seriesCollection = new SeriesCollection();
@@ -210,8 +341,6 @@ namespace StoreAccountingApp.ViewModels.Overviews
             foreach (var group in myList)
             {
                 listCount.Add(group.Count);
-                listNet.Add(group.Net);
-                listGross.Add(group.Gross);
                 newLabels.Add(group.Key);
             }
             seriesCollection.Add(new ColumnSeries
@@ -220,16 +349,16 @@ namespace StoreAccountingApp.ViewModels.Overviews
                 Values = listCount
             });//seriesCollection.Add(new Col)
             Collection = seriesCollection;
-            Collection.Add(new ColumnSeries
-            {
-                Title = "Net",
-                Values = listNet
-            });
-            Collection.Add(new ColumnSeries
-            {
-                Title = "Gross",
-                Values = listGross
-            });
+            //Collection.Add(new ColumnSeries
+            //{
+            //    Title = "Net",
+            //    Values = listNet
+            //});
+            //Collection.Add(new ColumnSeries
+            //{
+            //    Title = "Gross",
+            //    Values = listGross
+            //});
             //Collection.Add
             Labels = newLabels.ToArray();
             Formatter = value => value.ToString("N");

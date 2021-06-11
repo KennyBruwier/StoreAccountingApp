@@ -28,11 +28,13 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -59,7 +61,8 @@
                    Grid.Column="0"/>        
         <TextBlock Text="Id"
                    Grid.Row="1"
-                   Grid.Column="0" Margin="5,8" Padding="3"/>
+                   Grid.Column="0" Margin="5,8" Padding="3"
+                   Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <TextBlock Text="Username"
                    Grid.Row="2"
                    Grid.Column="0" Margin="5,8" Padding="3"/>
@@ -72,7 +75,8 @@
         <TextBox x:Name="txtAccountId"
                  Grid.Row="1"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.AccountId, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.AccountId, Mode=TwoWay}"
+                 Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         <TextBox x:Name="txtUsername"
                  Grid.Row="2"
                  Grid.Column="1" Margin="5,8" Padding="3"
@@ -115,6 +119,9 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Row="7"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
+            <Button x:Name="btnClear"
+                    Content="CLEAR" Margin="5,8" Padding="3"
+                    Command="{Binding Path=ClearCommand}"/>
             <Button x:Name="btnAdd"
                     Content="ADD" Margin="5,8" Padding="3"
                     Command="{Binding Path=SaveCommand}"/>
@@ -142,7 +149,8 @@
                 <DataGridTextColumn
                     Header="Id"
                     Width="auto"
-                    Binding="{Binding Path=AccountId}"/>
+                    Binding="{Binding Path=AccountId}"
+                    Visibility="Hidden"/>
                 <DataGridTextColumn
                     Header="Username"
                     Width="auto"

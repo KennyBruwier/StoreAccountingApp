@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.CustomMethods;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
@@ -19,8 +20,11 @@ namespace StoreAccountingApp.ViewModels
     {
         private readonly ShopService _ShopService;
         private readonly ProductService _ProductService;
-        public DBStockViewModel()
+        public DBStockViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+
             _ProductService = new ProductService();
             _ShopService = new ShopService();
             LoadData();
@@ -50,6 +54,31 @@ namespace StoreAccountingApp.ViewModels
             get { return cbShopList; }
             set { cbShopList = value; OnPropertyChanged("CbShopList"); }
         }
+        private ComboboxItem selectedShop;
+
+        public ComboboxItem SelectedShop
+        {
+            get { return selectedShop; }
+            set
+            {
+                selectedShop = value;
+                OnPropertyChanged(nameof(SelectedShop));
+                CurrentDTOModel.ShopId = selectedShop.Key;
+            }
+        }
+        private ComboboxItem selectedProduct;
+
+        public ComboboxItem SelectedProduct
+        {
+            get { return selectedProduct; }
+            set
+            {
+                selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+                CurrentDTOModel.ProductId = selectedProduct.Key;
+            }
+        }
+
         #endregion
         private void LoadData()
         {

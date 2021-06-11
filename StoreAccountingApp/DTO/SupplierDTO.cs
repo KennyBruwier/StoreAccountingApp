@@ -28,6 +28,9 @@ namespace StoreAccountingApp.DTO
             Validation.AddNonNullFields(nameof(Firstname), Firstname);
             Validation.AddNonNullFields(nameof(Lastname), Lastname);
             Validation.AddNonNullFields(nameof(EmailAddress), EmailAddress);
+            Validation.AddUniqueValueFields(nameof(Firstname), Firstname);
+            Validation.AddUniqueValueFields(nameof(Lastname), Lastname);
+            Validation.AddUniqueValueFields(nameof(EmailAddress), EmailAddress);
         }
     }
 }

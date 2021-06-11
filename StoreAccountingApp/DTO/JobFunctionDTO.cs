@@ -39,6 +39,7 @@ namespace StoreAccountingApp.DTO
             Validation = new GeneralClasses.CheckValidation();
             Validation.AddPrimaryKey(nameof(JobFunctionId), JobFunctionId);
             Validation.AddNonNullFields(nameof(Title), Title);
+            Validation.AddUniqueValueFields(nameof(Title), Title);
         }
     }
 }

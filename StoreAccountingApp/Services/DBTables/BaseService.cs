@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -72,7 +73,7 @@ namespace StoreAccountingApp.Services.DBTables
         public DTOModel Search(object[] idToSearch)
         {
             DTOModel currentDTOModel = null;
-            var recordFound = ctx.Set<DBModel>().Find(idToSearch);
+            var recordFound = ctx.Set<DBModel>().Find(idToSearch.ToArray());
             if (recordFound != null)
             {
                 currentDTOModel = CopyDBtoDTO(recordFound);
@@ -97,51 +98,90 @@ namespace StoreAccountingApp.Services.DBTables
                     (dbFieldToSearch.Name.Length > 0)
                 )
             {
-                PropertyInfo property = typeof(DTOModel).GetProperty(dbFieldToSearch.Name);
-                if (property != null)
+                //var parameter = Expression.Parameter(typeof(DBModel), "p");
+                //var predicate = Expression.Lambda<Func<DBModel, bool>>(
+                //    Expression.Equal(Expression.PropertyOrField(parameter, dbFieldToSearch.Name), Expression.Constant(dbFieldToSearch.Value)),
+                //    parameter);
+                var temp = (Expression<Func<DBModel, bool>>)BuildLambaExpression<DBModel>(dbFieldToSearch.Name, dbFieldToSearch.Value);
+                var recordFound = ctx.Set<DBModel>().FirstOrDefault((Expression<Func<DBModel, bool>>)BuildLambaExpression<DBModel>(dbFieldToSearch.Name,dbFieldToSearch.Value));
+                //PropertyInfo property = typeof(DTOModel).GetProperty(dbFieldToSearch.Name);
+                //if (property != null)
+                //{
+                //    var recordFound = ctx.Set<DBModel>().FirstOrDefault(d => property.GetValue(d, null) == dbFieldToSearch.Value);
+                if (recordFound != null)
                 {
-                    var recordFound = ctx.Set<DBModel>().FirstOrDefault(d => property.GetValue(d, null) == dbFieldToSearch.Value);
-                    if (recordFound != null)
-                    {
-                        currentDTOModel = CopyDBtoDTO(recordFound);
-                    }
+                    currentDTOModel = CopyDBtoDTO(recordFound);
                 }
+                //}
             }
             return currentDTOModel;
         }
         public DTOModel Search(DBField[] dbFieldsToSearch)
         {
             DTOModel currentDTOModel = null;
-            List<PropertyInfo> properties = null;
+            //List<PropertyInfo> properties = null;
             foreach (DBField field in dbFieldsToSearch)
             {
-                if ((field != null) &&
-                        (field.Name != null) &&
-                        (field.Name.Length > 0)
-                    )
-                {
-                    if (properties == null) properties = new List<PropertyInfo>();
-                    properties.Add(typeof(DTOModel).GetProperty(field.Name));
-                }
+                currentDTOModel = Search(field);
+                if (currentDTOModel != null)
+                    break;
+                //if ((field != null) &&
+                //        (field.Name != null) &&
+                //        (field.Name.Length > 0)
+                //    )
+                //{
+                //    if (properties == null) properties = new List<PropertyInfo>();
+                //        properties.Add(typeof(DTOModel).GetProperty(field.Name));
+                //}
             }
-            if (properties != null)
+            //if (properties != null)
+            //{
+            //    var recordsFound = ctx.Set<DBModel>().Where(d => properties[0].GetValue(d, null) == dbFieldsToSearch[0].Value).DefaultIfEmpty();
+
+            //    //var recordsFound = ctx.Set<DBModel>().Where(d => properties[0].GetValue(d, null) == dbFieldsToSearch[0].Value).DefaultIfEmpty();
+            //    //if (properties.Count > 1)
+            //    //    for (int i = 1; i < properties.Count - 1; i++)
+            //    //    {
+            //    //        if (recordsFound != null)
+            //    //            recordsFound = recordsFound.Where(d => properties[i].GetValue(d, null) == dbFieldsToSearch[i].Value).DefaultIfEmpty();
+            //    //        else
+            //    //            break;
+            //    //    }
+            //    if (recordsFound != null)
+            //    {
+            //        foreach (var record in recordsFound)
+            //        {
+            //            if (record is DBModel)
+            //            {
+            //                var test = "ja";
+            //            }
+            //        }
+            //        //var temp = recordsFound.ToList().Count;
+            //        //if (recordsFound.ToList().Count > 1)
+            //        //{
+            //        //    currentDTOModel = CopyDBtoDTO(recordsFound.FirstOrDefault());
+            //        //}
+            //        //else
+            //            currentDTOModel = CopyDBtoDTO(recordsFound as DBModel);
+            //    }
+            //}
+            return currentDTOModel;
+        }
+        public DTOModel Search(DBField[][] dbFieldsToSearch)
+        {
+            DTOModel currentDTOModel = null;
+            foreach (DBField[] field in dbFieldsToSearch)
             {
-                var recordsFound = ctx.Set<DBModel>().Where(d => properties[0].GetValue(d, null) == dbFieldsToSearch[0].Value).DefaultIfEmpty();
-                if (properties.Count > 1)
-                    for (int i = 1; i < properties.Count - 1; i++)
-                    {
-                        if (recordsFound != null)
-                            recordsFound = recordsFound.Where(d => properties[i].GetValue(d, null) == dbFieldsToSearch[i].Value).DefaultIfEmpty();
-                        else
-                            break;
-                    }
-                if (recordsFound != null)
+                DTOModel recordFound = Search(field);
+                if (recordFound != null)
                 {
-                    currentDTOModel = CopyDBtoDTO(recordsFound.FirstOrDefault());
+                    currentDTOModel = recordFound;
+                    break;
                 }
             }
             return currentDTOModel;
         }
+
         public string Search(object[] idToSearch, params string[] columnNamesToReturn)
         {
             string toReturn = String.Empty;
@@ -165,6 +205,7 @@ namespace StoreAccountingApp.Services.DBTables
             DBModel recordFound = ctx.Set<DBModel>().Find(dtoModelToUpdate.Validation.GetPrimaryKeysValue());
             if (recordFound != null)
             {
+                //recordFound = CopyDTOtoDB(dtoModelToUpdate);
                 ctx.Entry(recordFound).CurrentValues.SetValues(CopyDTOtoDB(dtoModelToUpdate));
                 return ctx.SaveChanges() > 0;
             }
@@ -185,6 +226,15 @@ namespace StoreAccountingApp.Services.DBTables
                 }
             }
             return toReturn;
+        }
+
+        public Expression BuildLambaExpression<Model>(string fieldName, object fieldValue)
+        {
+            var parameter = Expression.Parameter(typeof(DBModel), "p");
+            var predicate = Expression.Lambda<Func<DBModel, bool>>(
+                Expression.Equal(Expression.PropertyOrField(parameter, fieldName), Expression.Constant(fieldValue)),
+                parameter);
+            return predicate;
         }
     }
 }

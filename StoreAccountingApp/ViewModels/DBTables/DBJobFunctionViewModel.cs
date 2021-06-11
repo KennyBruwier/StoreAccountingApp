@@ -11,13 +11,16 @@ using System.Windows.Input;
 using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
     public class DBJobFunctionViewModel : DBViewModelBase<JobFunctionDTO,JobFunctionService,JobFunction>
     {
-        public DBJobFunctionViewModel()
+        public DBJobFunctionViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
 
         }
     }

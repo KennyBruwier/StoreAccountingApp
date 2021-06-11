@@ -31,13 +31,15 @@
         <Style TargetType="StackPanel"
                BasedOn="{StaticResource StackPanelStyle}">
         </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
+            <ColumnDefinition Width="auto" MinWidth="150" MaxWidth="200"/>
             <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="auto" MinWidth="100" MaxWidth="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -58,9 +60,10 @@
         <TextBlock Text="Product Management"
                    Style="{StaticResource H2TitleStyle}"
                    Grid.Row="0"
-                   Grid.Column="0"/>
+                   Grid.Column="0"  Margin="5,8" Padding="3"/>
         <TextBlock Text="Enter Id"
-                   Grid.Row="1"
+                   Grid.Row="1" Margin="5,8" Padding="3"
+                   Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                    Grid.Column="0"/>
         <TextBlock Text="Enter Name"
                    Grid.Row="2"
@@ -74,12 +77,13 @@
         <TextBlock Text="Details"
                    Grid.Row="5"
                    Grid.Column="0"/>
-        <TextBlock Text="Picture"
+        <TextBlock Text="Barcode"
                    Grid.Row="6"
                    Grid.Column="0"/>
 
         <TextBox x:Name="txtProductId"
                  Grid.Row="1"
+                 Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}"
                  Grid.Column="1"
                  Text="{Binding Path=CurrentDTOModel.ProductId, Mode=TwoWay}"/>
         <TextBox x:Name="txtName"
@@ -106,6 +110,9 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Row="11"
                     Grid.Column="1" Grid.ColumnSpan="3" Margin="5,8">
+            <Button x:Name="btnClear"
+                    Content="CLEAR"
+                    Command="{Binding Path=ClearCommand}"/>
             <Button x:Name="btnAdd"
                     Content="ADD"
                     Command="{Binding Path=SaveCommand}"/>
@@ -132,6 +139,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Id"
+                    Visibility="Hidden"
                     Width="auto"
                     Binding="{Binding Path=ProductId}"/>
                 <DataGridTextColumn

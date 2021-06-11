@@ -1,4 +1,5 @@
-﻿using StoreAccountingApp.CustomMethods;
+﻿using StoreAccountingApp.Commands;
+using StoreAccountingApp.CustomMethods;
 using StoreAccountingApp.DTO;
 using StoreAccountingApp.Models;
 using StoreAccountingApp.Services.DBTables;
@@ -34,6 +35,7 @@ namespace StoreAccountingApp.ViewModels.Overviews
             get { return cbDTOPropsList; }
             set { cbDTOPropsList = value; }
         }
+
 
     }
 }

@@ -11,13 +11,16 @@ using System.Windows.Input;
 using System.Data.Entity.Validation;
 using StoreAccountingApp.GeneralClasses;
 using StoreAccountingApp.Models;
+using StoreAccountingApp.Stores;
 
 namespace StoreAccountingApp.ViewModels
 {
     public class DBShopViewModel : DBViewModelBase<ShopDTO,ShopService,Shop>
     {
-        public DBShopViewModel()
+        public DBShopViewModel(AccountStore accountStore)
         {
+            _accountStore = accountStore;
+            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
 
         }
     }

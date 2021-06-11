@@ -88,6 +88,8 @@
             Grid.Column="1"
             FontSize="28"
             Text="Invoices overview"
+            Style="{StaticResource H1TitleStyle}"
+            
             Margin="5"
             Width="500"
             />

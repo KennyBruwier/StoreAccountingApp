@@ -59,8 +59,8 @@ namespace StoreAccountingApp.DTO
             get { return maxAmount; }
             set { maxAmount = value; OnPropertyChanged("MaxAmount"); }
         }
-        private double unitPrice;
-        public double UnitPrice
+        private decimal unitPrice;
+        public decimal UnitPrice
         {
             get { return unitPrice; }
             set { unitPrice = value; OnPropertyChanged("UnitPrice"); }

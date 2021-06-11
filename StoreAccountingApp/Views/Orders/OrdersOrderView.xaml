@@ -7,16 +7,29 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style TargetType="TextBlock"
-               BasedOn="{StaticResource TextBlockStyle}"/>
-        <Style TargetType="ComboBox"
-               BasedOn="{StaticResource ElegantComboBoxStyle}"/>
-        <Style TargetType="TextBox"
-               BasedOn="{StaticResource TextBoxStyle}"/>
-        <Style TargetType="{x:Type DataGrid}"
-               BasedOn="{StaticResource DataGridStyle}"/>
+        <Style TargetType="{x:Type TextBlock}"
+               BasedOn="{StaticResource TextBlockStyle}"
+               >
+        </Style>
+        <Style TargetType="{x:Type ComboBox}"
+               BasedOn="{StaticResource ElegantComboBoxStyle}">
+        </Style>
+        <Style TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource TextBoxStyle}">
+        </Style>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource DataGridStyle }">
+        </Style>
+        <Style TargetType="{x:Type Grid}"
+               BasedOn="{StaticResource RootGridStyle}">
+        </Style>
         <Style TargetType="{x:Type Button}"
-               BasedOn="{StaticResource SideBarButtonStyle}"/>
+               BasedOn="{StaticResource SideBarButtonStyle}">
+        </Style>
+        <Style TargetType="StackPanel"
+               BasedOn="{StaticResource StackPanelStyle}">
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
     </UserControl.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
@@ -50,6 +63,7 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Orders Invoices"
                    FontSize="20"
+                   Style="{StaticResource H2TitleStyle}"
                    Grid.Column="1"
                    Grid.Row="0"
                    Grid.ColumnSpan="3"/>
@@ -128,11 +142,11 @@
                 <DataGridTextColumn
                     Header="Product"
                     Width="auto"
-                    Binding="{Binding Path=Product}"/>
+                    Binding="{Binding Path=Key}"/>
                 <DataGridTextColumn
                     Header="UnitPrice"
                     Width="auto"
-                    Binding="{Binding Path=UnitPrice}"/>
+                    Binding="{Binding Path=UnitPrice,StringFormat=C, ConverterCulture=nl-BE}"/>
                 <DataGridTextColumn
                     Header="Amount"
                     Width="auto"
@@ -140,15 +154,16 @@
                 <DataGridTextColumn
                     Header="Netto"
                     Width="auto"
-                    Binding="{Binding Path=Net}"/>
+                    Binding="{Binding Path=Netto,StringFormat=C, ConverterCulture=nl-BE}"/>
                 <DataGridTextColumn
                     Header="VAT"
                     Width="auto"
-                    Binding="{Binding Path=VAT}"/>
+                    Binding="{Binding Path=VAT,StringFormat=C, ConverterCulture=nl-BE}"/>
                 <DataGridTextColumn
                     Header="Total"
                     Width="auto"
-                    Binding="{Binding Path=Total}"/>
+                    FontWeight="Bold"
+                    Binding="{Binding Path=Total,StringFormat=C, ConverterCulture=nl-BE}"/>
             </DataGrid.Columns>
         </DataGrid>
 
