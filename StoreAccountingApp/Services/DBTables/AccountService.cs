@@ -65,7 +65,6 @@ namespace StoreAccountingApp.Services
                         return null;
             }
             return userAccount;
-
         }
     }
 }

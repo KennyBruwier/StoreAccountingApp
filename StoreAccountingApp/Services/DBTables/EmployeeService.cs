@@ -10,6 +10,7 @@ using System.Windows;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using StoreAccountingApp.Services.DBTables;
+using System.Reflection;
 
 namespace StoreAccountingApp.Services
 {
@@ -22,15 +23,34 @@ namespace StoreAccountingApp.Services
         public override EmployeeDTO CopyDBtoDTO(Employee source)
         {
             EmployeeDTO newEmployeeDTO = ObjMethods.CopyProperties<Employee, EmployeeDTO>(source);
+            //EmployeeDTO temp = RetrieveForeignDTO<DistrictDTO,DistrictService>(newEmployeeDTO);
+            newEmployeeDTO = ObjMethods.RetrieveForeignDTO<EmployeeDTO, District, DistrictService, DistrictDTO>(newEmployeeDTO);
             if ((source.PostalCodeId != null) && (source.PostalCodeId != ""))
             {
-                DistrictService districtService = new DistrictService();
-                newEmployeeDTO.DistrictDTO = districtService.Search(source.PostalCodeId);
-                newEmployeeDTO.DistrictName = newEmployeeDTO.DistrictDTO?.Name;
-                newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO?.CountryName;
+                if (newEmployeeDTO.DistrictDTO == null)
+                {
+                    DistrictService districtService = new DistrictService();
+                    newEmployeeDTO.DistrictDTO = districtService.Search(source.PostalCodeId);
+                    newEmployeeDTO.DistrictName = newEmployeeDTO.DistrictDTO?.Name;
+                    newEmployeeDTO.CountryName = newEmployeeDTO.DistrictDTO?.CountryName;
+                }
             }
             return newEmployeeDTO;
         }
+        //public EmployeeDTO RetrieveForeignDTO<DTOtofind,serviceToUse>(EmployeeDTO employeeDTO)
+        //{
+        //    var props = typeof(EmployeeDTO).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.CanRead).ToList();
+        //    foreach (PropertyInfo property in props)
+        //    {
+        //        var temp = typeof(DTOtofind).Name;
+        //        if (property.PropertyType.Name == typeof(DTOtofind).Name)
+        //        {
+        //            PropertyInfo[] IdProps = RetrieveIdProps<EmployeeDTO, DTOtofind>();
+        //        }
+        //    }
+        //    return employeeDTO;
+        //}
+
         public override Employee CopyDTOtoDB(EmployeeDTO dtoModel)
         {
             Employee newEmployee = ObjMethods.CopyProperties<EmployeeDTO, Employee>(dtoModel);

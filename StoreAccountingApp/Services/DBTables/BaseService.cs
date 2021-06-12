@@ -34,7 +34,6 @@ namespace StoreAccountingApp.Services.DBTables
         {
             return ObjMethods.CopyProperties<DTOModel, DBModel>(source);
         }
-
         public bool Add(DTOModel dtoModelToAdd)
         {
             ctx.Set<DBModel>().Add(CopyDTOtoDB(dtoModelToAdd));
@@ -73,7 +72,12 @@ namespace StoreAccountingApp.Services.DBTables
         public DTOModel Search(object[] idToSearch)
         {
             DTOModel currentDTOModel = null;
-            var recordFound = ctx.Set<DBModel>().Find(idToSearch.ToArray());
+            //List<string> ids= new List<string>();
+            //foreach (var item in idToSearch)
+            //{
+            //    ids.Add(item.ToString());
+            //}
+            var recordFound = ctx.Set<DBModel>().Find(idToSearch.ToArray()); //idToSearch.ToArray()
             if (recordFound != null)
             {
                 currentDTOModel = CopyDBtoDTO(recordFound);
@@ -98,73 +102,20 @@ namespace StoreAccountingApp.Services.DBTables
                     (dbFieldToSearch.Name.Length > 0)
                 )
             {
-                //var parameter = Expression.Parameter(typeof(DBModel), "p");
-                //var predicate = Expression.Lambda<Func<DBModel, bool>>(
-                //    Expression.Equal(Expression.PropertyOrField(parameter, dbFieldToSearch.Name), Expression.Constant(dbFieldToSearch.Value)),
-                //    parameter);
-                var temp = (Expression<Func<DBModel, bool>>)BuildLambaExpression<DBModel>(dbFieldToSearch.Name, dbFieldToSearch.Value);
-                var recordFound = ctx.Set<DBModel>().FirstOrDefault((Expression<Func<DBModel, bool>>)BuildLambaExpression<DBModel>(dbFieldToSearch.Name,dbFieldToSearch.Value));
-                //PropertyInfo property = typeof(DTOModel).GetProperty(dbFieldToSearch.Name);
-                //if (property != null)
-                //{
-                //    var recordFound = ctx.Set<DBModel>().FirstOrDefault(d => property.GetValue(d, null) == dbFieldToSearch.Value);
+                var recordFound = ctx.Set<DBModel>().FirstOrDefault((Expression<Func<DBModel, bool>>)BuildLambaExpression<DBModel>(dbFieldToSearch));
                 if (recordFound != null)
-                {
                     currentDTOModel = CopyDBtoDTO(recordFound);
-                }
-                //}
             }
             return currentDTOModel;
         }
         public DTOModel Search(DBField[] dbFieldsToSearch)
         {
             DTOModel currentDTOModel = null;
-            //List<PropertyInfo> properties = null;
-            foreach (DBField field in dbFieldsToSearch)
+            var recordFound = ctx.Set<DBModel>().FirstOrDefault((Expression<Func<DBModel, bool>>)BuildLambaExpression<DBModel>(dbFieldsToSearch));
+            if (recordFound != null)
             {
-                currentDTOModel = Search(field);
-                if (currentDTOModel != null)
-                    break;
-                //if ((field != null) &&
-                //        (field.Name != null) &&
-                //        (field.Name.Length > 0)
-                //    )
-                //{
-                //    if (properties == null) properties = new List<PropertyInfo>();
-                //        properties.Add(typeof(DTOModel).GetProperty(field.Name));
-                //}
+                currentDTOModel = CopyDBtoDTO(recordFound);
             }
-            //if (properties != null)
-            //{
-            //    var recordsFound = ctx.Set<DBModel>().Where(d => properties[0].GetValue(d, null) == dbFieldsToSearch[0].Value).DefaultIfEmpty();
-
-            //    //var recordsFound = ctx.Set<DBModel>().Where(d => properties[0].GetValue(d, null) == dbFieldsToSearch[0].Value).DefaultIfEmpty();
-            //    //if (properties.Count > 1)
-            //    //    for (int i = 1; i < properties.Count - 1; i++)
-            //    //    {
-            //    //        if (recordsFound != null)
-            //    //            recordsFound = recordsFound.Where(d => properties[i].GetValue(d, null) == dbFieldsToSearch[i].Value).DefaultIfEmpty();
-            //    //        else
-            //    //            break;
-            //    //    }
-            //    if (recordsFound != null)
-            //    {
-            //        foreach (var record in recordsFound)
-            //        {
-            //            if (record is DBModel)
-            //            {
-            //                var test = "ja";
-            //            }
-            //        }
-            //        //var temp = recordsFound.ToList().Count;
-            //        //if (recordsFound.ToList().Count > 1)
-            //        //{
-            //        //    currentDTOModel = CopyDBtoDTO(recordsFound.FirstOrDefault());
-            //        //}
-            //        //else
-            //            currentDTOModel = CopyDBtoDTO(recordsFound as DBModel);
-            //    }
-            //}
             return currentDTOModel;
         }
         public DTOModel Search(DBField[][] dbFieldsToSearch)
@@ -181,7 +132,6 @@ namespace StoreAccountingApp.Services.DBTables
             }
             return currentDTOModel;
         }
-
         public string Search(object[] idToSearch, params string[] columnNamesToReturn)
         {
             string toReturn = String.Empty;
@@ -227,14 +177,24 @@ namespace StoreAccountingApp.Services.DBTables
             }
             return toReturn;
         }
-
-        public Expression BuildLambaExpression<Model>(string fieldName, object fieldValue)
+        public Expression BuildLambaExpression<Model>(string fieldName, object fieldValues)
         {
             var parameter = Expression.Parameter(typeof(DBModel), "p");
-            var predicate = Expression.Lambda<Func<DBModel, bool>>(
-                Expression.Equal(Expression.PropertyOrField(parameter, fieldName), Expression.Constant(fieldValue)),
+            return Expression.Lambda<Func<DBModel, bool>>(
+                 Expression.Equal(Expression.PropertyOrField(parameter, fieldName), Expression.Constant(fieldValues)),
                 parameter);
-            return predicate;
+        }
+        public Expression BuildLambaExpression<Model>(params DBField[] dBFields)
+        {
+            var parameter = Expression.Parameter(typeof(DBModel), "p");
+            Expression expression = null;
+            for (int i = 0; i < dBFields.Length; i++)
+            {
+                if (i == 0) expression = Expression.Equal(Expression.PropertyOrField(parameter, dBFields[i].Name), Expression.Constant(dBFields[i].Value));
+                else expression = Expression.AndAlso(expression, Expression.Equal(Expression.PropertyOrField(parameter, dBFields[i].Name), Expression.Constant(dBFields[i].Value)));
+            }
+            return Expression.Lambda<Func<DBModel, bool>>(expression,
+                parameter);
         }
     }
 }

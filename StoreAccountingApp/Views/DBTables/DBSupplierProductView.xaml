@@ -104,13 +104,13 @@
                   SelectedValue="{Binding Path=CurrentDTOModel.SupplierId, Mode=TwoWay}"
                   SelectedValuePath="Key"
                   />
-        <TextBlock Text="Status"
+        <!--<TextBlock Text="Status"
                    Grid.Row="4"
                    Grid.Column="0"/>
         <TextBox x:Name="txtStatus"
                  Grid.Row="4"
                  Grid.Column="1" Margin="5,8" Padding="3"
-                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>
+                 Text="{Binding Path=CurrentDTOModel.Status, Mode=TwoWay}"/>-->
         <TextBlock Text="Amount"
                    Grid.Row="5"
                    Grid.Column="0"/>

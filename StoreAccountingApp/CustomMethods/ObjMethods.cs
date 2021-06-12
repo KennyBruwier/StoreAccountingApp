@@ -24,6 +24,49 @@ namespace StoreAccountingApp.CustomMethods
     }
     public static class ObjMethods
     {
+        public static DTOModel RetrieveForeignDTO<DTOModel, TargetDBModel, TargetServiceModel, TargetDTOModel>(DTOModel currentDTO)
+            where DTOModel : BaseDTO,new()
+            where TargetDTOModel : BaseDTO,new()
+            where TargetDBModel : BaseModel,new()
+            where TargetServiceModel : BaseService<TargetDTOModel,TargetDBModel>, new()
+        {
+            var props = typeof(DTOModel).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.CanRead).ToList();
+            foreach (PropertyInfo property in props)
+            {
+                if (property.PropertyType.Name == typeof(TargetDTOModel).Name)
+                {
+                    PropertyInfo[] IdProps = RetrieveIdProps<DTOModel, TargetDTOModel>();
+                    if (IdProps != null)
+                    {
+                        var temp = IdProps[0].GetValue(currentDTO, null);
+                        TargetServiceModel serviceModel = new TargetServiceModel();
+                        TargetDTOModel newDTO = serviceModel.Search(IdProps[0].GetValue(currentDTO, null));
+                        property.SetValue(currentDTO,newDTO);
+                    }
+                }
+            }
+            return currentDTO;
+        }
+        public static PropertyInfo[] RetrieveIdProps<ModelA, ModelB>()
+        {
+            var ModelAProps = typeof(ModelA).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.CanRead).ToList();
+            var ModelBProps = typeof(ModelB).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.CanRead).ToList();
+            foreach (PropertyInfo ModelAprop in ModelAProps)
+            {
+                string propName = ModelAprop.Name;
+                if (propName.EndsWith("id", StringComparison.OrdinalIgnoreCase))
+                {
+                    foreach (PropertyInfo ModelBprop in ModelBProps)
+                    {
+                        if (ModelBprop.Name == propName)
+                        {
+                            return new PropertyInfo[] { ModelAprop, ModelBprop };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         public static void SaveDataIfNotFound<DTOModel, DBModel, ServiceModel>(DTOModel[] dataToAdd, params string[] uniqueColumns)
             where DBModel : BaseModel, new()
             where DTOModel : BaseDTO, new()
@@ -164,17 +207,6 @@ namespace StoreAccountingApp.CustomMethods
                         {
                             if (p.CanWrite)
                             {
-                                //if (sourceProp.PropertyType.IsClass)
-                                //{
-                                //    if (typeof(T) == typeof(BaseModel))
-                                //    {
-                                //    }
-                                //    //if (
-                                //    //    (sourceProp.PropertyType.Assembly.FullName == typeof(T).Assembly.FullName) || 
-                                //    //    (sourceProp.PropertyType.Assembly.FullName == typeof(TU).Assembly.FullName)
-                                //    //   )
-                                //}
-                                //else
                                 var destValue = p.GetValue(dest, null);
                                 if (p.GetValue(dest,null) != sourceProp.GetValue(source,null))
                                     p.SetValue(dest, sourceProp.GetValue(source, null), null);
@@ -218,18 +250,5 @@ namespace StoreAccountingApp.CustomMethods
         {
             return (PropertyInfo[])typeof(T).GetProperties().Where(x => x.Name.Substring(x.Name.Trim().Length - 2).ToLower() == "id");
         }
-        //public static object[] DBPrimaryKey<T>
-        //{
-        //    get
-        //    {
-        //        _DBStoreAccountingContext ctx = new _DBStoreAccountingContext();
-
-        //        return (from DBEntity in ctx.Set<DBEntity>().GetType().GetProperties()
-        //                where Attribute.IsDefined(DBEntity, typeof(KeyAttribute))
-        //                orderby ((ColumnAttribute)DBEntity.GetCustomAttributes(false).Single(
-        //                    attr => attr is ColumnAttribute)).Order ascending
-        //                select DBEntity.GetValue(ctx.Set<DBEntity>())).ToArray();
-        //    }
-        //}
     }
 }
